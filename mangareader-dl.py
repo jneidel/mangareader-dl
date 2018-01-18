@@ -2,6 +2,7 @@ import os, requests, sys, re, shutil, send2trash
 from bs4 import BeautifulSoup
 dir_name = ""
 first = True
+done = False
 manga = ""
 chapter = ""
 url = ""
@@ -33,7 +34,7 @@ def statusDownload(i, pages, name):
 
 # Main loop
 def mainfunc(url = ""):
-    global manga, chapter, webp, dir_name, first
+    global manga, chapter, webp, dir_name, first, done
     skip = False
 
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -105,6 +106,10 @@ def mainfunc(url = ""):
         if soup.text == '404 Not Found':
             chapter += 1
             page = ''
+        elif soup.find('div', attrs={'id': 'recom_info'}) != None:
+            sys.stdout.write( "\nAll availables chapters have been downloaded.\n" )
+            done = True
+            break
         else:
             if pages == - 1:
                 # initialise number of pages if not given
@@ -147,4 +152,7 @@ def zipToCBZ(dir_name):
     send2trash.send2trash(os.path.join(os.getcwd(), dir_name))
 
 mainfunc()
+while not done:
+    chapter += 1
+    mainfunc(webp + manga + "/" + str(chapter)) 
 
