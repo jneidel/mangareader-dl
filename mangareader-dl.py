@@ -23,9 +23,10 @@ def makeName(manga, ch, page):
 
 # Give current status of download
 def statusDownload(i, pages, name):
+    global manga, chapter
     if i == 0:
-        print('\nStarting download from: {}'.format(name))
-        sys.stdout.write('\n[')
+        sys.stdout.write('MR-dl: {} - '.format(manga + " " + str(chapter)))
+        sys.stdout.write('[')
     frac = 100/pages
     frac = int(round(frac))
     opline  = '='*frac
@@ -107,7 +108,7 @@ def mainfunc(url = ""):
             chapter += 1
             page = ''
         elif soup.find('div', attrs={'id': 'recom_info'}) != None:
-            sys.stdout.write( "\nAll availables chapters have been downloaded.\n" )
+            sys.stdout.write( "\nAll availables chapters of {} have been downloaded.".format(manga) )
             done = True
             break
         else:
@@ -138,7 +139,7 @@ def mainfunc(url = ""):
                 pages = i
 
             if i == pages:
-                sys.stdout.write(']\nDownload finished at: {}\n'.format(name))
+                sys.stdout.write("]")
                 break
     zipToCBZ(dir_name)
     first = False
@@ -149,10 +150,14 @@ def zipToCBZ(dir_name):
     shutil.make_archive(dir_name.strip("/"), 'zip', os.path.join(os.getcwd(), dir_name))
     os.rename(os.path.join(os.getcwd(), dir_name + ".zip"),
               os.path.join(os.getcwd(), dir_name + ".cbz"))
+    #os.remove(os.path.join(os.getcwd(), dir_name))
+    print()
     send2trash.send2trash(os.path.join(os.getcwd(), dir_name))
 
 mainfunc()
 while not done:
     chapter += 1
-    mainfunc(webp + manga + "/" + str(chapter)) 
+    mainfunc(webp + manga + "/" + str(chapter))
+
+os.remove(os.path.join(os.getcwd(), dir_name + ".cbz")) # remove empty 'last chapter + 1'
 
