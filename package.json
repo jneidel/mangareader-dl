@@ -1,0 +1,39 @@
+{
+  "name": "mangareader-dl",
+  "version": "0.0.0",
+  "description": "CLI for downloading from mangareader.net",
+  "repository": "jneidel/mangareader-dl",
+  "license": "MIT",
+  "author": {
+    "name": "Jonathan Neidel",
+    "email": "jneidel@outlook.com",
+    "url": "https://jneidel.com"
+  },
+  "scripts": {
+    "test": "ava tests/test.js",
+    "testing": "ava -w tests/test.js",
+    "start": "nodemon app.js"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "keywords": [
+    ""
+  ],
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "jszip": "^3.1.5",
+    "mz": "^2.7.0",
+    "node-zip": "^1.1.1"
+  },
+  "devDependencies": {
+    "ava": "latest",
+    "mockery": "^2.1.0",
+    "nodemon": "^1.17.2"
+  }
+}
