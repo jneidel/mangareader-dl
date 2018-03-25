@@ -10,8 +10,8 @@
     "url": "https://jneidel.com"
   },
   "scripts": {
-    "test": "ava tests/test.js",
-    "testing": "ava -w tests/test.js",
+    "test": "ava",
+    "testing": "ava -w",
     "start": "nodemon app.js"
   },
   "main": "index.js",
@@ -19,7 +19,7 @@
     "index.js"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "keywords": [
     ""
@@ -35,5 +35,8 @@
     "ava": "latest",
     "mockery": "^2.1.0",
     "nodemon": "^1.17.2"
+  },
+  "ava": {
+    "files": [ "test/test.js" ]
   }
 }

@@ -33,7 +33,7 @@ const createFilename = ( manga ) => `${manga.name}_${manga.chapter}_${manga.page
  * @returns {object} - Incomplete manga object with name, chapter, page, siteUrl
  */
 const parseFromUrl = ( url ) => {
-  const [ , name, chapter, page ] = url.match( /(?:https?:\/\/)?www.mangareader.net\/(.*?)\/(\d*)\/?(\d*)?/i );
+  const [ , name, chapter, page ] = url.match( /(?:https?:\/\/)?www.mangareader.net\/(.+?)\/(\d+)\/?(\d+)?/i );
   // Matches https://www.mangareader.net/shingeki-no-kyojin/103/39
 
   return {
@@ -76,14 +76,14 @@ const createSiteUrl = ( manga ) => `https://www.mangareader.net/${manga.name}/${
  * @param {object} manga
  * @returns {object}              - Manga object
  */
-const increase = ( whatToIncrease, manga ) => {
-  manga = JSON.parse( JSON.stringify( manga ) ); // Copy to not change original object
+const increase = ( whatToIncrease, mangaObj ) => {
+  const manga = JSON.parse( JSON.stringify( mangaObj ) ); // Copy to not change original object
   manga[whatToIncrease]++;
 
   const siteUrl = createSiteUrl( manga );
 
   return createManga( siteUrl )
-    .then( manga => ( manga.imgSrc instanceof Error ? manga.imgSrc : manga ) );
+    .then( manga => manga.imgSrc instanceof Error ? manga.imgSrc : manga );
 };
 
 /**
@@ -95,7 +95,7 @@ const increase = ( whatToIncrease, manga ) => {
  */
 const downloadImg = imgSrc => axios.get( imgSrc, { responseType: "arraybuffer" } )
   .then( res => res.data )
-  .then( data => new Buffer( data, "binary" ) );
+  .then( data => Buffer.from( data, "binary" ) );
 
 /**
  * Create cbz file from an array of buffers representing the pages of the chapter
@@ -105,9 +105,7 @@ const downloadImg = imgSrc => axios.get( imgSrc, { responseType: "arraybuffer" }
  * @param {string}   chapter
  * @returns {string} - Path of written cbz file
  */
-const createZip = async ( buffers, name, chapter, outputPath ) => {
-  outputPath = outputPath || path.resolve( __dirname, `tmp/${name}-${chapter}.cbz` );
-
+const createZip = async ( buffers, name, chapter, outputPath = path.resolve( __dirname, `tmp/${name}-${chapter}.cbz` ) ) => {
   const zip = new Jszip();
 
   let i = 1;
@@ -119,8 +117,7 @@ const createZip = async ( buffers, name, chapter, outputPath ) => {
   return zip.generateAsync( { type: "uint8array" } )
     .then( data => fs.writeFile( outputPath, data, { encoding: null } )
       .then( () => outputPath )
-      .catch( err => err )
-    );
+      .catch( err => err ) );
 };
 
 exports.getImgSrc = getImgSrc;
