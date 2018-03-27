@@ -15,19 +15,16 @@ const i = require( ".." );
 
 // I.getImgSrcIfValid
 test( "get image source", t => i.getImgSrcIfValid( d.baseUrl )
-  .then( src => {
-    t.falsy( src instanceof Error );
-    t.is( src, d.imgUrl );
-  } ) );
+  .then( src => t.is( src, d.imgUrl ) ) );
 test( "get error for invalid page", t => i.getImgSrcIfValid( d.siteUrlInvalidPage )
-  .then( src => {
-    t.truthy( src instanceof Error );
-    t.is( src.message, "page" );
+  .then( imgSrc => {
+    t.truthy( imgSrc instanceof Error );
+    t.is( imgSrc.message, "page" );
   } ) );
 test( "get error for invalid chapter", t => i.getImgSrcIfValid( d.siteUrlInvalidChapter )
-  .then( src => {
-    t.truthy( src instanceof Error );
-    t.is( src.message, "chapter" );
+  .then( imgSrc => {
+    t.truthy( imgSrc instanceof Error );
+    t.is( imgSrc.message, "chapter" );
   } ) );
 
 // I.createFilename
@@ -57,18 +54,15 @@ test( "parse data from url with page", t => t.deepEqual( i.parseFromUrl( d.manga
 
 // I.increase page
 test( "increase page for base url", t => i.increase( "page", d.manga ).then( data => t.deepEqual( data, d.mangaPage2 ) ) );
-test( "increase page for page url that is not last page", t => i.increase( "page", d.mangaPage2 ).then( data => t.deepEqual( data, d.mangaPage3 ) ) );
-test( "return error for invalid page", t => i.increase( "page", d.mangaPage39 ).then( err => {
-  t.truthy( err instanceof Error );
-  t.is( err.message, "page" );
-} ) );
+test( "increase page for page url that is not last page", t => i.increase( "page", d.mangaPage2 )
+  .then( data => t.deepEqual( data, d.mangaPage3 ) ) );
+test( "return null for invalid page", t => i.increase( "page", d.mangaPage39 )
+  .then( res => t.is( res, null ) ) );
 
 // I.increase chapter
 test( "increase chapter for valid url", t => i.increase( "chapter", d.mangaChapter100 ).then( data => t.deepEqual( data, d.mangaChapter101 ) ) );
-test( "return error for invalid chapter", t => i.increase( "chapter", d.mangaInvalidChapter ).then( err => {
-  t.truthy( err instanceof Error );
-  t.is( err.message, "chapter" );
-} ) );
+test( "return null for invalid chapter", t => i.increase( "chapter", d.mangaInvalidChapter )
+  .then( res => t.is( res, null ) ) );
 
 // I.downloadImg
 test( "download image and return its buffer", t => i.downloadImg( d.imgUrl )
@@ -81,4 +75,9 @@ test( "create zip from array of buffers", t => i.createZip( [ d.testBuffer ], d.
 // I.getLastChapter
 test( "get last chapter", t => i.getLastChapter( d.mangaLastChapter.name )
   .then( chapter => t.is( chapter, d.mangaLastChapter.chapter ) )
+);
+
+// I.getLastPage
+test( "get last page", t => i.getLastPage( d.manga )
+  .then( page => t.is( page, 39 ) )
 );

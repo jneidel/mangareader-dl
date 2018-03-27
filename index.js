@@ -3,6 +3,7 @@ const cheerio = require( "cheerio" );
 const fs = require( "mz/fs" );
 const path = require( "path" );
 const Jszip = require( "jszip" );
+const execTimer = require( "execution-time" );
 
 /**
  * Parse image source url from given site
@@ -84,13 +85,13 @@ const increase = ( whatToIncrease, manga ) => {
     var chapter = manga.chapter;
   } else {
     var chapter = manga.chapter + 1;
-    var page = manga.page;
+    var page = 1;
   }
 
   const siteUrl = createSiteUrl( manga.name, chapter, page );
 
   return createManga( siteUrl )
-    .then( manga => manga.imgSrc instanceof Error ? manga.imgSrc : manga );
+    .then( manga => manga.imgSrc instanceof Error ? null : manga );
 };
 
 /**
@@ -142,6 +143,21 @@ const getLastChapter = name => axios.get( `http://www.mangareader.net/${name}` )
     return lastChapter;
   } );
 
+/**
+ * @async
+ * @param {object} manga
+ * @returns {number} - Last page
+ */
+const getLastPage = manga => axios.get( manga.siteUrl )
+  .then( html => {
+    const $ = cheerio.load( html.data );
+
+    let lastPage = $( "#selectpage" )[0].children[1].data.match( /(\d+)/ )[0];
+    lastPage = Number( lastPage );
+
+    return lastPage;
+  } );
+
 module.exports = {
   getImgSrcIfValid,
   downloadImg,
@@ -152,4 +168,5 @@ module.exports = {
   increase,
   createZip,
   getLastChapter,
+  getLastPage,
 };
