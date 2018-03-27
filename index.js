@@ -158,6 +158,38 @@ const getLastPage = manga => axios.get( manga.siteUrl )
     return lastPage;
   } );
 
+async function downloadPages( manga, buffers = [] ) {
+  console.log( `Downloading ${manga.chapter}-${manga.page}` );
+  const img = await downloadImg( manga.imgSrc, manga.name );
+  buffers.push( img );
+
+  const nextManga = await increase( "page", manga );
+
+  if ( nextManga ) {
+    return downloadPages( nextManga, buffers );
+  } else {
+    return buffers;
+  }
+}
+
+async function downloadChapters( manga ) {
+  const timer = execTimer();
+  timer.start();
+
+  const buffers = await downloadPages( manga );
+
+  const time = timer.stop();
+  console.log( `Downloaded in ${( time.time / 1000 ).toFixed( 0 )}s` );
+
+  await createZip( buffers, manga.name, manga.chapter );
+
+  const nextManga = await increase( "chapter", manga );
+
+  if ( nextManga ) {
+    return downloadChapters( nextManga );
+  }
+}
+
 module.exports = {
   getImgSrcIfValid,
   downloadImg,
@@ -169,4 +201,6 @@ module.exports = {
   createZip,
   getLastChapter,
   getLastPage,
+  downloadPages,
+  downloadChapters,
 };
