@@ -27,10 +27,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
+    "cli-progress": "^1.8.0",
     "execution-time": "^1.2.0",
     "jszip": "^3.1.5",
     "mz": "^2.7.0",
-    "node-zip": "^1.1.1"
+    "node-zip": "^1.1.1",
+    "p-map": "^1.2.0",
+    "py-range": "^1.0.0"
   },
   "devDependencies": {
     "ava": "latest",

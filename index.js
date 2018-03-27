@@ -3,7 +3,6 @@ const cheerio = require( "cheerio" );
 const fs = require( "mz/fs" );
 const path = require( "path" );
 const Jszip = require( "jszip" );
-const execTimer = require( "execution-time" );
 
 /**
  * Parse image source url from given site
@@ -54,6 +53,7 @@ const parseFromUrl = ( url ) => {
 const createManga = ( siteUrl ) => {
   const manga = parseFromUrl( siteUrl );
 
+  manga.siteUrl = siteUrl;
   manga.filename = createFilename( manga );
 
   return getImgSrcIfValid( siteUrl )
@@ -73,20 +73,14 @@ const createManga = ( siteUrl ) => {
 const createSiteUrl = ( name, chapter, page = 1 ) => `https://www.mangareader.net/${name}/${chapter}${page > 1 ? `/${page}` : ""}`;
 
 /**
- * Page|Chapter + 1, regenerate siteUrl, return newly created new manga object
+ * Chapter + 1, regenerate siteUrl, return newly created new manga object
  * @async
- * @param {string} whatToIncrease - Either page or chapter
  * @param {object} manga
- * @returns {object}              - Manga object
+ * @returns {object} - Updated manga object
  */
-const increase = ( whatToIncrease, manga ) => {
-  if ( whatToIncrease === "page" ) {
-    var page = manga.page + 1;
-    var chapter = manga.chapter;
-  } else {
-    var chapter = manga.chapter + 1;
-    var page = 1;
-  }
+const increase = ( manga ) => {
+  var chapter = manga.chapter + 1;
+  var page = 1;
 
   const siteUrl = createSiteUrl( manga.name, chapter, page );
 
@@ -118,7 +112,7 @@ const createZip = async ( buffers, name, chapter, outputPath = path.resolve( __d
 
   let i = 1;
   for ( const buffer of buffers ) {
-    await zip.file( `${name}-${chapter}-${i}.jpg`, buffer, { binary: true } );
+    await zip.file( `${name}-${chapter}-${i}.jpg`, buffer.buff, { binary: true } );
     i++;
   }
 
@@ -145,10 +139,10 @@ const getLastChapter = name => axios.get( `http://www.mangareader.net/${name}` )
 
 /**
  * @async
- * @param {object} manga
+ * @param {string} siteUrl
  * @returns {number} - Last page
  */
-const getLastPage = manga => axios.get( manga.siteUrl )
+const getLastPage = siteUrl => axios.get( siteUrl )
   .then( html => {
     const $ = cheerio.load( html.data );
 
@@ -157,38 +151,6 @@ const getLastPage = manga => axios.get( manga.siteUrl )
 
     return lastPage;
   } );
-
-async function downloadPages( manga, buffers = [] ) {
-  console.log( `Downloading ${manga.chapter}-${manga.page}` );
-  const img = await downloadImg( manga.imgSrc, manga.name );
-  buffers.push( img );
-
-  const nextManga = await increase( "page", manga );
-
-  if ( nextManga ) {
-    return downloadPages( nextManga, buffers );
-  } else {
-    return buffers;
-  }
-}
-
-async function downloadChapters( manga ) {
-  const timer = execTimer();
-  timer.start();
-
-  const buffers = await downloadPages( manga );
-
-  const time = timer.stop();
-  console.log( `Downloaded in ${( time.time / 1000 ).toFixed( 0 )}s` );
-
-  await createZip( buffers, manga.name, manga.chapter );
-
-  const nextManga = await increase( "chapter", manga );
-
-  if ( nextManga ) {
-    return downloadChapters( nextManga );
-  }
-}
 
 module.exports = {
   getImgSrcIfValid,
@@ -201,6 +163,4 @@ module.exports = {
   createZip,
   getLastChapter,
   getLastPage,
-  downloadPages,
-  downloadChapters,
 };
