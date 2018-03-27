@@ -82,6 +82,13 @@ d.mangaInvalidChapter = {
 d.siteUrlInvalidPage = `${d.baseUrl}/40`;
 d.siteUrlInvalidChapter = "https://www.mangareader.net/shingeki-no-kyojin/250";
 
+d.mangaLastChapter = {
+  name   : "naruto",
+  chapter: 700,
+  page   : 1,
+  siteUrl: "https://www.mangareader.net/naruto/700",
+};
+
 d.testBuffer = fs.readFileSync( path.resolve( __dirname, "test-img.jpg" ) );
 
 module.exports = d;

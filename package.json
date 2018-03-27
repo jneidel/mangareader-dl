@@ -37,6 +37,8 @@
     "nodemon": "^1.17.2"
   },
   "ava": {
-    "files": [ "test/test.js" ]
+    "files": [
+      "test/test.js"
+    ]
   }
 }

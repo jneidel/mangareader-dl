@@ -10,7 +10,7 @@ const Jszip = require( "jszip" );
  * @param {string} siteUrl
  * @returns {(string|Error)} - Returns img source url if not invalid page or chapter
  */
-const getImgSrc = siteUrl => axios.get( siteUrl )
+const getImgSrcIfValid = siteUrl => axios.get( siteUrl )
   .then( html => {
     const $ = cheerio.load( html.data );
 
@@ -55,7 +55,7 @@ const createManga = ( siteUrl ) => {
 
   manga.filename = createFilename( manga );
 
-  return getImgSrc( siteUrl )
+  return getImgSrcIfValid( siteUrl )
     .then( imgSrc => {
       manga.imgSrc = imgSrc;
       return manga;
@@ -64,10 +64,12 @@ const createManga = ( siteUrl ) => {
 
 /**
  * Create url from given manga object
- * @param {object} manga
+ * @param {string} name
+ * @param {string} chapter
+ * @param {string} page - Default 1, if page doesnt matter
  * @returns {string}
  */
-const createSiteUrl = ( manga ) => `https://www.mangareader.net/${manga.name}/${manga.chapter}${manga.page > 1 ? `/${manga.page}` : ""}`;
+const createSiteUrl = ( name, chapter, page = 1 ) => `https://www.mangareader.net/${name}/${chapter}${page > 1 ? `/${page}` : ""}`;
 
 /**
  * Page|Chapter + 1, regenerate siteUrl, return newly created new manga object
@@ -76,11 +78,16 @@ const createSiteUrl = ( manga ) => `https://www.mangareader.net/${manga.name}/${
  * @param {object} manga
  * @returns {object}              - Manga object
  */
-const increase = ( whatToIncrease, mangaObj ) => {
-  const manga = JSON.parse( JSON.stringify( mangaObj ) ); // Copy to not change original object
-  manga[whatToIncrease]++;
+const increase = ( whatToIncrease, manga ) => {
+  if ( whatToIncrease === "page" ) {
+    var page = manga.page + 1;
+    var chapter = manga.chapter;
+  } else {
+    var chapter = manga.chapter + 1;
+    var page = manga.page;
+  }
 
-  const siteUrl = createSiteUrl( manga );
+  const siteUrl = createSiteUrl( manga.name, chapter, page );
 
   return createManga( siteUrl )
     .then( manga => manga.imgSrc instanceof Error ? manga.imgSrc : manga );
@@ -120,11 +127,29 @@ const createZip = async ( buffers, name, chapter, outputPath = path.resolve( __d
       .catch( err => err ) );
 };
 
-exports.getImgSrc = getImgSrc;
-exports.downloadImg = downloadImg;
-exports.createFilename = createFilename;
-exports.createSiteUrl = createSiteUrl;
-exports.createManga = createManga;
-exports.parseFromUrl = parseFromUrl;
-exports.increase = increase;
-exports.createZip = createZip;
+/**
+ * @async
+ * @param {string} name
+ * @returns {number} - Last chapter
+ */
+const getLastChapter = name => axios.get( `http://www.mangareader.net/${name}` )
+  .then( html => {
+    const $ = cheerio.load( html.data );
+
+    let lastChapter = $( "#latestchapters" ).find( "a" )[0].children[0].data.match( /(\d+)/ )[0];
+    lastChapter = Number( lastChapter );
+
+    return lastChapter;
+  } );
+
+module.exports = {
+  getImgSrcIfValid,
+  downloadImg,
+  createFilename,
+  createSiteUrl,
+  createManga,
+  parseFromUrl,
+  increase,
+  createZip,
+  getLastChapter,
+};

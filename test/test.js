@@ -13,18 +13,18 @@ mockery.registerMock( "fs", {
 const d = require( "./test-data" );
 const i = require( ".." );
 
-// I.getImgSrc
-test( "get image source", t => i.getImgSrc( d.baseUrl )
+// I.getImgSrcIfValid
+test( "get image source", t => i.getImgSrcIfValid( d.baseUrl )
   .then( src => {
     t.falsy( src instanceof Error );
     t.is( src, d.imgUrl );
   } ) );
-test( "get error for invalid page", t => i.getImgSrc( d.siteUrlInvalidPage )
+test( "get error for invalid page", t => i.getImgSrcIfValid( d.siteUrlInvalidPage )
   .then( src => {
     t.truthy( src instanceof Error );
     t.is( src.message, "page" );
   } ) );
-test( "get error for invalid chapter", t => i.getImgSrc( d.siteUrlInvalidChapter )
+test( "get error for invalid chapter", t => i.getImgSrcIfValid( d.siteUrlInvalidChapter )
   .then( src => {
     t.truthy( src instanceof Error );
     t.is( src.message, "chapter" );
@@ -34,8 +34,8 @@ test( "get error for invalid chapter", t => i.getImgSrc( d.siteUrlInvalidChapter
 test( "create file name", t => t.is( i.createFilename( d.manga ), d.fileName ) );
 
 // I.createSiteUrl
-test( "create base url (no page) from manga data", t => t.is( i.createSiteUrl( d.manga ), d.baseUrl ) );
-test( "create site url from manga data", t => t.is( i.createSiteUrl( d.mangaPage39 ), `${d.baseUrl}/39` ) );
+test( "create base url (no page) from manga data", t => t.is( i.createSiteUrl( d.manga.name, d.manga.chapter, d.manga.page ), d.baseUrl ) );
+test( "create site url from manga data", t => t.is( i.createSiteUrl( d.mangaPage39.name, d.mangaPage39.chapter, d.mangaPage39.page ), `${d.baseUrl}/39` ) );
 
 // I.createManga
 test( "create manga from base url (no page)", t => i.createManga( d.baseUrl ).then( data => t.deepEqual( data, d.manga ) ) );
@@ -77,3 +77,8 @@ test( "download image and return its buffer", t => i.downloadImg( d.imgUrl )
 // I.createZip
 test( "create zip from array of buffers", t => i.createZip( [ d.testBuffer ], d.manga.name, d.manga.chapter, path.resolve( __dirname, `${d.manga.name}-${d.manga.chapter}.cbz` ) )
   .then( zipPath => t.is( zipPath, path.resolve( __dirname, `${d.manga.name}-${d.manga.chapter}.cbz` ) ) ) );
+
+// I.getLastChapter
+test( "get last chapter", t => i.getLastChapter( d.mangaLastChapter.name )
+  .then( chapter => t.is( chapter, d.mangaLastChapter.chapter ) )
+);
