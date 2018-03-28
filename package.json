@@ -12,11 +12,16 @@
   "scripts": {
     "test": "ava",
     "testing": "ava -w",
-    "start": "nodemon app.js"
+    "start": "./bin/app.js"
   },
   "main": "index.js",
+  "bin": {
+    "mangareader-dl": "bin/app.js",
+    "manga-dl": "bin/app.js"
+  },
   "files": [
-    "index.js"
+    "index.js",
+    "cli.js"
   ],
   "engines": {
     "node": ">=8"
@@ -34,7 +39,8 @@
     "mz": "^2.7.0",
     "node-zip": "^1.1.1",
     "p-map": "^1.2.0",
-    "py-range": "^1.0.0"
+    "py-range": "^1.0.0",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
     "ava": "latest",

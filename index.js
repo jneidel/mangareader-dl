@@ -33,7 +33,7 @@ const createFilename = ( manga ) => `${manga.name}_${manga.chapter}_${manga.page
  * @returns {object} - Incomplete manga object with name, chapter, page, siteUrl
  */
 const parseFromUrl = ( url ) => {
-  const [ , name, chapter, page ] = url.match( /(?:https?:\/\/)?www.mangareader.net\/(.+?)\/(\d+)\/?(\d+)?/i );
+  const [ , name, chapter, page ] = url.match( /(?:https?:\/\/)?(?:www.mangareader.net\/)?([^\/]+)\/?(\d+)?\/?(\d+)?/i );
   // Matches https://www.mangareader.net/shingeki-no-kyojin/103/39
 
   return {
@@ -53,7 +53,9 @@ const parseFromUrl = ( url ) => {
 const createManga = ( siteUrl ) => {
   const manga = parseFromUrl( siteUrl );
 
-  manga.siteUrl = siteUrl;
+  manga.chapter = manga.chapter || 1;
+  manga.page = manga.page || 1;
+  manga.siteUrl = createSiteUrl( manga.name, manga.chapter, manga.page );
   manga.filename = createFilename( manga );
 
   return getImgSrcIfValid( siteUrl )

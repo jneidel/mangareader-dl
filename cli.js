@@ -3,6 +3,7 @@ const range = require( "py-range" );
 const pMap = require( "p-map" );
 const progress = require( "cli-progress" );
 const chalk = require( "chalk" );
+
 const i = require( "." );
 
 const dots = // Source: https://github.com/sindresorhus/cli-spinners
