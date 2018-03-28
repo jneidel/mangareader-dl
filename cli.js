@@ -2,7 +2,11 @@ const execTimer = require( "execution-time" );
 const range = require( "py-range" );
 const pMap = require( "p-map" );
 const progress = require( "cli-progress" );
+const chalk = require( "chalk" );
 const i = require( "." );
+
+const dots = // Source: https://github.com/sindresorhus/cli-spinners
+  [ "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" ];
 
 /**
  * @async
@@ -31,21 +35,25 @@ async function downloadChapters( manga ) {
   timer.start();
 
   const bar = new progress.Bar( {
-    format: "{name} {chapter} [{bar}] {percentage}% | page {value}/{total} | chapter {chapter}/103 {downloadtime}",
+    format: `${chalk.green( "{spinner}" )} ${manga.name} ${chalk.green( manga.chapter )} [{bar}] ${chalk.green( "{percentage}%" )} | page ${chalk.green( "{value}/{total}" )} | chapter ${chalk.green( `${manga.chapter}/${manga.max}` )} {downloadtime}`,
   }, progress.Presets.shades_grey );
 
   bar.start( maxPages, 0, {
-    name        : manga.name,
-    chapter     : manga.chapter,
     downloadtime: "",
+    spinner     : dots[0],
   } );
 
+  let dotsFrame = 0;
   function updateBar() {
     setTimeout( () => {
-      bar.update( buffers.length );
+      dotsFrame = dotsFrame < dots.length - 1 ? dotsFrame + 1 : 0;
+
+      bar.update( buffers.length, {
+        spinner: dots[dotsFrame],
+      } );
 
       if ( !done ) updateBar();
-    }, 70 );
+    }, 80 );
   }
   updateBar();
 
@@ -63,7 +71,8 @@ async function downloadChapters( manga ) {
   const time = timer.stop();
 
   bar.update( maxPages, {
-    downtime: `| finished in ${( time.time / 1000 ).toFixed( 0 )}s`,
+    downloadtime: `| finished in ${( time.time / 1000 ).toFixed( 0 )}s`,
+    spinner     : "❯",
   } );
   bar.stop();
 
