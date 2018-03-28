@@ -14,14 +14,15 @@
     "testing": "ava -w",
     "start": "./bin/app.js"
   },
-  "main": "index.js",
+  "main": "bin/app.js",
   "bin": {
     "mangareader-dl": "bin/app.js",
     "manga-dl": "bin/app.js"
   },
   "files": [
-    "index.js",
-    "cli.js"
+    "lib/",
+    "lib/index.js",
+    "lib/cli.js"
   ],
   "engines": {
     "node": ">=8"

@@ -3,6 +3,9 @@
 const fs = require( "mz/fs" );
 const yargs = require( "yargs" );
 
+const downloadManga = require( "../lib/cli" );
+const i = require( "../lib" );
+
 const argv = yargs
   .usage( "Usage: $0 <manga> [options]" )
   .command( {
@@ -28,18 +31,14 @@ const argv = yargs
   } )
   .version()
   .alias( "version", "v" )
-  .example( "mangareader-dl shingeki-no-kyojin --out ~/aot", "Download all available chapter of Attack on Titan into ~/aot" )
-  .example( "mangareader-dl https://www.mangareader.net/shingeki-no-kyojin/100", "Download all available chapter of Attack on Titan, starting at chapter 100 into the current directory (./)" )
+  .example( "$ mangareader-dl shingeki-no-kyojin --out ~/aot", "Download all available chapter of Attack on Titan into ~/aot" )
+  .example( "$ mangareader-dl https://www.mangareader.net/shingeki-no-kyojin/100", "Download all available chapter of Attack on Titan, starting at chapter 100 into the current directory (./)" )
   .epilog( "For more information visit https://github.com/jneidel/mangareader-dl" )
   .showHelpOnFail( false, "Specify --help for available options" )
   .argv;
 
-const cli = require( "../cli" );
-const i = require( ".." );
-
-( async () => {
-  const manga = await i.createManga( argv._[0] );
-  manga.max = await i.getLastChapter( manga.name );
-
-  await cli.downloadChapters( manga );
-} )();
+if ( argv._[0] ) { // <manga> passed
+  downloadManga( argv._[0], argv.out );
+} else if ( argv.list ) { // list passed
+  // render list of downloaded manga
+}

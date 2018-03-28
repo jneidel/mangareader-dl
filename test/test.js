@@ -11,7 +11,7 @@ mockery.registerMock( "fs", {
 /* Tests */
 
 const d = require( "./test-data" );
-const i = require( ".." );
+const i = require( "../lib" );
 
 // i.getImgSrcIfValid
 test( "get image source", t => i.getImgSrcIfValid( d.baseUrl )
@@ -27,10 +27,6 @@ test( "get error for invalid chapter", t => i.getImgSrcIfValid( d.siteUrlInvalid
     t.is( imgSrc.message, "chapter" );
   } ) );
 
-// i.createFilename
-test( "create file name", t =>
-  t.is( i.createFilename( d.manga ), d.fileName ) );
-
 // i.createSiteUrl
 test( "create base url (no page) from manga data", t =>
   t.is( i.createSiteUrl( d.manga.name, d.manga.chapter, d.manga.page ), d.baseUrl ) );
@@ -38,11 +34,11 @@ test( "create site url from manga data", t =>
   t.is( i.createSiteUrl( d.mangaPage39.name, d.mangaPage39.chapter, d.mangaPage39.page ), `${d.baseUrl}/39` ) );
 
 // i.createManga
-test( "create manga from base url (no page)", t => i.createManga( d.baseUrl )
+test( "create manga from base url (no page)", t => i.createManga( d.baseUrl, d.outputPath )
   .then( data => t.deepEqual( data, d.manga ) ) );
-test( "create manga from page url", t => i.createManga( `${d.baseUrl}/39` )
+test( "create manga from page url", t => i.createManga( `${d.baseUrl}/39`, d.outputPath )
   .then( data => t.deepEqual( data, d.mangaPage39 ) ) );
-test( "pass on invalid page error", t => i.createManga( d.siteUrlInvalidPage )
+test( "pass on invalid page error", t => i.createManga( d.siteUrlInvalidPage, d.outputPath )
   .then( data => data.imgSrc )
   .then( imgSrc => {
     t.truthy( imgSrc instanceof Error );
@@ -73,7 +69,7 @@ test( "download image and return its buffer", t => i.downloadImg( d.imgUrl )
 
 // i.createZip
 test( "create zip from array of buffers", t =>
-  i.createZip( [ d.testBuffer ], d.manga.name, d.manga.chapter, path.resolve( __dirname, `${d.manga.name}-${d.manga.chapter}.cbz` ) )
+  i.createZip( [ d.testBuffer ], d.manga.name, d.manga.chapter, d.outputPath )
     .then( zipPath => t.is( zipPath, path.resolve( __dirname, `${d.manga.name}-${d.manga.chapter}.cbz` ) ) ) );
 
 // i.getLastChapter
