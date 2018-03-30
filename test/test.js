@@ -1,7 +1,8 @@
 const test = require( "ava" );
 const path = require( "path" );
 const mockery = require( "mockery" );
-const fs = require( "fs" );
+const fs = require( "mz/fs" );
+const DotJson = require( "dot-json" );
 
 mockery.enable( { warnOnUnregistered: false, warnOnReplace: false } );
 mockery.registerMock( "fs", {
@@ -178,3 +179,17 @@ test( "get last page", t =>
   i.getLastPage( "https://www.mangareader.net/shingeki-no-kyojin/103" )
     .then( page => t.is( page, 39 ) )
 );
+
+// i.writeConfig
+test.serial( "write output path to config", async t => {
+  const configPath = path.resolve( __dirname, "mangareader-dl.config.json" );
+  const config = new DotJson( configPath );
+
+  config.set( "outputPath", "" );
+
+  i.writeConfig( { outputPath: __dirname }, configPath );
+
+  const data = await fs.readFile( configPath, { encoding: "utf8" } );
+
+  t.deepEqual( JSON.parse( data ), { outputPath: __dirname } );
+} );

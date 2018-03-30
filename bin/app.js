@@ -1,26 +1,36 @@
 #!/usr/bin/env node
 
 const fs = require( "mz/fs" );
+const path = require( "path" );
 const yargs = require( "yargs" );
+const DotJson = require( "dot-json" );
 
-const downloadManga = require( "../lib/cli" );
-const i = require( "../lib" );
+const downloadManga = require( "../lib/download" );
+
+const configPath = path.resolve( __dirname, "..", "mangareader-dl.config.json" );
+const config = new DotJson( configPath );
+const defaultOutputPath = config.get( "outputPath" ) || "./";
 
 const argv = yargs
   .usage( "Usage: $0 <manga> [options]" )
   .command( {
     command: "<manga>",
     desc   : `Manga to be downloaded, Format:
-    shingeki-no-kyojin
     https://www.mangareader.net/shingeki-no-kyojin
-    https://www.mangareader.net/shingeki-no-kyojin/<chapter>`,
+    shingeki-no-kyojin
+    shingeki-no-kyojin/<chapter>`,
   } )
   .command( "list", "List downloaded manga" )
+  .command( {
+    command: "config",
+    desc   : `Use flags to set their global defaults
+    -o .. Set global default output dir`,
+  } )
   .demandCommand( 1, "You need to specifiy at least one command" )
   .option( "out", {
     alias      : "o",
     describe   : "Output directory for downloaded manga",
-    default    : "./",
+    default    : defaultOutputPath,
     requiresArg: true,
   } )
   .normalize( "out" ) // path.normalize()
@@ -37,8 +47,15 @@ const argv = yargs
   .showHelpOnFail( false, "Specify --help for available options" )
   .argv;
 
-if ( argv._[0] ) { // <manga> passed
+const outputPath = path.resolve( process.cwd(), argv.out );
+
+if ( argv._[0] === "list" ) {
+  console.log( "list passed" );
+} else if ( argv._[0] === "config" ) {
+  if ( outputPath !== defaultOutputPath ) {
+    config.set( "outputPath", outputPath ).save();
+    console.log( `Default output path changed to '${outputPath}'` );
+  }
+} else {
   downloadManga( argv._[0], argv.out );
-} else if ( argv.list ) { // list passed
-  // render list of downloaded manga
 }
