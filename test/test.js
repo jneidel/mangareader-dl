@@ -15,18 +15,18 @@ mockery.registerMock( "fs", {
 const i = require( "../lib" );
 
 // i.getImgSrcIfValid
-test( "get image source", t =>
+test.skip( "get image source", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103" )
     .then( src => t.is( src, "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg" ) )
 );
-test( "get error for invalid page", t =>
+test.skip( "get error for invalid page", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103/40" ) // Last page is 39
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
       t.is( imgSrc.message, "page" );
     } )
 );
-test( "get error for invalid chapter", t =>
+test.skip( "get error for invalid chapter", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/250" )
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
@@ -49,7 +49,7 @@ test( "create url with page", t =>
 );
 
 // i.createManga
-test( "create manga from url", t =>
+test.skip( "create manga from url", t =>
   i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103", __dirname )
     .then( data => t.deepEqual( data, {
       name      : "shingeki-no-kyojin",
@@ -60,7 +60,7 @@ test( "create manga from url", t =>
       outputPath: __dirname,
     } ) )
 );
-test( "pass on invalid page error", t =>
+test.skip( "pass on invalid page error", t =>
   i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103/40", __dirname )
     .then( data => data.imgSrc )
     .then( imgSrc => {
@@ -68,7 +68,7 @@ test( "pass on invalid page error", t =>
       t.is( imgSrc.message, "page" );
     } )
 );
-test( "pass on invalid chapter error", t =>
+test.skip( "pass on invalid chapter error", t =>
   i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/250", __dirname )
     .then( data => data.imgSrc )
     .then( imgSrc => {
@@ -120,7 +120,7 @@ test( "parse url without www.mangareader.net", t =>
 );
 
 // i.increase
-test( "increase chapter for valid url", t =>
+test.skip( "increase chapter for valid url", t =>
   i.increase( {
     name   : "shingeki-no-kyojin",
     chapter: 100,
@@ -136,7 +136,7 @@ test( "increase chapter for valid url", t =>
       siteUrl: "https://www.mangareader.net/shingeki-no-kyojin/101/1",
     } ) )
 );
-test( "return null for invalid chapter", t =>
+test.skip( "return null for invalid chapter", t =>
   i.increase( {
     name   : "shingeki-no-kyojin",
     chapter: 250,
@@ -149,7 +149,7 @@ test( "return null for invalid chapter", t =>
 const testBuffer = fs.readFileSync( path.resolve( __dirname, "test-img.jpg" ) );
 
 // i.downloadImg
-test( "download image and return its buffer", t =>
+test.skip( "download image and return its buffer", t =>
   i.downloadImg( "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg" )
     .then( buffer => t.is( Buffer.compare( buffer, testBuffer ), 0, "Buffers don't match" ) )
 );
@@ -169,13 +169,13 @@ test( "create zip from array of buffers", t =>
 );
 
 // i.getLastChapter
-test( "get last chapter", t =>
+test.skip( "get last chapter", t =>
   i.getLastChapter( "naruto" )
     .then( chapter => t.is( chapter, 700 ) )
 );
 
 // i.getLastPage
-test( "get last page", t =>
+test.skip( "get last page", t =>
   i.getLastPage( "https://www.mangareader.net/shingeki-no-kyojin/103" )
     .then( page => t.is( page, 39 ) )
 );
@@ -192,4 +192,39 @@ test.serial( "write output path to config", async t => {
   const data = await fs.readFile( configPath, { encoding: "utf8" } );
 
   t.deepEqual( JSON.parse( data ), { outputPath: __dirname } );
+} );
+
+test.serial( "write manga to history", async t => {
+  const historyPath = path.resolve( __dirname, "mangareader-dl.history.json" );
+  const history = new DotJson( historyPath );
+
+  history.set( "shingeki-no-kyojin.chapter", "" ).save();
+  history.set( "shingeki-no-kyojin.path", "" ).save();
+
+  i.writeHistory( {
+    name   : "shingeki-no-kyojin",
+    chapter: 103,
+    path   : "/Users/jneidel/code/mangareader-dl/test",
+  }, historyPath );
+
+  const data = await fs.readFile( historyPath, { encoding: "utf8" } );
+
+  t.deepEqual( JSON.parse( data ), {
+    "shingeki-no-kyojin": {
+      chapter: 103,
+      path   : "/Users/jneidel/code/mangareader-dl/test",
+    } } );
+} );
+
+test.serial( "read manga history for given name", t => {
+  const historyPath = path.resolve( __dirname, "mangareader-dl.history.json" );
+  const history = new DotJson( historyPath );
+
+  history.set( "shingeki-no-kyojin.chapter", 103 ).save();
+  history.set( "shingeki-no-kyojin.path", "/Users/jneidel/code/mangareader-dl/test" ).save();
+
+  const { chapter, path: mangaPath } = i.readHistory( "shingeki-no-kyojin", historyPath );
+
+  t.is( chapter, 103 );
+  t.is( mangaPath, "/Users/jneidel/code/mangareader-dl/test" );
 } );

@@ -4,5 +4,5 @@ tmp
 *.cbz
 package-lock*
 licence
-*.*.json
-**/*.*.json
+mangareader-dl.*.json
+**/mangareader-dl.*.json
