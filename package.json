@@ -12,6 +12,7 @@
   "scripts": {
     "test": "ava",
     "testing": "ava -w",
+    "unit": "ava -w --match='*[unit]'",
     "start": "./bin/app.js"
   },
   "main": "bin/app.js",

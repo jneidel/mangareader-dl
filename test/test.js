@@ -15,18 +15,18 @@ mockery.registerMock( "fs", {
 const i = require( "../lib" );
 
 // i.getImgSrcIfValid
-test.skip( "get image source", t =>
+test( "get image source", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103" )
     .then( src => t.is( src, "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg" ) )
 );
-test.skip( "get error for invalid page", t =>
+test( "get error for invalid page", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103/40" ) // Last page is 39
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
       t.is( imgSrc.message, "page" );
     } )
 );
-test.skip( "get error for invalid chapter", t =>
+test( "get error for invalid chapter", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/250" )
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
@@ -35,13 +35,13 @@ test.skip( "get error for invalid chapter", t =>
 );
 
 // i.createSiteUrl
-test( "create url without page", t =>
+test( "create url without page [unit]", t =>
   t.is(
     i.createSiteUrl( "shingeki-no-kyojin", 103 ),
     "https://www.mangareader.net/shingeki-no-kyojin/103/1"
   )
 );
-test( "create url with page", t =>
+test( "create url with page [unit]", t =>
   t.is(
     i.createSiteUrl( "shingeki-no-kyojin", 103, 39 ),
     "https://www.mangareader.net/shingeki-no-kyojin/103/39"
@@ -49,7 +49,7 @@ test( "create url with page", t =>
 );
 
 // i.createManga
-test.skip( "create manga from url", t =>
+test( "create manga from url", t =>
   i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103", __dirname )
     .then( data => t.deepEqual( data, {
       name      : "shingeki-no-kyojin",
@@ -60,7 +60,7 @@ test.skip( "create manga from url", t =>
       outputPath: __dirname,
     } ) )
 );
-test.skip( "pass on invalid page error", t =>
+test( "pass on invalid page error", t =>
   i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103/40", __dirname )
     .then( data => data.imgSrc )
     .then( imgSrc => {
@@ -68,7 +68,7 @@ test.skip( "pass on invalid page error", t =>
       t.is( imgSrc.message, "page" );
     } )
 );
-test.skip( "pass on invalid chapter error", t =>
+test( "pass on invalid chapter error", t =>
   i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/250", __dirname )
     .then( data => data.imgSrc )
     .then( imgSrc => {
@@ -78,7 +78,7 @@ test.skip( "pass on invalid chapter error", t =>
 );
 
 // i.parseFromUrl
-test( "parse full url", t =>
+test( "parse full url [unit]", t =>
   t.deepEqual( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin/101/5" ), {
     name   : "shingeki-no-kyojin",
     chapter: 101,
@@ -86,7 +86,7 @@ test( "parse full url", t =>
     siteUrl: "https://www.mangareader.net/shingeki-no-kyojin/101/5",
   } )
 );
-test( "parse url without page", t =>
+test( "parse url without page [unit]", t =>
   t.deepEqual( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin/101" ), {
     name   : "shingeki-no-kyojin",
     chapter: 101,
@@ -94,7 +94,7 @@ test( "parse url without page", t =>
     siteUrl: "https://www.mangareader.net/shingeki-no-kyojin/101/1",
   } )
 );
-test( "parse url without chapter", t =>
+test( "parse url without chapter [unit]", t =>
   t.deepEqual( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin" ), {
     name   : "shingeki-no-kyojin",
     chapter: 1,
@@ -102,7 +102,7 @@ test( "parse url without chapter", t =>
     siteUrl: "https://www.mangareader.net/shingeki-no-kyojin/1/1",
   } )
 );
-test( "parse url without https", t =>
+test( "parse url without https [unit]", t =>
   t.deepEqual( i.parseFromUrl( "www.mangareader.net/shingeki-no-kyojin/101/5" ), {
     name   : "shingeki-no-kyojin",
     chapter: 101,
@@ -110,7 +110,7 @@ test( "parse url without https", t =>
     siteUrl: "https://www.mangareader.net/shingeki-no-kyojin/101/5",
   } )
 );
-test( "parse url without www.mangareader.net", t =>
+test( "parse url without www.mangareader.net [unit]", t =>
   t.deepEqual( i.parseFromUrl( "shingeki-no-kyojin/101/5" ), {
     name   : "shingeki-no-kyojin",
     chapter: 101,
@@ -120,7 +120,7 @@ test( "parse url without www.mangareader.net", t =>
 );
 
 // i.increase
-test.skip( "increase chapter for valid url", t =>
+test( "increase chapter for valid url", t =>
   i.increase( {
     name   : "shingeki-no-kyojin",
     chapter: 100,
@@ -136,7 +136,7 @@ test.skip( "increase chapter for valid url", t =>
       siteUrl: "https://www.mangareader.net/shingeki-no-kyojin/101/1",
     } ) )
 );
-test.skip( "return null for invalid chapter", t =>
+test( "return null for invalid chapter", t =>
   i.increase( {
     name   : "shingeki-no-kyojin",
     chapter: 250,
@@ -149,13 +149,13 @@ test.skip( "return null for invalid chapter", t =>
 const testBuffer = fs.readFileSync( path.resolve( __dirname, "test-img.jpg" ) );
 
 // i.downloadImg
-test.skip( "download image and return its buffer", t =>
+test( "download image and return its buffer", t =>
   i.downloadImg( "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg" )
     .then( buffer => t.is( Buffer.compare( buffer, testBuffer ), 0, "Buffers don't match" ) )
 );
 
 // i.createZip
-test( "create zip from array of buffers", t =>
+test( "create zip from array of buffers [unit]", t =>
   i.createZip(
     [ testBuffer ],
     "shingeki-no-kyojin",
@@ -169,19 +169,19 @@ test( "create zip from array of buffers", t =>
 );
 
 // i.getLastChapter
-test.skip( "get last chapter", t =>
+test( "get last chapter", t =>
   i.getLastChapter( "naruto" )
     .then( chapter => t.is( chapter, 700 ) )
 );
 
 // i.getLastPage
-test.skip( "get last page", t =>
+test( "get last page", t =>
   i.getLastPage( "https://www.mangareader.net/shingeki-no-kyojin/103" )
     .then( page => t.is( page, 39 ) )
 );
 
 // i.writeConfig
-test.serial( "write output path to config", async t => {
+test.serial( "write output path to config [unit]", async t => {
   const configPath = path.resolve( __dirname, "mangareader-dl.config.json" );
   const config = new DotJson( configPath );
 
@@ -194,7 +194,7 @@ test.serial( "write output path to config", async t => {
   t.deepEqual( JSON.parse( data ), { outputPath: __dirname } );
 } );
 
-test.serial( "write manga to history", async t => {
+test.serial( "write manga to history [unit]", async t => {
   const historyPath = path.resolve( __dirname, "mangareader-dl.history.json" );
   const history = new DotJson( historyPath );
 
@@ -216,7 +216,7 @@ test.serial( "write manga to history", async t => {
     } } );
 } );
 
-test.serial( "read manga history for given name", t => {
+test.serial( "read manga history for given name [unit]", t => {
   const historyPath = path.resolve( __dirname, "mangareader-dl.history.json" );
   const history = new DotJson( historyPath );
 
