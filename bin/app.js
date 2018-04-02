@@ -34,16 +34,21 @@ const argv = yargs
     requiresArg: true,
   } )
   .normalize( "out" ) // path.normalize()
-  .help( "help" ) // Move msg to bottom
-  .option( "help", {
-    alias      : "h",
-    description: "Display help message",
+  .option( "folder", {
+    alias   : "f",
+    describe: "Download into the folder '<output>/<manga>'",
+    default : false,
+    boolean : true,
   } )
+  .help( "help" ) // Move help to bottom of options
+  .alias( "help", "h" )
+  .describe( "help", "Display help this message" )
   .version()
   .alias( "version", "v" )
-  .example( "$ mangareader-dl shingeki-no-kyojin --out ~/aot", "Download all available chapter of Attack on Titan into ~/aot" )
-  .example( "$ mangareader-dl https://www.mangareader.net/shingeki-no-kyojin/100", "Download all available chapter of Attack on Titan, starting at chapter 100 into the current directory (./)" )
-  .epilog( "For more information visit https://github.com/jneidel/mangareader-dl" )
+  .example( "$ $0 shingeki-no-kyojin --out ~/aot", "Download all available chapter of Attack on Titan into ~/aot" )
+  .example( "$ $0 https://www.mangareader.net/shingeki-no-kyojin/100", "Download all available chapter of Attack on Titan, starting at chapter 100 into the current directory (./)" )
+  .example( "$ $0 shingeki-no-kyojin -fo ~/manga", "Download Attack on Titan into the directory ~/manga/shingeki-no-kyojin" )
+  .epilog( "For more information visit: https://github.com/jneidel/mangareader-dl" )
   .showHelpOnFail( false, "Specify --help for available options" )
   .argv;
 
