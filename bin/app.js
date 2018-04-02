@@ -60,7 +60,24 @@ if ( argv._[0] === "list" ) {
 } else if ( argv._[0] === "config" ) {
   if ( outputPath !== defaultOutputPath ) {
     config.set( "outputPath", outputPath ).save();
-    console.log( `Default output path changed to '${outputPath}'` );
+  }
+
+  if ( argv.folder ) {
+    config.set( "folder", true ).save();
+  } else {
+    config.set( "folder", false ).save();
+  }
+
+  if ( outputPath !== defaultOutputPath && argv.folder ) {
+    i.prependArrowPrintStdout( `Folder globally activated, default output path changed to '${outputPath}'` );
+  } else if ( outputPath !== defaultOutputPath && !argv.folder ) {
+    i.prependArrowPrintStdout( `Default output path changed to '${outputPath}'` );
+  } else if ( argv.folder && outputPath === defaultOutputPath ) {
+    i.prependArrowPrintStdout( "Folder globally activated." );
+  } else if ( outputPath === defaultOutputPath ) {
+    i.prependArrowPrintStdout( "Input matches default output path." );
+  } else {
+    i.prependArrowPrintStdout( `No options have been passed to 'config'. Specify --help for usage info.` );
   }
 } else {
   downloadManga( argv._[0], argv.out );
