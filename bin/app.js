@@ -6,6 +6,7 @@ const yargs = require( "yargs" );
 const DotJson = require( "dot-json" );
 
 const downloadManga = require( "../lib/download" );
+const i = require( "../lib" );
 
 const configPath = path.resolve( __dirname, "..", "mangareader-dl.config.json" );
 const config = new DotJson( configPath );
@@ -55,7 +56,7 @@ const argv = yargs
 const outputPath = path.resolve( process.cwd(), argv.out );
 
 if ( argv._[0] === "list" ) {
-  console.log( "list passed" );
+  i.outputHistory();
 } else if ( argv._[0] === "config" ) {
   if ( outputPath !== defaultOutputPath ) {
     config.set( "outputPath", outputPath ).save();
