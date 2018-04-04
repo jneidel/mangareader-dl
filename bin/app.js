@@ -4,13 +4,16 @@ const fs = require( "mz/fs" );
 const path = require( "path" );
 const yargs = require( "yargs" );
 const DotJson = require( "dot-json" );
+const mkdir = require( "make-dir" );
 
 const downloadManga = require( "../lib/download" );
 const i = require( "../lib" );
 
 const configPath = path.resolve( __dirname, "..", "mangareader-dl.config.json" );
 const config = new DotJson( configPath );
+
 const defaultOutputPath = config.get( "outputPath" ) || "./";
+const defaultDirectory = config.get( "directory" ) || false;
 
 const argv = yargs
   .usage( "Usage: $0 <manga> [options]" )
@@ -35,10 +38,10 @@ const argv = yargs
     requiresArg: true,
   } )
   .normalize( "out" ) // path.normalize()
-  .option( "folder", {
-    alias   : "f",
-    describe: "Download into the folder '<output>/<manga>'",
-    default : false,
+  .option( "dir", {
+    alias   : "d",
+    describe: "Download into the directory '<output>/<manga>'",
+    default : defaultDirectory,
     boolean : true,
   } )
   .help( "help" ) // Move help to bottom of options
@@ -48,12 +51,12 @@ const argv = yargs
   .alias( "version", "v" )
   .example( "$ $0 shingeki-no-kyojin --out ~/aot", "Download all available chapter of Attack on Titan into ~/aot" )
   .example( "$ $0 https://www.mangareader.net/shingeki-no-kyojin/100", "Download all available chapter of Attack on Titan, starting at chapter 100 into the current directory (./)" )
-  .example( "$ $0 shingeki-no-kyojin -fo ~/manga", "Download Attack on Titan into the directory ~/manga/shingeki-no-kyojin" )
+  .example( "$ $0 shingeki-no-kyojin -do ~/manga", "Download Attack on Titan into the directory ~/manga/shingeki-no-kyojin" )
   .epilog( "For more information visit: https://github.com/jneidel/mangareader-dl" )
   .showHelpOnFail( false, "Specify --help for available options" )
   .argv;
 
-const outputPath = path.resolve( process.cwd(), argv.out );
+let outputPath = path.isAbsolute( argv.out ) ? argv.out : path.resolve( process.cwd(), argv.out );
 
 if ( argv._[0] === "list" ) {
   i.outputHistory();
@@ -62,23 +65,33 @@ if ( argv._[0] === "list" ) {
     config.set( "outputPath", outputPath ).save();
   }
 
-  if ( argv.folder ) {
-    config.set( "folder", true ).save();
+  if ( argv.dir ) {
+    config.set( "dir", true ).save();
   } else {
-    config.set( "folder", false ).save();
+    config.set( "dir", false ).save();
   }
 
   if ( outputPath !== defaultOutputPath && argv.folder ) {
-    i.prependArrowPrintStdout( `Folder globally activated, default output path changed to '${outputPath}'` );
+    i.prependArrowPrintStdout( `'Directory' option globally enabled, default output path changed to '${outputPath}'` );
   } else if ( outputPath !== defaultOutputPath && !argv.folder ) {
-    i.prependArrowPrintStdout( `Default output path changed to '${outputPath}'` );
+    i.prependArrowPrintStdout( `Default output path changed to '${outputPath}', 'directory' option globally disabled` );
   } else if ( argv.folder && outputPath === defaultOutputPath ) {
-    i.prependArrowPrintStdout( "Folder globally activated." );
+    i.prependArrowPrintStdout( "'Directory' option globally enabled" );
   } else if ( outputPath === defaultOutputPath ) {
-    i.prependArrowPrintStdout( "Input matches default output path." );
+    i.prependArrowPrintStdout( "Input matches default output path" );
   } else {
-    i.prependArrowPrintStdout( `No options have been passed to 'config'. Specify --help for usage info.` );
+    i.prependArrowPrintStdout( `No options have been passed to 'config'. Specify --help for usage info` );
   }
 } else {
-  downloadManga( argv._[0], argv.out );
+  const url = argv._[0];
+
+  if ( argv.dir ) {
+    const { name } = i.parseFromUrl( url );
+    const newOut = path.join( outputPath, name );
+
+    mkdir.sync( newOut );
+    outputPath = newOut;
+  }
+
+  downloadManga( url, outputPath );
 }
