@@ -220,11 +220,11 @@ test.serial( "read manga history for given name [unit]", t => {
   const historyPath = path.resolve( __dirname, "mangareader-dl.history.json" );
   const history = new DotJson( historyPath );
 
-  history.set( "shingeki-no-kyojin.chapter", 103 ).save();
+  history.set( "shingeki-no-kyojin.chapter", 102 ).save();
   history.set( "shingeki-no-kyojin.path", "/Users/jneidel/code/mangareader-dl/test" ).save();
 
   const { chapter, path: mangaPath } = i.readHistory( "shingeki-no-kyojin", historyPath );
 
-  t.is( chapter, 103 );
+  t.is( chapter, 102 );
   t.is( mangaPath, "/Users/jneidel/code/mangareader-dl/test" );
 } );
