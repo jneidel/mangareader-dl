@@ -65,7 +65,11 @@ const argv = yargs
 let outputPath = path.isAbsolute( argv.out ) ? argv.out : path.resolve( process.cwd(), argv.out );
 
 if ( argv._[0] === "list" ) {
-  i.outputHistory();
+  if ( argv._[1] === "reset" ) {
+    i.clearHistory();
+  } else {
+    i.outputHistory();
+  }
 } else if ( argv._[0] === "config" ) {
   if ( outputPath !== defaultOutputPath ) {
     config.set( "outputPath", outputPath ).save();
