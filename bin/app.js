@@ -50,6 +50,12 @@ const argv = yargs
     default : false,
     boolean : true,
   } )
+  .option( "min", {
+    alias   : "m",
+    describe: "Only show minimal output",
+    default : false,
+    boolean : true,
+  } )
   .help( "help" ) // Move help to bottom of options
   .alias( "help", "h" )
   .describe( "help", "Display help this message" )
@@ -103,5 +109,5 @@ if ( argv._[0] === "list" ) {
     outputPath = newOut;
   }
 
-  downloadManga( url, outputPath, argv.force );
+  downloadManga( url, outputPath, argv.force, argv.min );
 }
