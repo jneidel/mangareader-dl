@@ -44,6 +44,12 @@ const argv = yargs
     default : defaultDirectory,
     boolean : true,
   } )
+  .option( "force", {
+    alias   : "f",
+    describe: "Use given chapter/path instead of reading from history, overwrite history",
+    default : false,
+    boolean : true,
+  } )
   .help( "help" ) // Move help to bottom of options
   .alias( "help", "h" )
   .describe( "help", "Display help this message" )
@@ -93,5 +99,5 @@ if ( argv._[0] === "list" ) {
     outputPath = newOut;
   }
 
-  downloadManga( url, outputPath );
+  downloadManga( url, outputPath, argv.force );
 }
