@@ -262,20 +262,6 @@ test( "get last page for rm url", t =>
     .then( page => t.is( page, 40 ) )
 );
 
-// i.writeConfig
-test.serial( "write output path to config [unit]", async t => {
-  const configPath = path.resolve( __dirname, "mangareader-dl.config.json" );
-  const config = new DotJson( configPath );
-
-  config.set( "outputPath", "" );
-
-  i.writeConfig( { outputPath: __dirname }, configPath );
-
-  const data = await fs.readFile( configPath, { encoding: "utf8" } );
-
-  t.deepEqual( JSON.parse( data ), { outputPath: __dirname } );
-} );
-
 // i.writeHistory
 test.serial( "write manga to history [unit]", async t => {
   const historyPath = path.resolve( __dirname, "mangareader-dl.history.json" );

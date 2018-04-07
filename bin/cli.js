@@ -9,11 +9,14 @@ const mkdir = require( "make-dir" );
 const downloadManga = require( "../lib/download" );
 const i = require( "../lib" );
 
+const supportedProviders = [ "mangareader", "readmng" ];
+
 const configPath = path.resolve( __dirname, "..", "mangareader-dl.config.json" );
 const config = new DotJson( configPath );
 
 const defaultOutputPath = config.get( "outputPath" ) || "./";
 const defaultDirectory = config.get( "directory" ) || false;
+const defaultProvider = config.get( "provider" ) || "mangareader";
 
 const argv = yargs
   .usage( "Usage: $0 <manga> [options]" )
@@ -56,6 +59,12 @@ const argv = yargs
     default : false,
     boolean : true,
   } )
+  .option( "provider", {
+    alias      : "p",
+    describe   : "Specify site to download from\nOptions: [mangareader, readmng]",
+    default    : defaultProvider,
+    requiresArg: true,
+  } )
   .help( "help" ) // Move help to bottom of options
   .alias( "help", "h" )
   .describe( "help", "Display help this message" )
@@ -68,35 +77,52 @@ const argv = yargs
   .showHelpOnFail( false, "Specify --help for available options" )
   .argv;
 
+// Clean up input
 let outputPath = path.isAbsolute( argv.out ) ? argv.out : path.resolve( process.cwd(), argv.out );
 
+if ( !~supportedProviders.indexOf( argv.provider ) ) {
+  i.prependArrowPrintStdout( `The provider '${argv.provider}' is not supported. Please choose one from the list:\n  [${supportedProviders}]\n  Or submit a issue on GitHub requesting support of the given provider.` );
+  process.exit();
+}
+
+// Parse commands/options
 if ( argv._[0] === "list" ) {
   if ( argv._[1] === "reset" ) {
-    i.clearHistory();
+    fs.writeFile( path.resolve( __dirname, "..", "mangareader-dl.history.json" ), "{}" );
+    i.prependArrowPrintStdout( "History has been reset." );
   } else {
     i.outputHistory();
   }
 } else if ( argv._[0] === "config" ) {
-  if ( outputPath !== defaultOutputPath ) {
-    config.set( "outputPath", outputPath ).save();
-  }
-
-  if ( argv.dir ) {
-    config.set( "dir", true ).save();
+  if ( argv._[1] === "reset" ) {
+    fs.writeFile( path.resolve( __dirname, "..", "mangareader-dl.config.json" ), "{}" );
+    i.prependArrowPrintStdout( "Config has been reset." );
   } else {
-    config.set( "dir", false ).save();
-  }
+    let outMsg = "";
 
-  if ( outputPath !== defaultOutputPath && argv.folder ) {
-    i.prependArrowPrintStdout( `'Directory' option globally enabled, default output path changed to '${outputPath}'` );
-  } else if ( outputPath !== defaultOutputPath && !argv.folder ) {
-    i.prependArrowPrintStdout( `Default output path changed to '${outputPath}', 'directory' option globally disabled` );
-  } else if ( argv.folder && outputPath === defaultOutputPath ) {
-    i.prependArrowPrintStdout( "'Directory' option globally enabled" );
-  } else if ( outputPath === defaultOutputPath ) {
-    i.prependArrowPrintStdout( "Input matches default output path" );
-  } else {
-    i.prependArrowPrintStdout( `No options have been passed to 'config'. Specify --help for usage info` );
+    if ( outputPath !== defaultOutputPath ) {
+      config.set( "outputPath", outputPath ).save();
+      outMsg += `Default output path changed to '${outputPath}'. `;
+    }
+
+    if ( argv.dir ) {
+      config.set( "dir", true ).save();
+      outMsg += "'Directory' option globally enabled. ";
+    } else {
+      config.set( "dir", false ).save();
+      outMsg += "'Directory' option globally disabled. ";
+    }
+
+    if ( argv.provider !== defaultProvider ) {
+      config.set( "provider", argv.provider ).save();
+      outMsg += `'${argv.provider}' has been set as your default provider.`;
+    }
+
+    if ( outMsg.length === 0 ) {
+      outMsg = `No options have been passed to 'config'. Specify --help for usage info`;
+    }
+
+    i.prependArrowPrintStdout( outMsg );
   }
 } else {
   const url = argv._[0];
