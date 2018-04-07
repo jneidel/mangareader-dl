@@ -253,9 +253,13 @@ test( "get last chapter rm", t =>
 );
 
 // i.getLastPage
-test( "get last page", t =>
+test( "get last page for mr url", t =>
   i.getLastPage( "https://www.mangareader.net/shingeki-no-kyojin/103" )
     .then( page => t.is( page, 39 ) )
+);
+test( "get last page for rm url", t =>
+  i.getLastPage( "https://www.readmng.com/platinum-end/19/1" )
+    .then( page => t.is( page, 40 ) )
 );
 
 // i.writeConfig
