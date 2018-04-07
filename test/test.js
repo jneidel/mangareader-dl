@@ -243,8 +243,12 @@ test( "create zip from array of buffers [unit]", t =>
 );
 
 // i.getLastChapter
-test( "get last chapter", t =>
-  i.getLastChapter( "naruto" )
+test( "get last chapter mr", t =>
+  i.getLastChapter( "naruto", "mangareader" )
+    .then( chapter => t.is( chapter, 700 ) )
+);
+test( "get last chapter rm", t =>
+  i.getLastChapter( "naruto", "readmng" )
     .then( chapter => t.is( chapter, 700 ) )
 );
 
