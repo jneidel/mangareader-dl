@@ -55,6 +55,7 @@ test( "create manga from url", t =>
       name      : "shingeki-no-kyojin",
       chapter   : 103,
       page      : 1,
+      provider  : "mangareader",
       siteUrl   : "https://www.mangareader.net/shingeki-no-kyojin/103/1",
       imgSrc    : "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg",
       outputPath: __dirname,
@@ -78,44 +79,60 @@ test( "pass on invalid chapter error", t =>
 );
 
 // i.parseFromUrl
-test( "parse full url [unit]", t =>
+test( "parse full mr url [unit]", t =>
   t.deepEqual( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin/101/5" ), {
-    name   : "shingeki-no-kyojin",
-    chapter: 101,
-    page   : 5,
-    siteUrl: "https://www.mangareader.net/shingeki-no-kyojin/101/5",
+    name    : "shingeki-no-kyojin",
+    chapter : 101,
+    page    : 5,
+    provider: "mangareader",
   } )
 );
 test( "parse url without page [unit]", t =>
   t.deepEqual( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin/101" ), {
-    name   : "shingeki-no-kyojin",
-    chapter: 101,
-    page   : 1,
-    siteUrl: "https://www.mangareader.net/shingeki-no-kyojin/101/1",
+    name    : "shingeki-no-kyojin",
+    chapter : 101,
+    page    : 1,
+    provider: "mangareader",
   } )
 );
 test( "parse url without chapter [unit]", t =>
   t.deepEqual( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin" ), {
-    name   : "shingeki-no-kyojin",
-    chapter: 1,
-    page   : 1,
-    siteUrl: "https://www.mangareader.net/shingeki-no-kyojin/1/1",
+    name    : "shingeki-no-kyojin",
+    chapter : 1,
+    page    : 1,
+    provider: "mangareader",
   } )
 );
 test( "parse url without https [unit]", t =>
   t.deepEqual( i.parseFromUrl( "www.mangareader.net/shingeki-no-kyojin/101/5" ), {
-    name   : "shingeki-no-kyojin",
-    chapter: 101,
-    page   : 5,
-    siteUrl: "https://www.mangareader.net/shingeki-no-kyojin/101/5",
+    name    : "shingeki-no-kyojin",
+    chapter : 101,
+    page    : 5,
+    provider: "mangareader",
   } )
 );
 test( "parse url without www.mangareader.net [unit]", t =>
   t.deepEqual( i.parseFromUrl( "shingeki-no-kyojin/101/5" ), {
-    name   : "shingeki-no-kyojin",
-    chapter: 101,
-    page   : 5,
-    siteUrl: "https://www.mangareader.net/shingeki-no-kyojin/101/5",
+    name    : "shingeki-no-kyojin",
+    chapter : 101,
+    page    : 5,
+    provider: null,
+  } )
+);
+test( "parse full rm url [unit]", t =>
+  t.deepEqual( i.parseFromUrl( "https://www.readmng.com/platinum-end/19/2" ), {
+    name    : "platinum-end",
+    chapter : 19,
+    page    : 2,
+    provider: "readmng",
+  } )
+);
+test( "parse url without www.readmng.com [unit]", t =>
+  t.deepEqual( i.parseFromUrl( "platinum-end/19/2" ), {
+    name    : "platinum-end",
+    chapter : 19,
+    page    : 2,
+    provider: null,
   } )
 );
 
