@@ -135,5 +135,5 @@ if ( argv._[0] === "list" ) {
     outputPath = newOut;
   }
 
-  downloadManga( url, outputPath, argv.force, argv.min );
+  downloadManga( url, outputPath, argv.provider, argv.force, argv.min );
 }

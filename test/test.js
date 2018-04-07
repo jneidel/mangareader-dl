@@ -74,7 +74,7 @@ test( "create rm url with page [unit]", t =>
 
 // i.createManga
 test( "create manga from mr url", t =>
-  i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103", __dirname )
+  i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103", __dirname, "mangareader" )
     .then( data => t.deepEqual( data, {
       name      : "shingeki-no-kyojin",
       chapter   : 103,
@@ -86,7 +86,7 @@ test( "create manga from mr url", t =>
     } ) )
 );
 test( "pass on invalid page error", t =>
-  i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103/40", __dirname )
+  i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103/40", __dirname, "mangareader" )
     .then( data => data.imgSrc )
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
@@ -94,7 +94,7 @@ test( "pass on invalid page error", t =>
     } )
 );
 test( "pass on invalid chapter error", t =>
-  i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/250", __dirname )
+  i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/250", __dirname, "mangareader" )
     .then( data => data.imgSrc )
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
@@ -102,7 +102,7 @@ test( "pass on invalid chapter error", t =>
     } )
 );
 test( "create manga from rm url", t =>
-  i.createManga( "https://www.readmng.com/platinum-end/19/1", __dirname )
+  i.createManga( "https://www.readmng.com/platinum-end/19/1", __dirname, "readmng" )
     .then( data => t.deepEqual( data, {
       name      : "platinum-end",
       chapter   : 19,
@@ -148,11 +148,11 @@ test( "parse url without https [unit]", t =>
   } )
 );
 test( "parse url without www.mangareader.net [unit]", t =>
-  t.deepEqual( i.parseFromUrl( "shingeki-no-kyojin/101/5" ), {
+  t.deepEqual( i.parseFromUrl( "shingeki-no-kyojin/101/5", "mangareader" ), {
     name    : "shingeki-no-kyojin",
     chapter : 101,
     page    : 5,
-    provider: null,
+    provider: "mangareader",
   } )
 );
 test( "parse full rm url [unit]", t =>
@@ -164,11 +164,11 @@ test( "parse full rm url [unit]", t =>
   } )
 );
 test( "parse url without www.readmng.com [unit]", t =>
-  t.deepEqual( i.parseFromUrl( "platinum-end/19/2" ), {
+  t.deepEqual( i.parseFromUrl( "platinum-end/19/2", "readmng" ), {
     name    : "platinum-end",
     chapter : 19,
     page    : 2,
-    provider: null,
+    provider: "readmng",
   } )
 );
 
