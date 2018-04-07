@@ -276,37 +276,48 @@ test.serial( "write output path to config [unit]", async t => {
   t.deepEqual( JSON.parse( data ), { outputPath: __dirname } );
 } );
 
+// i.writeHistory
 test.serial( "write manga to history [unit]", async t => {
   const historyPath = path.resolve( __dirname, "mangareader-dl.history.json" );
   const history = new DotJson( historyPath );
 
-  history.set( "shingeki-no-kyojin.chapter", "" ).save();
-  history.set( "shingeki-no-kyojin.path", "" ).save();
+  history
+    .set( "shingeki-no-kyojin.chapter", "" )
+    .set( "shingeki-no-kyojin.path", "" )
+    .set( "shingeki-no-kyojin.provider", "" )
+    .save();
 
   i.writeHistory( {
-    name   : "shingeki-no-kyojin",
-    chapter: 103,
-    path   : "/Users/jneidel/code/mangareader-dl/test",
+    name    : "shingeki-no-kyojin",
+    chapter : 103,
+    provider: "mangareader",
+    path    : "/Users/jneidel/code/mangareader-dl/test",
   }, historyPath );
 
   const data = await fs.readFile( historyPath, { encoding: "utf8" } );
 
   t.deepEqual( JSON.parse( data ), {
     "shingeki-no-kyojin": {
-      chapter: 103,
-      path   : "/Users/jneidel/code/mangareader-dl/test",
+      chapter : 103,
+      provider: "mangareader",
+      path    : "/Users/jneidel/code/mangareader-dl/test",
     } } );
 } );
 
+// i.readHistory
 test.serial( "read manga history for given name [unit]", t => {
   const historyPath = path.resolve( __dirname, "mangareader-dl.history.json" );
   const history = new DotJson( historyPath );
 
-  history.set( "shingeki-no-kyojin.chapter", 102 ).save();
-  history.set( "shingeki-no-kyojin.path", "/Users/jneidel/code/mangareader-dl/test" ).save();
+  history
+    .set( "shingeki-no-kyojin.chapter", 102 )
+    .set( "shingeki-no-kyojin.path", "/Users/jneidel/code/mangareader-dl/test" )
+    .set( "shingeki-no-kyojin.provider", "mangareader" )
+    .save();
 
-  const { chapter, path: mangaPath } = i.readHistory( "shingeki-no-kyojin", historyPath );
+  const { chapter, provider, path: mangaPath } = i.readHistory( "shingeki-no-kyojin", historyPath );
 
   t.is( chapter, 102 );
   t.is( mangaPath, "/Users/jneidel/code/mangareader-dl/test" );
+  t.is( provider, "mangareader" );
 } );
