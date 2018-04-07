@@ -35,16 +35,22 @@ test( "get error for invalid chapter", t =>
 );
 
 // i.createSiteUrl
-test( "create url without page [unit]", t =>
+test( "create mr url without page [unit]", t =>
   t.is(
-    i.createSiteUrl( "shingeki-no-kyojin", 103 ),
+    i.createSiteUrl( "mangareader", "shingeki-no-kyojin", 103 ),
     "https://www.mangareader.net/shingeki-no-kyojin/103/1"
   )
 );
-test( "create url with page [unit]", t =>
+test( "create mr url with page [unit]", t =>
   t.is(
-    i.createSiteUrl( "shingeki-no-kyojin", 103, 39 ),
+    i.createSiteUrl( "mangareader", "shingeki-no-kyojin", 103, 39 ),
     "https://www.mangareader.net/shingeki-no-kyojin/103/39"
+  )
+);
+test( "create rm url with page [unit]", t =>
+  t.is(
+    i.createSiteUrl( "readmng", "platinum-end", 19, 4 ),
+    "https://www.readmng.com/platinum-end/19/4"
   )
 );
 
@@ -137,7 +143,7 @@ test( "parse url without www.readmng.com [unit]", t =>
 );
 
 // i.increase
-test( "increase chapter for valid url", t =>
+test.skip( "increase chapter for valid url", t =>
   i.increase( {
     name   : "shingeki-no-kyojin",
     chapter: 100,
