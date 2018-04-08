@@ -12,8 +12,7 @@
   "scripts": {
     "test": "ava",
     "testing": "ava -w",
-    "unit": "ava -w --match='*[unit]'",
-    "start": "./bin/cli.js"
+    "unit": "ava -w --match='*[unit]'"
   },
   "main": "bin/cli.js",
   "bin": {
@@ -29,7 +28,13 @@
     "node": ">=8"
   },
   "keywords": [
-    ""
+    "manga-dl",
+    "manga",
+    "download",
+    "downloader",
+    "dl",
+    "mangareader",
+    "readmng"
   ],
   "dependencies": {
     "@fav/text.pad": "^1.0.1",
