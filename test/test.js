@@ -52,22 +52,22 @@ test( "get error for invalid rm chapter", t =>
     } )
 );
 
-// i.createSiteUrl
+// i.createUrl
 test( "create mr url without page [unit]", t =>
   t.is(
-    i.createSiteUrl( "mangareader", "shingeki-no-kyojin", 103 ),
+    i.createUrl( "mangareader", "shingeki-no-kyojin", 103 ),
     "https://www.mangareader.net/shingeki-no-kyojin/103/1"
   )
 );
 test( "create mr url with page [unit]", t =>
   t.is(
-    i.createSiteUrl( "mangareader", "shingeki-no-kyojin", 103, 39 ),
+    i.createUrl( "mangareader", "shingeki-no-kyojin", 103, 39 ),
     "https://www.mangareader.net/shingeki-no-kyojin/103/39"
   )
 );
 test( "create rm url with page [unit]", t =>
   t.is(
-    i.createSiteUrl( "readmng", "platinum-end", 19, 4 ),
+    i.createUrl( "readmng", "platinum-end", 19, 4 ),
     "https://www.readmng.com/platinum-end/19/4"
   )
 );
@@ -80,7 +80,7 @@ test( "create manga from mr url", t =>
       chapter   : 103,
       page      : 1,
       provider  : "mangareader",
-      siteUrl   : "https://www.mangareader.net/shingeki-no-kyojin/103/1",
+      url       : "https://www.mangareader.net/shingeki-no-kyojin/103/1",
       imgSrc    : "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg",
       outputPath: __dirname,
     } ) )
@@ -108,7 +108,7 @@ test( "create manga from rm url", t =>
       chapter   : 19,
       page      : 1,
       provider  : "readmng",
-      siteUrl   : "https://www.readmng.com/platinum-end/19/1",
+      url       : "https://www.readmng.com/platinum-end/19/1",
       imgSrc    : "https://www.funmanga.com/uploads/chapters/15537/22/1.jpg?u=",
       outputPath: __dirname,
     } ) )
@@ -180,7 +180,7 @@ test( "increase chapter for valid mr url", t =>
     page    : 1,
     provider: "mangareader",
     imgSrc  : "https://i9.mangareader.net/shingeki-no-kyojin/100/shingeki-no-kyojin-10120141.jpg",
-    siteUrl : "https://www.mangareader.net/shingeki-no-kyojin/100",
+    url     : "https://www.mangareader.net/shingeki-no-kyojin/100",
   } )
     .then( data => t.deepEqual( data, {
       name    : "shingeki-no-kyojin",
@@ -188,7 +188,7 @@ test( "increase chapter for valid mr url", t =>
       page    : 1,
       provider: "mangareader",
       imgSrc  : "https://i7.mangareader.net/shingeki-no-kyojin/101/shingeki-no-kyojin-10239607.jpg",
-      siteUrl : "https://www.mangareader.net/shingeki-no-kyojin/101/1",
+      url     : "https://www.mangareader.net/shingeki-no-kyojin/101/1",
     } ) )
 );
 test( "return null for invalid chapter", t =>
@@ -197,7 +197,7 @@ test( "return null for invalid chapter", t =>
     chapter : 250,
     page    : 1,
     provider: "mangareader",
-    siteUrl : "https://www.mangareader.net/shingeki-no-kyojin/250",
+    url     : "https://www.mangareader.net/shingeki-no-kyojin/250",
   } )
     .then( res => t.is( res, null ) )
 );
@@ -208,7 +208,7 @@ test( "increase chapter for valid rm url", t =>
     page    : 1,
     provider: "readmng",
     imgSrc  : "https://www.funmanga.com/uploads/chapters/15537/22/1.jpg?u=",
-    siteUrl : "https://www.readmng.com/platinum-end/19",
+    url     : "https://www.readmng.com/platinum-end/19",
   } )
     .then( data => t.deepEqual( data, {
       name    : "platinum-end",
@@ -216,7 +216,7 @@ test( "increase chapter for valid rm url", t =>
       page    : 1,
       provider: "readmng",
       imgSrc  : "https://www.funmanga.com/uploads/chapters/15537/23/1.jpg?u=",
-      siteUrl : "https://www.readmng.com/platinum-end/20/1",
+      url     : "https://www.readmng.com/platinum-end/20/1",
     } ) )
 );
 
