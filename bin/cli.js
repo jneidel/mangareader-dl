@@ -53,9 +53,9 @@ const argv = yargs
     default : false,
     boolean : true,
   } )
-  .option( "min", {
-    alias   : "m",
-    describe: "Only show minimal output",
+  .option( "extended", {
+    alias   : "e",
+    describe: "Show an extended output",
     default : false,
     boolean : true,
   } )
@@ -135,5 +135,5 @@ if ( argv._[0] === "list" ) {
     outputPath = newOut;
   }
 
-  downloadManga( url, outputPath, argv.provider, argv.force, argv.min );
+  downloadManga( url, outputPath, argv.provider, argv.force, argv.extended );
 }

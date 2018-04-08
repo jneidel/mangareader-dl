@@ -56,7 +56,7 @@ Options:
                                                       [boolean] [default: false]
   --force, -f     Use given chapter/path instead of reading from history,
                   overwrite history                   [boolean] [default: false]
-  --min, -m       Only show minimal output            [boolean] [default: false]
+  --extended, -e  Show an extended output             [boolean] [default: false]
   --provider, -p  Specify site to download from
                   Options: [mangareader, readmng]       [default: "mangareader"]
   --help, -h      Display help this message                            [boolean]
