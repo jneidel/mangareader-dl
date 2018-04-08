@@ -6,6 +6,19 @@
 [![Travis Build Status](https://img.shields.io/travis/jneidel/mangareader-dl.svg?style=flat-square)](https://travis-ci.org/jneidel/mangareader-dl)
 [![Code Style Custom](https://img.shields.io/badge/code%20style-custom-ff69b4.svg?style=flat-square)](https://github.com/jneidel/dotfiles/blob/master/eslintrc)
 
+<details>
+<summary><strong>Table of Contents</strong></summary>
+
+<!-- toc -->
+
+- [API](#api)
+- [Supported Sites](#supported-sites)
+- [FAQ](#faq)
+
+<!-- tocstop -->
+
+</details><br>
+
 This full-fledged Node version is still WIP and not yet released on npm. For a basic version see the [previous python version](py/readme.md).
 
 ---
