@@ -137,3 +137,5 @@ if ( argv._[0] === "list" ) {
 
   downloadManga( url, outputPath, argv.provider, argv.force, argv.extended );
 }
+
+process.on( "unhandledRejection", ( err ) => { throw err; } );
