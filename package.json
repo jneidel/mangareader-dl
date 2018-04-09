@@ -27,17 +27,7 @@
   "engines": {
     "node": ">=8"
   },
-  "keywords": [
-    "manga-dl",
-    "manga",
-    "download",
-    "downloader",
-    "dl",
-    "mangareader",
-    "readmng"
-  ],
   "dependencies": {
-    "@fav/text.pad": "^1.0.1",
     "axios": "^0.18.0",
     "chalk": "^2.3.2",
     "cheerio": "^1.0.0-rc.2",
@@ -45,13 +35,13 @@
     "dot-json": "^1.0.4",
     "execution-time": "^1.2.0",
     "jszip": "^3.1.5",
-    "left-pad": "^1.2.0",
     "log-update": "^2.3.0",
     "make-dir": "^1.2.0",
     "mz": "^2.7.0",
     "p-map": "^1.2.0",
     "progress-string": "^1.2.2",
     "py-range": "^1.0.0",
+    "strpad": "^1.0.2",
     "window-size": "^1.1.0",
     "yargs": "^11.0.0"
   },
@@ -64,5 +54,15 @@
     "files": [
       "test/test.js"
     ]
-  }
+  },
+  "keywords": [
+    "manga-dl",
+    "manga",
+    "download",
+    "downloader",
+    "scraper",
+    "dl",
+    "mangareader",
+    "readmng"
+  ]
 }
