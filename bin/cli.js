@@ -6,7 +6,7 @@ const yargs = require( "yargs" );
 const DotJson = require( "dot-json" );
 const mkdir = require( "make-dir" );
 
-const downloadManga = require( "../lib/download" );
+const { downloadManga } = require( "../lib/download" );
 const i = require( "../lib" );
 
 const supportedProviders = [ "mangareader", "readmng" ];
