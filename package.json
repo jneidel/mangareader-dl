@@ -52,7 +52,7 @@
   },
   "ava": {
     "files": [
-      "test/test.js"
+      "test/*.test.js"
     ]
   },
   "keywords": [

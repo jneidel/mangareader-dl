@@ -17,7 +17,12 @@ const i = require( "../lib" );
 // i.getImgSrcIfValid
 test( "get mr image source", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103", "mangareader" )
-    .then( src => t.is( src, "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg" ) )
+    .then( src => {
+      if ( src.slice( 8, 10 ) === "i6" ) // Different servers depending on position
+        t.is( src, "https://i6.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg" );
+      else
+        t.is( src, "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg" );
+    } )
 );
 test( "get error for invalid mr page", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103/40", "mangareader" ) // Last page is 39
@@ -75,15 +80,23 @@ test( "create rm url with page [unit]", t =>
 // i.createManga
 test( "create manga from mr url", t =>
   i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103", __dirname, "mangareader" )
-    .then( data => t.deepEqual( data, {
-      name      : "shingeki-no-kyojin",
-      chapter   : 103,
-      page      : 1,
-      provider  : "mangareader",
-      url       : "https://www.mangareader.net/shingeki-no-kyojin/103/1",
-      imgSrc    : "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg",
-      outputPath: __dirname,
-    } ) )
+    .then( data => {
+      const testManga = {
+        name      : "shingeki-no-kyojin",
+        chapter   : 103,
+        page      : 1,
+        provider  : "mangareader",
+        url       : "https://www.mangareader.net/shingeki-no-kyojin/103/1",
+        outputPath: __dirname,
+      };
+
+      if ( data.imgSrc.slice( 8, 10 ) === "i6" ) // Different servers depending on position
+        testManga.imgSrc = "https://i6.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg";
+      else
+        testManga.imgSrc = "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg";
+
+      t.deepEqual( data, testManga );
+    } )
 );
 test( "pass on invalid page error", t =>
   i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103/40", __dirname, "mangareader" )
