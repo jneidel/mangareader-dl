@@ -1,4 +1,8 @@
-# mangareader-dl
+# mangareader-dl - DEPRECATED
+
+Consider using the faster and more comfortable [node version](https://github.com/jneidel/mangareader-dl#mangareader-dl).
+
+---
 
 A commandline utility for downloading from [mangareader.net](http://www.mangareader.net/).
 

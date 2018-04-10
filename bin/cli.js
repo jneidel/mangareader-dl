@@ -30,8 +30,7 @@ const argv = yargs
   .command( "list", "List downloaded manga" )
   .command( {
     command: "config",
-    desc   : `Use flags to set their global defaults
-    -o .. Set global default output dir`,
+    desc   : `Use flags to set their global defaults`,
   } )
   .demandCommand( 1, "You need to specifiy at least one command" )
   .option( "out", {
