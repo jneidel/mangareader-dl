@@ -62,6 +62,7 @@
     "downloader",
     "scraper",
     "dl",
+    "cli",
     "mangareader",
     "readmng"
   ]

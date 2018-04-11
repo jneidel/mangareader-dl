@@ -134,7 +134,14 @@ if ( argv._[0] === "list" ) {
     outputPath = newOut;
   }
 
-  downloadManga( url, outputPath, argv.provider, argv.force, argv.extended );
+  const options = {
+    outputPath,
+    provider: argv.provider,
+    isForce : argv.force,
+    isExt   : argv.extended,
+  };
+
+  downloadManga( url, options );
 }
 
 process.on( "unhandledRejection", ( err ) => { throw err; } );
