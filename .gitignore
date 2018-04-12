@@ -2,6 +2,6 @@ node_modules/
 tmp
 **/*.cbz
 *.cbz
-licence
+package-lock*
 mangareader-dl.*.json
 **/mangareader-dl.*.json

@@ -4,6 +4,7 @@
 
 ![Project Status](https://img.shields.io/badge/status-Work_in_Progress-red.svg?style=flat-square)
 [![Travis Build Status](https://img.shields.io/travis/jneidel/mangareader-dl.svg?style=flat-square)](https://travis-ci.org/jneidel/mangareader-dl)
+[![Licence MIT](https://img.shields.io/badge/licence-MIT-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/licence)
 [![Npm Downloads](https://img.shields.io/npm/dt/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
 [![Code Style Custom](https://img.shields.io/badge/code%20style-custom-ff69b4.svg?style=flat-square)](https://github.com/jneidel/dotfiles/blob/master/eslintrc)
 
@@ -52,7 +53,9 @@ $ mangareader-dl naruto/699 -deo .
     - [--extended](#--extended)
 - [Supported sites](#supported-sites)
 - [FAQ](#faq)
+- [Test](#test)
 - [Python version](#python-version)
+- [License](#license)
 
 ## Installation
 
@@ -422,3 +425,9 @@ $ npm run test
 ## Python version
 
 For the rudimentary, legacy version written in python [click here](py).
+
+## License
+
+MIT © [Jonathan Neidel](https://jneidel.com)
+
+Excludes [python version](py) adapted from [clearnote01](https://github.com/clearnote01).
