@@ -12,6 +12,9 @@ const i = require( "../lib" );
 
 const supportedProviders = [ "mangareader", "readmng" ];
 
+const historyPath = path.resolve( __dirname, "..", "mangareader-dl.history.json" );
+if ( !fileExists.sync( historyPath ) ) fs.writeFileSync( historyPath, "{}" );
+
 const configPath = path.resolve( __dirname, "..", "mangareader-dl.config.json" );
 if ( !fileExists.sync( configPath ) ) fs.writeFileSync( configPath, "{}" );
 const config = new DotJson( configPath );
