@@ -37,3 +37,9 @@ test( "all: last in s, all in 100+ m  [unit]", t => t.is( progressBar.allTimePad
  * last:     42s
  * all:  150:00m
  */
+test( "last: last single s, all two s [unit]", t => t.is( progressBar.lastTimePad( 7, 14 ), "last:  7s" ) );
+test( "all: last single s, all two s [unit]", t => t.is( progressBar.allTimePad( 14 ), "all:  14s" ) );
+/**
+ * last:  7s
+ * all:  14s
+ */
