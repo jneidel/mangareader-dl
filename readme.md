@@ -2,8 +2,9 @@
 
 > CLI for downloading from mangareader.net and much more
 
-![Project Status](https://img.shields.io/badge/status-Work_in_Progress/Unreleased-red.svg?style=flat-square)
+![Project Status](https://img.shields.io/badge/status-Work_in_Progress-red.svg?style=flat-square)
 [![Travis Build Status](https://img.shields.io/travis/jneidel/mangareader-dl.svg?style=flat-square)](https://travis-ci.org/jneidel/mangareader-dl)
+[![Npm Downloads](https://img.shields.io/npm/dt/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
 [![Code Style Custom](https://img.shields.io/badge/code%20style-custom-ff69b4.svg?style=flat-square)](https://github.com/jneidel/dotfiles/blob/master/eslintrc)
 
 Convenient mass downloading from [mangareader.net](https://www.mangareader.net/) and other [supported sites](#supported-sites).
@@ -55,9 +56,12 @@ $ mangareader-dl naruto/699 -deo .
 
 ## Installation
 
-![Project Status](https://img.shields.io/badge/status-Work_in_Progress/Unreleased-red.svg?style=flat-square)
+![Project Status](https://img.shields.io/badge/status-Work_in_Progress-red.svg?style=flat-square)
+[![Npm Version](https://img.shields.io/npm/v/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
 
-Once ready, this module will be released on npm. For the time being one can `git clone` this repo.
+```zsh
+$ npm i mangareader-dl
+```
 
 ## Usage
 
@@ -408,6 +412,12 @@ I use [YACReader](https://www.yacreader.com/) (which I very much recommend) on m
 - State: YACReader saves how far you've read automatically, no need to manage bookmarks.
 - Battery: Turning off WiFi and not running your draining browser but a lightweight app like YACReader will be easy on your battery.
 - Convenience: Your reading is delayed only by the time it takes to download the first chapter. After that, judge for yourself.
+
+## Test
+
+```
+$ npm run test
+```
 
 ## Python version
 

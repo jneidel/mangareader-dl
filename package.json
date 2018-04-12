@@ -1,7 +1,7 @@
 {
   "name": "mangareader-dl",
   "version": "0.0.0",
-  "description": "CLI for downloading from mangareader.net",
+  "description": "CLI for downloading from mangareader.net and much more",
   "repository": "jneidel/mangareader-dl",
   "license": "MIT",
   "author": {
@@ -16,8 +16,7 @@
   },
   "main": "bin/cli.js",
   "bin": {
-    "mangareader-dl": "bin/cli.js",
-    "manga-dl": "bin/cli.js"
+    "mangareader-dl": "bin/cli.js"
   },
   "files": [
     "lib/",
@@ -42,7 +41,6 @@
     "progress-string": "^1.2.2",
     "py-range": "^1.0.0",
     "strpad": "^1.0.2",
-    "window-size": "^1.1.0",
     "yargs": "^11.0.0"
   },
   "devDependencies": {
