@@ -5,7 +5,7 @@
 ![Project Status](https://img.shields.io/badge/status-Work_in_Progress-red.svg?style=flat-square)
 [![Travis Build Status](https://img.shields.io/travis/jneidel/mangareader-dl.svg?style=flat-square)](https://travis-ci.org/jneidel/mangareader-dl)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/licence)
-[![Npm Downloads](https://img.shields.io/npm/dt/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
+[![Npm Downloads](https://img.shields.io/npm/dw/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
 [![Code Style Custom](https://img.shields.io/badge/code%20style-custom-ff69b4.svg?style=flat-square)](https://github.com/jneidel/dotfiles/blob/master/eslintrc)
 
 Convenient mass downloading from [mangareader.net](https://www.mangareader.net/) and other [supported sites](#supported-sites).
@@ -40,7 +40,7 @@ $ mangareader-dl naruto/699 -deo .
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [API](#api)
+- [CLI](#cli)
   - [Commands](#commands)
     - [\<manga>](#mangachapter-options)
     - [list](#list)
@@ -48,7 +48,7 @@ $ mangareader-dl naruto/699 -deo .
   - [Options](#options)
     - [--out](#--out-path)
     - [--dir](#--dir)
-    - [--provider](#--provider)
+    - [--provider](#--provider-site)
     - [--force](#--force)
     - [--extended](#--extended)
 - [Supported sites](#supported-sites)
@@ -134,7 +134,7 @@ $ mangareader-dl https://www.readmng.com/shingeki-no-kyojin
 # Output path: './'
 ```
 
-For all available site, see [supported sites](#supported-sites). For more on specifying a provider, see [`--provider`](#--provider).
+For all available site, see [supported sites](#supported-sites). For more on specifying a provider, see [`--provider`](#--provider-site).
 
 **Change defaults:**
 
@@ -146,7 +146,7 @@ $ mangareader-dl config -do ~/manga -p mangareader
 
 For more on editing the configuration, see [config](#config-options).
 
-## API
+## CLI
 
 ```zsh
 $ mangareader-dl help
@@ -192,7 +192,8 @@ https://github.com/jneidel/mangareader-dl
 Url or name of manga to download.
 
 ```zsh
-$ mangareader-dl shingeki-no-kyojin
+$ mangareader-dl shingeki-no-kyojin # same as
+$ mangareader-dl https://www.mangareader.net/shingeki-no-kyojin
 ```
 
 A chapter can be specified using a `/` after the manga name: `shingeki-no-kyojin/100`.
@@ -203,11 +204,11 @@ $ mangareader-dl shingeki-no-kyojin/100
 
 **Available options:**
 
-- [--out](#--out-path) <path>
+- [--out `<path>`](#--out-path)
 - [--dir](#--dir)
-- [--provider](#--provider)
-- [--extended](#--extended)
+- [--provider `<site>`](#--provider-site)
 - [--force](#--force)
+- [--extended](#--extended)
 
 **Possible formats:**
 
@@ -227,11 +228,12 @@ This list is used for continuing downloads.
 $ mangareader-dl list
 
 # ❯ Downloaded manga:
-#   hunter-x-hunter - 380 [mangareader - /Users/jneidel/manga/hunter-x-hunter]
-#   onepunch-man - 136 [readmng - /Users/jneidel/manga/onepunch-man]
+#   onepunch-man       137 [mangareader /Users/jneidel/manga/onepunch-man]
+#   platinum-end        28 [readmng     /Users/jneidel/manga/platinum-end]
+#   shingeki-no-kyojin 104 [mangareader /Users/jneidel/manga/shingeki-no-kyojin]
 ```
 
-To continue the download of `onepunch-man` starting at chapter 137 specify:
+To continue the download of `onepunch-man` starting at chapter 138 specify:
 
 ```zsh
 $ mangareader-dl onepunch-man
@@ -244,8 +246,6 @@ The history (output of `list`) can be reset by specifying `list reset`:
 ```zsh
 $ mangareader-dl list reset
 ```
-
-There is no way to undo this.
 
 #### <h3>config [options]</h3>
 
@@ -260,7 +260,7 @@ $ mangareader-dl -do ~/manga -p mangareader
 | option | parameter | default |
 |--|--|--|
 | [--out](#--out-path) | `<path>` | `./` |
-| [--provider](#--provider) | `<site>` | `mangareader` |
+| [--provider](#--provider-site) | `<site>` | `mangareader` |
 | [--dir](#--dir) | `true` / `false` | `false` |
 | [--extended](#--extended) | `true` / `false` | `false` |
 
@@ -272,21 +272,21 @@ The configuration can be reset by specifying `config reset`:
 $ mangareader-dl config reset
 ```
 
-There is no way to undo this.
-
 ### Options
 
 Option flags of type boolean can be chained using their short form:
 
 ```zsh
 $ mangareader-dl <manga> -dfe
-# Or chaining a flag that requires a parameter at the end
+# Options requiring a parameter can be chained at the end
 $ mangareader-dl <manga> -dfeo <path>
 ```
 
 #### <h3>--out \<path></h3>
 
-Alias: `-o` / Default: `./`
+<table><tr>
+  <td>Alias: <code>-o</code></td>
+</tr></table>
 
 Set the output path.
 
@@ -298,25 +298,33 @@ $ mangareader-dl shingeki-no-kyojin --out aot
 
 **\<path>:**
 
-Required
-
-`<path>` can be either absolute or relative (`./` isn't required for relative paths). Wrapping the path isn't necessary.
+<table><tr>
+  <td>Required</td>
+  <td>Default: <code>./</code></td>
+  <td>Type: <code>string</code></td>
+</tr></table>
 
 #### <h3>--dir</h3>
 
-Alias: `-d` / Type: `Boolean`
+<table><tr>
+  <td>Alias: <code>-d</code></td>
+  <td>Default: <code>false</code></td>
+  <td>Type: <code>boolean</code></td>
+</tr></table>
 
 Add a directory named after the manga to the path.
 
 ```zsh
-$ mangareader-dl shingeki-no-kyojin -do
+$ mangareader-dl shingeki-no-kyojin -do aot
 
 # Output path: './aot'
 ```
 
 #### <h3>--provider \<site></h3>
 
-Alias: `-p` / Default: `mangareader`
+<table><tr>
+  <td>Alias: <code>-p</code></td>
+</tr></table>
 
 Specify site to download from.
 
@@ -325,6 +333,12 @@ $ mangareader-dl shingeki-no-kyojin -p readmng
 ```
 
 **\<site>:**
+
+<table><tr>
+  <td>Required</td>
+  <td>Default: <code>mangareader</code></td>
+  <td>Type: <code>string</code></td>
+</tr></table>
 
 Must be in the list of [supported sites](#supported-sites).
 
@@ -337,7 +351,11 @@ Leave off the domain extension (eg: `.com`).
 
 #### <h3>--force</h3>
 
-Alias: `-f` / Type: `Boolean`
+<table><tr>
+  <td>Alias: <code>-f</code></td>
+  <td>Default: <code>false</code></td>
+  <td>Type: <code>boolean</code></td>
+</tr></table>
 
 Overwrite the corresponding entry in the [history](#list) with the currently specified data.
 
@@ -355,7 +373,11 @@ $mangareader-dl shingeki-no-kyojin/100 -f
 
 #### <h3>--extended</h3>
 
-Alias: `-e` / Type: `Boolean`
+<table><tr>
+  <td>Alias: <code>-e</code></td>
+  <td>Default: <code>false</code></td>
+  <td>Type: <code>boolean</code></td>
+</tr></table>
 
 Activate extended progress bar, which includes a separate chapter bar.
 
@@ -373,7 +395,7 @@ Currently supported sites include:
 - [mangareader.net](https://www.mangareader.net/)
 - [readmng.com](https://www.readmng.com/)
 
-If given a full url (eg: `www.mangareader.net/shingeki-no-kyojin`) the provider (site to download from) will be parsed from the url, using a short url (eg: `shingeki-no-kyojin`) the default provider (`mangareader`) will be used. (Default can be set using the [config](#config-options) command). To use a different provider specify it with the [`--provider`](#--provider) flag.
+If given a full url (eg: `www.mangareader.net/shingeki-no-kyojin`) the provider (site to download from) will be parsed from the url, using a short url (eg: `shingeki-no-kyojin`) the default provider (`mangareader`) will be used. (Default can be set using the [config](#config-options) command). To use a different provider specify it with the [`--provider`](#--provider-site) flag.
 
 ```zsh
 # Both download Attack on Titan from mangareader.net
