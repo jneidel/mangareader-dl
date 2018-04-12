@@ -9,13 +9,19 @@
 Convenient mass downloading from [mangareader.net](https://www.mangareader.net/) and other [supported sites](#supported-sites).
 Given the name or url `mangareader-dl` will download all available chapters of the manga.
 
+<p align="center">
+  <a href="https://asciinema.org/a/175766" target="_blank">
+    <img src="https://asciinema.org/a/175766.png" width="650" />
+  </a>
+</p>
+
 ```zsh
-$ mangareader-dl naruto
+$ mangareader-dl naruto/699 -deo .
 
 # Result:
-# └── ./
-#     ├── naruto-1.cbz
-#     ├── ...
+# ├── ./
+# └── naruto
+#     ├── naruto-699.cbz
 #     └── naruto-700.cbz
 ```
 
