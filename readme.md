@@ -154,37 +154,35 @@ $ mangareader-dl help
 Usage: mangareader-dl <manga> [options]
 
 Commands:
-  mangareader-dl <manga>  Manga to be downloaded, Format:
+  mangareader-dl <manga>  Manga to download, Format (url or name):
                           https://www.mangareader.net/shingeki-no-kyojin
                           shingeki-no-kyojin
                           shingeki-no-kyojin/<chapter>
   mangareader-dl list     List downloaded manga
-  mangareader-dl config   Use flags to set their global defaults
-                          -o .. Set global default output dir
+  mangareader-dl config   Set defaults by specifying their flags
 
 Options:
-  --out, -o       Output directory for downloaded manga
-                        [string] [default: "/Users/jneidel/code/mangareader-dl"]
-  --dir, -d       Download into the directory '<output>/<manga>'
+  --out, -o       Set output path, eg: './manga'
+                                      [string] [default: "/Users/jneidel/manga"]
+  --dir, -d       Download into the directory '<output-path>/<manga>'
                                                       [boolean] [default: false]
-  --force, -f     Use given chapter/path instead of reading from history,
-                  overwrite history                   [boolean] [default: false]
-  --extended, -e  Show an extended output             [boolean] [default: false]
-  --provider, -p  Specify site to download from
+  --force, -f     Use specified chapter/path instead of reading from history,
+                  overwrites history                  [boolean] [default: false]
+  --extended, -e  Download with extended progress bar [boolean] [default: false]
+  --provider, -p  Set site to download from
                   Options: [mangareader, readmng]       [default: "mangareader"]
-  --help, -h      Display help this message                            [boolean]
+  --help, -h      Display this help message                            [boolean]
   --version, -v   Show version number                                  [boolean]
 
 Examples:
-  $ mangareader-dl shingeki-no-kyojin       Download all available chapter of
-  --out ~/aot                               Attack on Titan into ~/aot
-  $ mangareader-dl                          Download all available chapter of
-  https://www.mangareader.net/shingeki-no-  Attack on Titan, starting at chapter
-  kyojin/100                                100 into the current directory (./)
-  $ mangareader-dl shingeki-no-kyojin -do   Download Attack on Titan into the
-  ~/manga                                   directory ~/manga/shingeki-no-kyojin
+  $ mangareader-dl                          Download chapters 100+ of AoT into
+  https://www.mangareader.net/shingeki-no-  './'
+  kyojin/100
+  $ mangareader-dl shingeki-no-kyojin -o    Download all chapters of Attack on
+  ~/aot                                     Titan into '~/aot'
 
-For more information visit: https://github.com/jneidel/mangareader-dl
+For the full documentation, along with more examples visit:
+https://github.com/jneidel/mangareader-dl
 ```
 
 ### <h2>Commands</h2>
@@ -259,25 +257,12 @@ $ mangareader-dl -do ~/manga -p mangareader
 
 **Available options:**
 
-- [--out](#--out-path) <path>
-- [--dir](#--dir)
-- [--provider](#--provider)
-
-**--out:**
-
-Default: `./`
-
-**--provider:**
-
-Default: `mangareader`
-
-**--dir:**
-
-Default: false
-
-Activate by passing `-d/--dir` on every config call.
-
-Deactivate by *not* passing `-d/--dir` on config calls.
+| option | parameter | default |
+|--|--|--|
+| [--out](#--out-path) | `<path>` | `./` |
+| [--provider](#--provider) | `<site>` | `mangareader` |
+| [--dir](#--dir) | `true` / `false` | `false` |
+| [--extended](#--extended) | `true` / `false` | `false` |
 
 **Reset config:**
 

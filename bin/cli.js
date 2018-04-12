@@ -20,64 +20,58 @@ if ( !fileExists.sync( configPath ) ) fs.writeFileSync( configPath, "{}" );
 const config = new DotJson( configPath );
 
 const defaultOutputPath = config.get( "outputPath" ) || "./";
-const defaultDirectory = config.get( "directory" ) || false;
 const defaultProvider = config.get( "provider" ) || "mangareader";
+const defaultDirectory = config.get( "dir" ) || false;
+const defaultExtended = config.get( "extended" ) || false;
 
 const argv = yargs
   .usage( "Usage: $0 <manga> [options]" )
-  .command( {
-    command: "<manga>",
-    desc   : `Manga to be downloaded, Format:
+  .command( "<manga>", `Manga to download, Format (url or name):
     https://www.mangareader.net/shingeki-no-kyojin
     shingeki-no-kyojin
-    shingeki-no-kyojin/<chapter>`,
-  } )
+    shingeki-no-kyojin/<chapter>` )
   .command( "list", "List downloaded manga" )
-  .command( {
-    command: "config",
-    desc   : `Use flags to set their global defaults`,
-  } )
-  .demandCommand( 1, "You need to specifiy at least one command" )
+  .command( "config", `Set defaults by specifying their flags` )
+  .demandCommand( 1, "You need to specifiy at least one command. Specify --help for all available commands." )
   .option( "out", {
     alias      : "o",
-    describe   : "Output directory for downloaded manga",
+    describe   : "Set output path, eg: './manga'",
     default    : defaultOutputPath,
     requiresArg: true,
   } )
   .normalize( "out" ) // path.normalize()
   .option( "dir", {
     alias   : "d",
-    describe: "Download into the directory '<output>/<manga>'",
+    describe: "Download into the directory '<output-path>/<manga>'",
     default : defaultDirectory,
     boolean : true,
   } )
   .option( "force", {
     alias   : "f",
-    describe: "Use given chapter/path instead of reading from history, overwrite history",
+    describe: "Use specified chapter/path instead of reading from history,\noverwrites history",
     default : false,
     boolean : true,
   } )
   .option( "extended", {
     alias   : "e",
-    describe: "Show an extended output",
-    default : false,
+    describe: "Download with extended progress bar",
+    default : defaultExtended,
     boolean : true,
   } )
   .option( "provider", {
     alias      : "p",
-    describe   : "Specify site to download from\nOptions: [mangareader, readmng]",
+    describe   : "Set site to download from\nOptions: [mangareader, readmng]",
     default    : defaultProvider,
     requiresArg: true,
   } )
   .help( "help" ) // Move help to bottom of options
   .alias( "help", "h" )
-  .describe( "help", "Display help this message" )
+  .describe( "help", "Display this help message" )
   .version()
   .alias( "version", "v" )
-  .example( "$ $0 shingeki-no-kyojin --out ~/aot", "Download all available chapter of Attack on Titan into ~/aot" )
-  .example( "$ $0 https://www.mangareader.net/shingeki-no-kyojin/100", "Download all available chapter of Attack on Titan, starting at chapter 100 into the current directory (./)" )
-  .example( "$ $0 shingeki-no-kyojin -do ~/manga", "Download Attack on Titan into the directory ~/manga/shingeki-no-kyojin" )
-  .epilog( "For more information visit: https://github.com/jneidel/mangareader-dl" )
+  .example( "$ $0 https://www.mangareader.net/shingeki-no-kyojin/100", "Download chapters 100+ of AoT into './'" )
+  .example( "$ $0 shingeki-no-kyojin -o ~/aot", "Download all chapters of Attack on Titan into '~/aot'" )
+  .epilog( "For the full documentation, along with more examples visit: https://github.com/jneidel/mangareader-dl" )
   .showHelpOnFail( false, "Specify --help for available options" )
   .argv;
 
@@ -106,21 +100,21 @@ if ( argv._[0] === "list" ) {
 
     if ( outputPath !== defaultOutputPath ) {
       config.set( "outputPath", outputPath ).save();
-      outMsg += `Default output path changed to '${outputPath}'. `;
-    }
-
-    if ( argv.dir ) {
-      config.set( "dir", true ).save();
-      outMsg += "'Directory' option globally enabled. ";
-    } else {
-      config.set( "dir", false ).save();
-      outMsg += "'Directory' option globally disabled. ";
+      outMsg += `Default output path set to '${outputPath}'. `;
     }
 
     if ( argv.provider !== defaultProvider ) {
       config.set( "provider", argv.provider ).save();
-      outMsg += `'${argv.provider}' has been set as your default provider.`;
+      outMsg += `'${argv.provider}' set as default provider. `;
     }
+
+    config.set( "dir", argv.dir ).save();
+    if ( argv.dir !== defaultDirectory )
+      outMsg += argv.dir ? "'--dir' option enabled. " : "'--dir' option disabled. ";
+
+    config.set( "extended", argv.extended ).save();
+    if ( argv.extended !== defaultExtended )
+      outMsg += argv.extended ? "'--extended' option enabled." : "'--extended' option disabled.";
 
     if ( outMsg.length === 0 ) {
       outMsg = `No options have been passed to 'config'. Specify --help for usage info`;
