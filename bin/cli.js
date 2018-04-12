@@ -5,6 +5,7 @@ const path = require( "path" );
 const yargs = require( "yargs" );
 const DotJson = require( "dot-json" );
 const mkdir = require( "make-dir" );
+const fileExists = require( "file-exists" );
 
 const { downloadManga } = require( "../lib/download" );
 const i = require( "../lib" );
@@ -12,6 +13,7 @@ const i = require( "../lib" );
 const supportedProviders = [ "mangareader", "readmng" ];
 
 const configPath = path.resolve( __dirname, "..", "mangareader-dl.config.json" );
+if ( !fileExists.sync( configPath ) ) fs.writeFileSync( configPath, "{}" );
 const config = new DotJson( configPath );
 
 const defaultOutputPath = config.get( "outputPath" ) || "./";
