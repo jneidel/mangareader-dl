@@ -3,5 +3,7 @@ tmp
 **/*.cbz
 *.cbz
 package-lock*
+mangareader-dl.json
 mangareader-dl.*.json
 **/mangareader-dl.*.json
+bin/cli.js.*

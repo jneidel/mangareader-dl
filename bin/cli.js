@@ -3,26 +3,16 @@
 const fs = require( "mz/fs" );
 const path = require( "path" );
 const yargs = require( "yargs" );
-const DotJson = require( "dot-json" );
 const mkdir = require( "make-dir" );
-const fileExists = require( "file-exists" );
 
 const { downloadManga } = require( "../lib/download" );
 const i = require( "../lib" );
+const s = require( "../lib/settings" );
 
 const supportedProviders = [ "mangareader", "readmng" ];
 
-const historyPath = path.resolve( __dirname, "..", "mangareader-dl.history.json" );
-if ( !fileExists.sync( historyPath ) ) fs.writeFileSync( historyPath, "{}" );
-
-const configPath = path.resolve( __dirname, "..", "mangareader-dl.config.json" );
-if ( !fileExists.sync( configPath ) ) fs.writeFileSync( configPath, "{}" );
-const config = new DotJson( configPath );
-
-const defaultOutputPath = config.get( "outputPath" ) || "./";
-const defaultProvider = config.get( "provider" ) || "mangareader";
-const defaultDirectory = config.get( "dir" ) || false;
-const defaultExtended = config.get( "extended" ) || false;
+const settings = s.setupSettingsFile();
+const defaults = s.parseDefaults( settings );
 
 const argv = yargs
   .usage( "Usage: $0 <manga> [options]" )
@@ -36,14 +26,14 @@ const argv = yargs
   .option( "out", {
     alias      : "o",
     describe   : "Set output path, eg: './manga'",
-    default    : defaultOutputPath,
+    default    : defaults.out,
     requiresArg: true,
   } )
   .normalize( "out" ) // path.normalize()
   .option( "dir", {
     alias   : "d",
     describe: "Download into the directory '<output-path>/<manga>'",
-    default : defaultDirectory,
+    default : defaults.dir,
     boolean : true,
   } )
   .option( "force", {
@@ -55,13 +45,13 @@ const argv = yargs
   .option( "extended", {
     alias   : "e",
     describe: "Download with extended progress bar",
-    default : defaultExtended,
+    default : defaults.extended,
     boolean : true,
   } )
   .option( "provider", {
     alias      : "p",
     describe   : "Set site to download from\nOptions: [mangareader, readmng]",
-    default    : defaultProvider,
+    default    : defaults.provider,
     requiresArg: true,
   } )
   .help( "help" ) // Move help to bottom of options
@@ -89,7 +79,7 @@ if ( argv._[0] === "list" ) {
     fs.writeFile( path.resolve( __dirname, "..", "mangareader-dl.history.json" ), "{}" );
     i.prependArrowPrintStdout( "History has been reset." );
   } else {
-    i.outputHistory();
+    s.outputHistory( settings );
   }
 } else if ( argv._[0] === "config" ) {
   if ( argv._[1] === "reset" ) {
@@ -98,22 +88,22 @@ if ( argv._[0] === "list" ) {
   } else {
     let outMsg = "";
 
-    if ( outputPath !== defaultOutputPath ) {
-      config.set( "outputPath", outputPath ).save();
+    if ( outputPath !== defaults.out ) {
+      settings.set( "config.outputPath", outputPath ).save();
       outMsg += `Default output path set to '${outputPath}'. `;
     }
 
-    if ( argv.provider !== defaultProvider ) {
-      config.set( "provider", argv.provider ).save();
+    if ( argv.provider !== defaults.provider ) {
+      settings.set( "config.provider", argv.provider ).save();
       outMsg += `'${argv.provider}' set as default provider. `;
     }
 
-    config.set( "dir", argv.dir ).save();
-    if ( argv.dir !== defaultDirectory )
+    settings.set( "config.dir", argv.dir ).save();
+    if ( argv.dir !== defaults.dir )
       outMsg += argv.dir ? "'--dir' option enabled. " : "'--dir' option disabled. ";
 
-    config.set( "extended", argv.extended ).save();
-    if ( argv.extended !== defaultExtended )
+    settings.set( "config.extended", argv.extended ).save();
+    if ( argv.extended !== defaults.extended )
       outMsg += argv.extended ? "'--extended' option enabled." : "'--extended' option disabled.";
 
     if ( outMsg.length === 0 ) {
@@ -140,7 +130,7 @@ if ( argv._[0] === "list" ) {
     isExt   : argv.extended,
   };
 
-  downloadManga( url, options );
+  downloadManga( url, options, settings );
 }
 
 process.on( "unhandledRejection", ( err ) => { throw err; } );

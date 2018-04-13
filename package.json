@@ -33,6 +33,7 @@
     "cli-progress": "^1.8.0",
     "dot-json": "^1.0.4",
     "execution-time": "^1.2.0",
+    "expand-home-dir": "0.0.3",
     "file-exists": "^5.0.1",
     "jszip": "^3.1.5",
     "log-update": "^2.3.0",
