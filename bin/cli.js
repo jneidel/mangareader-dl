@@ -54,6 +54,12 @@ const argv = yargs
     default    : defaults.provider,
     requiresArg: true,
   } )
+  .option( "micro", {
+    alias   : "m",
+    describe: "Download with micro progress bar",
+    default : false,
+    boolean : true,
+  } )
   .help( "help" ) // Move help to bottom of options
   .alias( "help", "h" )
   .describe( "help", "Display this help message" )
@@ -72,6 +78,8 @@ if ( !~supportedProviders.indexOf( argv.provider ) ) {
   i.prependArrowPrintStdout( `The provider '${argv.provider}' is not supported. Please choose one from the list:\n  [${supportedProviders}]\n  Or submit a issue on GitHub requesting support of the given provider.` );
   process.exit();
 }
+
+argv.bar = argv.micro ? "micro" : argv.extended ? "extended" : "normal"; // Micro > extended > normal
 
 const isReset = argv._[1] === "reset";
 

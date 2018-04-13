@@ -51,6 +51,7 @@ $ mangareader-dl naruto/699 -deo .
     - [--provider](#--provider-site)
     - [--force](#--force)
     - [--extended](#--extended)
+    - [--micro](#--micro)
 - [Supported sites](#supported-sites)
 - [FAQ](#faq)
 - [Test](#test)
@@ -209,6 +210,7 @@ $ mangareader-dl shingeki-no-kyojin/100
 - [--provider `<site>`](#--provider-site)
 - [--force](#--force)
 - [--extended](#--extended)
+- [--micro](#--micro)
 
 **Possible formats:**
 
@@ -395,10 +397,26 @@ $mangareader-dl shingeki-no-kyojin/100 -f
 Activate extended progress bar, which includes a separate chapter bar.
 
 ```zsh
-$ mangareader-dl shingeki-no-kyojin/100
+$ mangareader-dl shingeki-no-kyojin/100 -e
 
 # ⠏ shingeki-no-kyojin [██████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]  21.4% | page      9/ 42
 # ⠧        100         [█████████████████████████████████████████████████████░]  96.2% | chapter 100/104
+```
+
+#### <h3>--micro</h3>
+
+<table><tr>
+  <td>Alias: <code>-m</code></td>
+  <td>Default: <code>false</code></td>
+  <td>Type: <code>boolean</code></td>
+</tr></table>
+
+Activate micro progress bar. Has precedence over `--extended`.
+
+```zsh
+$ mangareader-dl shingeki-no-kyojin/100 -m
+
+# ⠏ shingeki-no-kyojin 100/104 26%
 ```
 
 ## Supported sites
