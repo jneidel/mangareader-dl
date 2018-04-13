@@ -264,6 +264,19 @@ $ mangareader-dl -do ~/manga -p mangareader
 | [--dir](#--dir) | `true` / `false` | `false` |
 | [--extended](#--extended) | `true` / `false` | `false` |
 
+**Config location:**
+
+The cli checks if `~/.mangareader.json` exists and otherwise writes to a local file. If you want your config and history to persit just create the global settings file:
+
+In `~/.mangareader.json`:
+
+```json
+{
+  "config" : {},
+  "history": {}
+}
+```
+
 **Reset config:**
 
 The configuration can be reset by specifying `config reset`:

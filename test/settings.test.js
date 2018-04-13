@@ -38,7 +38,7 @@ test.serial( "write manga to history [unit]", async t => {
   } );
 } );
 
-// s.readHistory
+// s.readHistoryForName
 test.serial( "read manga history for given name [unit]", t => {
   const settingsPath = resetSettings();
   const settings = new DotJson( settingsPath );
@@ -49,7 +49,7 @@ test.serial( "read manga history for given name [unit]", t => {
     .set( "history.shingeki-no-kyojin.provider", "mangareader" )
     .save();
 
-  const { chapter, provider, path: mangaPath } = s.readHistory( settings, "shingeki-no-kyojin" );
+  const { chapter, provider, path: mangaPath } = s.readHistoryForName( settings, "shingeki-no-kyojin" );
 
   t.is( chapter, 102 );
   t.is( mangaPath, "/Users/jneidel/code/mangareader-dl/test" );

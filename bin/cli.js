@@ -10,7 +10,8 @@ const cliCommands = require( "../lib/cli-commands" );
 
 const supportedProviders = [ "mangareader", "readmng" ];
 
-const settings = s.setupSettingsFile();
+const settingsPath = s.getSettingsPath();
+const settings = s.createSettingsObject( settingsPath );
 const defaults = s.parseDefaults( settings );
 
 const argv = yargs
@@ -77,10 +78,10 @@ const isReset = argv._[1] === "reset";
 // Parse commands
 switch ( argv._[0] ) {
   case "list":
-    cliCommands.list( settings, isReset );
+    cliCommands.list( settings, isReset ? settingsPath : null );
     break;
   case "config":
-    cliCommands.config( argv, settings, defaults, outputPath, isReset );
+    cliCommands.config( argv, settings, defaults, outputPath, isReset ? settingsPath : null );
     break;
   default: // <manga>
     cliCommands.manga( argv, outputPath, settings );
