@@ -3,11 +3,10 @@
 const fs = require( "mz/fs" );
 const path = require( "path" );
 const yargs = require( "yargs" );
-const mkdir = require( "make-dir" );
 
-const { downloadManga } = require( "../lib/download" );
 const i = require( "../lib" );
 const s = require( "../lib/settings" );
+const cliCommands = require( "../lib/cli-commands" );
 
 const supportedProviders = [ "mangareader", "readmng" ];
 
@@ -66,71 +65,25 @@ const argv = yargs
   .argv;
 
 // Clean up input
-let outputPath = path.isAbsolute( argv.out ) ? argv.out : path.resolve( process.cwd(), argv.out );
+const outputPath = path.isAbsolute( argv.out ) ? argv.out : path.resolve( process.cwd(), argv.out );
 
 if ( !~supportedProviders.indexOf( argv.provider ) ) {
   i.prependArrowPrintStdout( `The provider '${argv.provider}' is not supported. Please choose one from the list:\n  [${supportedProviders}]\n  Or submit a issue on GitHub requesting support of the given provider.` );
   process.exit();
 }
 
-// Parse commands/options
-if ( argv._[0] === "list" ) {
-  if ( argv._[1] === "reset" ) {
-    fs.writeFile( path.resolve( __dirname, "..", "mangareader-dl.history.json" ), "{}" );
-    i.prependArrowPrintStdout( "History has been reset." );
-  } else {
-    s.outputHistory( settings );
-  }
-} else if ( argv._[0] === "config" ) {
-  if ( argv._[1] === "reset" ) {
-    fs.writeFile( path.resolve( __dirname, "..", "mangareader-dl.config.json" ), "{}" );
-    i.prependArrowPrintStdout( "Config has been reset." );
-  } else {
-    let outMsg = "";
+const isReset = argv._[1] === "reset";
 
-    if ( outputPath !== defaults.out ) {
-      settings.set( "config.outputPath", outputPath ).save();
-      outMsg += `Default output path set to '${outputPath}'. `;
-    }
-
-    if ( argv.provider !== defaults.provider ) {
-      settings.set( "config.provider", argv.provider ).save();
-      outMsg += `'${argv.provider}' set as default provider. `;
-    }
-
-    settings.set( "config.dir", argv.dir ).save();
-    if ( argv.dir !== defaults.dir )
-      outMsg += argv.dir ? "'--dir' option enabled. " : "'--dir' option disabled. ";
-
-    settings.set( "config.extended", argv.extended ).save();
-    if ( argv.extended !== defaults.extended )
-      outMsg += argv.extended ? "'--extended' option enabled." : "'--extended' option disabled.";
-
-    if ( outMsg.length === 0 ) {
-      outMsg = `No options have been passed to 'config'. Specify --help for usage info`;
-    }
-
-    i.prependArrowPrintStdout( outMsg );
-  }
-} else {
-  const url = argv._[0];
-
-  if ( argv.dir ) {
-    const { name } = i.parseFromUrl( url );
-    const newOut = path.join( outputPath, name );
-
-    mkdir.sync( newOut );
-    outputPath = newOut;
-  }
-
-  const options = {
-    outputPath,
-    provider: argv.provider,
-    isForce : argv.force,
-    isExt   : argv.extended,
-  };
-
-  downloadManga( url, options, settings );
+// Parse commands
+switch ( argv._[0] ) {
+  case "list":
+    cliCommands.list( settings, isReset );
+    break;
+  case "config":
+    cliCommands.config( argv, settings, defaults, outputPath, isReset );
+    break;
+  default: // <manga>
+    cliCommands.manga( argv, outputPath, settings );
 }
 
 process.on( "unhandledRejection", ( err ) => { throw err; } );
