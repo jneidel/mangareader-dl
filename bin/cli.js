@@ -60,6 +60,12 @@ const argv = yargs
     default : false,
     boolean : true,
   } )
+  .option( "subscribe", {
+    alias   : "s",
+    describe: "Subscribe for new chapters via 'update'",
+    default : 0,
+    boolean : true,
+  } )
   .help( "help" ) // Move help to bottom of options
   .alias( "help", "h" )
   .describe( "help", "Display this help message" )
@@ -82,6 +88,8 @@ if ( !~supportedProviders.indexOf( argv.provider ) ) {
 argv.bar = argv.micro ? "micro" : argv.extended ? "extended" : "normal"; // Micro > extended > normal
 
 const isReset = argv._[1] === "reset";
+
+argv.subscribe = argv.subscribe === 0 ? false : argv.subscribe;
 
 // Parse commands
 switch ( argv._[0] ) {

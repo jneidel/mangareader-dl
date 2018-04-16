@@ -52,6 +52,7 @@ $ mangareader-dl naruto/699 -deo .
     - [--force](#--force)
     - [--extended](#--extended)
     - [--micro](#--micro)
+    - [--subscribe](#--subscribe)
 - [Supported sites](#supported-sites)
 - [FAQ](#faq)
 - [Test](#test)
@@ -172,6 +173,8 @@ Options:
   --extended, -e  Download with extended progress bar [boolean] [default: false]
   --provider, -p  Set site to download from
                   Options: [mangareader, readmng]       [default: "mangareader"]
+  --micro, -m     Download with micro progress bar    [boolean] [default: false]
+  --subscribe, -s Subscribe for new chapters via 'update' [boolean] [default: 0]
   --help, -h      Display this help message                            [boolean]
   --version, -v   Show version number                                  [boolean]
 
@@ -211,6 +214,7 @@ $ mangareader-dl shingeki-no-kyojin/100
 - [--force](#--force)
 - [--extended](#--extended)
 - [--micro](#--micro)
+- [--subscribe](#--subscribe)
 
 **Possible formats:**
 
@@ -230,9 +234,9 @@ This list is used for continuing downloads.
 $ mangareader-dl list
 
 # ❯ Downloaded manga:
-#   onepunch-man       137 [mangareader /Users/jneidel/manga/onepunch-man]
-#   platinum-end        28 [readmng     /Users/jneidel/manga/platinum-end]
-#   shingeki-no-kyojin 104 [mangareader /Users/jneidel/manga/shingeki-no-kyojin]
+#     onepunch-man       137 [mangareader /Users/jneidel/manga/onepunch-man]
+#     platinum-end        28 [readmng     /Users/jneidel/manga/platinum-end]
+#   ✓ shingeki-no-kyojin 104 [mangareader /Users/jneidel/manga/shingeki-no-kyojin]
 ```
 
 To continue the download of `onepunch-man` starting at chapter 138 specify:
@@ -240,6 +244,8 @@ To continue the download of `onepunch-man` starting at chapter 138 specify:
 ```zsh
 $ mangareader-dl onepunch-man
 ```
+
+The `✓` in the output above specifies whenever a manga has been [subscribed](#--subscribe) to.
 
 **Reset history:**
 
@@ -418,6 +424,29 @@ $ mangareader-dl shingeki-no-kyojin/100 -m
 
 # ⠏ shingeki-no-kyojin 100/104 26%
 ```
+
+#### <h3>--subscribe</h3>
+
+<table><tr>
+  <td>Alias: <code>-s</code></td>
+  <td>Default: <code>false</code></td>
+  <td>Type: <code>boolean</code></td>
+</tr></table>
+
+Subscribe to given manga, activate download of new chapters using the [`update`](#update) command.
+
+```zsh
+$ mangareader-dl shingeki-no-kyojin/100 -s
+
+# Subscription is specified by the checkmark on 'list':
+
+$ mangareader-dl list
+# ❯ Downloaded manga:
+#     onepunch-man              137 [readmng     /Users/jneidel/manga/onepunch-man]
+#   ✓ shingeki-no-kyojin        104 [mangareader /Users/jneidel/manga/shingeki-no-kyojin]
+```
+
+Unset using the `false` parameter: `$ mangareader-dl shingeki-no-kyojin -s false`.
 
 ## Supported sites
 
