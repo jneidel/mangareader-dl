@@ -239,7 +239,7 @@ $ mangareader-dl list
 #   ✓ shingeki-no-kyojin 104 [mangareader /Users/jneidel/manga/shingeki-no-kyojin]
 ```
 
-To continue the download of `onepunch-man` starting at chapter 138 specify:
+To continue the download of `onepunch-man` starting at chapter 138 execute:
 
 ```zsh
 $ mangareader-dl onepunch-man
@@ -260,7 +260,7 @@ $ mangareader-dl list reset
 Update the global defaults by specifying them as options:
 
 ```zsh
-$ mangareader-dl -do ~/manga -p mangareader
+$ mangareader-dl config -deo ~/manga -p mangareader
 ```
 
 **Available options:**
@@ -271,6 +271,8 @@ $ mangareader-dl -do ~/manga -p mangareader
 | [--provider](#--provider-site) | `<site>` | `mangareader` |
 | [--dir](#--dir) | `true` / `false` | `false` |
 | [--extended](#--extended) | `true` / `false` | `false` |
+
+Passing no options will print current config.
 
 **Config location:**
 
