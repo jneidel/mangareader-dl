@@ -1,7 +1,7 @@
 {
   "name": "mangareader-dl",
   "version": "0.1.3",
-  "description": "CLI for downloading from mangareader.net and much more",
+  "description": "CLI for comfortably downloading from mangareader.net",
   "repository": "jneidel/mangareader-dl",
   "license": "MIT",
   "author": {

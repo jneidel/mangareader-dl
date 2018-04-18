@@ -1,6 +1,6 @@
 # mangareader-dl
 
-> CLI for downloading from mangareader.net and much more
+> CLI for comfortably downloading from mangareader.net
 
 ![Project Status](https://img.shields.io/badge/status-Work_in_Progress-red.svg?style=flat-square)
 [![Travis Build Status](https://img.shields.io/travis/jneidel/mangareader-dl.svg?style=flat-square)](https://travis-ci.org/jneidel/mangareader-dl)
@@ -24,7 +24,7 @@ $ mangareader-dl naruto/699 -deo .
 # ├── ./
 # └── naruto
 #     ├── naruto-699.cbz
-#     └── naruto-700.cbz
+#     └── naruto-700.cbz // Last one
 ```
 
 ## Features
