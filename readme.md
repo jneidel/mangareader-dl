@@ -452,10 +452,13 @@ Unset using the `false` parameter: `$ mangareader-dl shingeki-no-kyojin -s false
 
 ## Supported sites
 
+![mangareader status](https://img.shields.io/badge/mangareader-working-brightgreen.svg?style=flat-square)
+![readmng status](https://img.shields.io/badge/readmng-broken-red.svg?style=flat-square)
+
 Currently supported sites include:
 
 - [mangareader.net](https://www.mangareader.net/)
-- [readmng.com](https://www.readmng.com/)
+- [readmng.com](https://www.readmng.com/) - DDOS protection has been added, WIP
 
 If given a full url (eg: `www.mangareader.net/shingeki-no-kyojin`) the provider (site to download from) will be parsed from the url, using the name of the manga (eg: `shingeki-no-kyojin`) the default provider will be used. To use a different provider specify it with the [`--provider`](#--provider-site) flag.
 
