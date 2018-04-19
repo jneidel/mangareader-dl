@@ -440,7 +440,7 @@ Subscribe to given manga, activate download of new chapters using the [`update`]
 ```zsh
 $ mangareader-dl shingeki-no-kyojin/100 -s
 
-# Subscription is specified by the checkmark on 'list':
+# Subscription is specified by the ✓ in 'list':
 
 $ mangareader-dl list
 # ❯ Downloaded manga:
@@ -457,7 +457,7 @@ Currently supported sites include:
 - [mangareader.net](https://www.mangareader.net/)
 - [readmng.com](https://www.readmng.com/)
 
-If given a full url (eg: `www.mangareader.net/shingeki-no-kyojin`) the provider (site to download from) will be parsed from the url, using a short url (eg: `shingeki-no-kyojin`) the default provider (`mangareader`) will be used. (Default can be set using the [config](#config-options) command). To use a different provider specify it with the [`--provider`](#--provider-site) flag.
+If given a full url (eg: `www.mangareader.net/shingeki-no-kyojin`) the provider (site to download from) will be parsed from the url, using the name of the manga (eg: `shingeki-no-kyojin`) the default provider will be used. To use a different provider specify it with the [`--provider`](#--provider-site) flag.
 
 ```zsh
 # Both download Attack on Titan from mangareader.net

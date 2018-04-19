@@ -13,20 +13,20 @@ test( "all: same last timer as all in s [unit]", t => t.is( progressBar.allTimeP
  * last: 42s
  * all:  42s
  */
-test( "last: same last timer as all in m [unit]", t => t.is( progressBar.lastTimePad( 62, 62 ), "last: 1:03m" ) );
-test( "all: same last timer as all in m [unit]", t => t.is( progressBar.allTimePad( 62 ), "all:  1:03m" ) );
+test( "last: same last timer as all in m [unit]", t => t.is( progressBar.lastTimePad( 62, 62 ), "last: 1:02m" ) );
+test( "all: same last timer as all in m [unit]", t => t.is( progressBar.allTimePad( 62 ), "all:  1:02m" ) );
 /**
  * last: 1:02m
  * all:  1:02m
  */
 test( "last: last in s, all in m [unit]", t => t.is( progressBar.lastTimePad( 42, 62 ), "last:   42s" ) );
-test( "all: last in s, all in m  [unit]", t => t.is( progressBar.allTimePad( 62 ), "all:  1:03m" ) );
+test( "all: last in s, all in m  [unit]", t => t.is( progressBar.allTimePad( 62 ), "all:  1:02m" ) );
 /**
  * last:   42s
  * all:  1:02m
 */
 test( "last: last in s, all in 10+ m [unit]", t => t.is( progressBar.lastTimePad( 42, 930 ), "last:    42s" ) );
-test( "all: last in s, all in 10+ m  [unit]", t => t.is( progressBar.allTimePad( 930 ), "all:  16:50m" ) );
+test( "all: last in s, all in 10+ m  [unit]", t => t.is( progressBar.allTimePad( 930 ), "all:  15:30m" ) );
 /**
  * last:    42s
  * all:  15:50m
@@ -37,6 +37,18 @@ test( "all: last in s, all in 100+ m  [unit]", t => t.is( progressBar.allTimePad
  * last:     42s
  * all:  150:00m
  */
+test( "last: last in single s, all in 1+ m [unit]", t => t.is( progressBar.lastTimePad( 4, 62 ), "last:    4s" ) );
+test( "all: last in single s, all in 1+ m  [unit]", t => t.is( progressBar.allTimePad( 62 ), "all:  1:02m" ) );
+/**
+ * last:    4s
+ * all:  1:02m
+*/
+test( "last: last in single s, all in 10+ m [unit]", t => t.is( progressBar.lastTimePad( 4, 930 ), "last:     4s" ) );
+test( "all: last in single s, all in 10+ m  [unit]", t => t.is( progressBar.allTimePad( 930 ), "all:  15:30m" ) );
+/**
+ * last:     4s
+ * all:  15:50m
+*/
 test( "last: last single s, all two s [unit]", t => t.is( progressBar.lastTimePad( 7, 14 ), "last:  7s" ) );
 test( "all: last single s, all two s [unit]", t => t.is( progressBar.allTimePad( 14 ), "all:  14s" ) );
 /**
