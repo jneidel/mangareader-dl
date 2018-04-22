@@ -218,11 +218,11 @@ $ mangareader-dl shingeki-no-kyojin/100
 
 **Possible formats:**
 
-- shingeki-no-kyojin
-- mangareader.net/shingeki-no-kyojin
-- www.mangareader.net/shingeki-no-kyojin
-- http://www.mangareader.net/shingeki-no-kyojin
-- https://www.mangareader.net/shingeki-no-kyojin
+- `shingeki-no-kyojin`
+- `mangareader.net/shingeki-no-kyojin`
+- `www.mangareader.net/shingeki-no-kyojin`
+- `http://www.mangareader.net/shingeki-no-kyojin`
+- `https://www.mangareader.net/shingeki-no-kyojin`
 
 #### <h3>list</h3>
 
