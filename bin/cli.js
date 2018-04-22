@@ -8,7 +8,7 @@ const i = require( "../lib" );
 const s = require( "../lib/settings" );
 const cliCommands = require( "../lib/cli-commands" );
 
-const supportedProviders = require( "../lib/providers.json" );
+const supportedProviders = require( "../lib/providers/available.json" );
 
 const settingsPath = s.getSettingsPath();
 const settings = s.createSettingsObject( settingsPath );
