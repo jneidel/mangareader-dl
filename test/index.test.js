@@ -15,7 +15,7 @@ mockery.registerMock( "fs", {
 const i = require( "../lib" );
 
 // i.getImgSrcIfValid
-test( "get mr image source", t =>
+test.skip( "get mr image source", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103", "mangareader" )
     .then( src => {
       if ( src.slice( 8, 10 ) === "i6" ) // Different servers depending on position
@@ -56,6 +56,24 @@ test.skip( "get error for invalid rm chapter", t =>
       t.is( imgSrc.message, "chapter" );
     } )
 );
+test( "get gm image source", t =>
+  i.getImgSrcIfValid( "http://www.goodmanga.net/dr.-stone/chapter/55/16", "goodmanga" )
+    .then( src => t.is( src, "http://www.goodmanga.net/images/manga/dr.-stone/55/16.jpg" ) )
+);
+test( "get error for invalid gm page", t =>
+  i.getImgSrcIfValid( "http://www.goodmanga.net/dr.-stone/chapter/55/20", "goodmanga" ) // Last page is 19
+    .then( imgSrc => {
+      t.truthy( imgSrc instanceof Error );
+      t.is( imgSrc.message, "page" );
+    } )
+);
+test.skip( "get error for invalid gm chapter", t =>
+  i.getImgSrcIfValid( "http://www.goodmanga.net/naruto/chapter/701", "goodmanga" ) // Last is 700
+    .then( imgSrc => {
+      t.truthy( imgSrc instanceof Error );
+      t.is( imgSrc.message, "chapter" );
+    } )
+);
 
 // i.createUrl
 test( "create mr url without page [unit]", t =>
@@ -74,6 +92,12 @@ test( "create rm url with page [unit]", t =>
   t.is(
     i.createUrl( "readmng", "platinum-end", 19, 4 ),
     "https://www.readmng.com/platinum-end/19/4"
+  )
+);
+test( "create gm url with page [unit]", t =>
+  t.is(
+    i.createUrl( "goodmanga", "dr.-stone", 55, 16 ),
+    "https://www.goodmanga.net/dr.-stone/chapter/55/16"
   )
 );
 
@@ -184,6 +208,30 @@ test( "parse url without www.readmng.com [unit]", t =>
     provider: "readmng",
   } )
 );
+test( "parse full gm url [unit]", t =>
+  t.deepEqual( i.parseFromUrl( "http://www.goodmanga.net/dr.-stone/chapter/55" ), {
+    name    : "dr.-stone",
+    chapter : 55,
+    page    : 1,
+    provider: "goodmanga",
+  } )
+);
+test( "parse url without www.goodmanga.net [unit]", t =>
+  t.deepEqual( i.parseFromUrl( "dr.-stone/chapter/55", "goodmanga" ), {
+    name    : "dr.-stone",
+    chapter : 55,
+    page    : 1,
+    provider: "goodmanga",
+  } )
+);
+test( "parse gm url without site or /chapter [unit]", t =>
+  t.deepEqual( i.parseFromUrl( "dr.-stone/chapter/55", "goodmanga" ), {
+    name    : "dr.-stone",
+    chapter : 55,
+    page    : 1,
+    provider: "goodmanga",
+  } )
+);
 
 // i.increase
 test( "increase chapter for valid mr url", t =>
@@ -236,7 +284,7 @@ test.skip( "increase chapter for valid rm url", t =>
 const testBuffer = fs.readFileSync( path.resolve( __dirname, "test-img.jpg" ) );
 
 // i.downloadImg
-test( "download image and return its buffer", t =>
+test.skip( "download image and return its buffer", t =>
   i.downloadImg( "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg", "mangareader" )
     .then( buffer => t.is( Buffer.compare( buffer, testBuffer ), 0, "Buffers don't match" ) )
 );
@@ -265,6 +313,10 @@ test.skip( "get last chapter rm", t =>
   i.getLastChapter( "naruto", "readmng" )
     .then( chapter => t.is( chapter, 700 ) )
 );
+test( "get last chapter gm", t =>
+  i.getLastChapter( "naruto", "goodmanga" )
+    .then( chapter => t.is( chapter, 700 ) )
+);
 
 // i.getLastPage
 test( "get last page for mr url", t =>
@@ -274,4 +326,8 @@ test( "get last page for mr url", t =>
 test.skip( "get last page for rm url", t =>
   i.getLastPage( "https://www.readmng.com/platinum-end/19/1", "readmng" )
     .then( page => t.is( page, 40 ) )
+);
+test( "get last page for gm url", t =>
+  i.getLastPage( "http://www.goodmanga.net/dr.-stone/chapter/55", "goodmanga" )
+    .then( page => t.is( page, 19 ) )
 );
