@@ -2,7 +2,7 @@
 
 > CLI for comfortably downloading from mangareader.net
 
-![Project Status](https://img.shields.io/badge/status-Work_in_Progress-red.svg?style=flat-square)
+![Project Status](https://img.shields.io/badge/status-Unstable%20%2F%20Work_in_Progress-red.svg?style=flat-square)
 [![Travis Build Status](https://img.shields.io/travis/jneidel/mangareader-dl.svg?style=flat-square)](https://travis-ci.org/jneidel/mangareader-dl)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/licence)
 [![Npm Downloads](https://img.shields.io/npm/dw/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
