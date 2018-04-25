@@ -11,14 +11,12 @@ test( "get error for invalid rm page", t =>
   i.getImgSrcIfValid( "https://www.readmng.com/platinum-end/19/41", "readmng" ) // Last page is 40
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
-      t.is( imgSrc.message, "page" );
     } )
 );
 test.skip( "get error for invalid rm chapter", t =>
   i.getImgSrcIfValid( "https://www.readmng.com/naruto/701/1", "readmng" ) // Last is 700
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
-      t.is( imgSrc.message, "chapter" );
     } )
 );
 

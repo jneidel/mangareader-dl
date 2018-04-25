@@ -25,14 +25,12 @@ test( "get error for invalid mr page", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103/40", "mangareader" ) // Last page is 39
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
-      t.is( imgSrc.message, "page" );
     } )
 );
 test( "get error for invalid mr chapter", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/250", "mangareader" )
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
-      t.is( imgSrc.message, "chapter" );
     } )
 );
 
@@ -76,7 +74,6 @@ test( "pass on invalid page error", t =>
     .then( data => data.imgSrc )
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
-      t.is( imgSrc.message, "page" );
     } )
 );
 test( "pass on invalid chapter error", t =>
@@ -84,7 +81,6 @@ test( "pass on invalid chapter error", t =>
     .then( data => data.imgSrc )
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
-      t.is( imgSrc.message, "chapter" );
     } )
 );
 

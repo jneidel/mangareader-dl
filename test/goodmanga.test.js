@@ -11,7 +11,6 @@ test( "get error for invalid gm page", t =>
   i.getImgSrcIfValid( "http://www.goodmanga.net/dr.-stone/chapter/55/20", "goodmanga" ) // Last page is 19
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
-      t.is( imgSrc.message, "page" );
     } )
 );
 
