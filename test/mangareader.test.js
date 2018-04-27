@@ -12,7 +12,7 @@ mockery.registerMock( "fs", {
 const i = require( "../lib" );
 
 // i.getImgSrcIfValid
-test( "get mr image source", t =>
+test( "get image source", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103", "mangareader" )
     .then( src => {
       if ( src.slice( 8, 10 ) === "i6" ) // Different servers depending on position
@@ -21,13 +21,13 @@ test( "get mr image source", t =>
         t.is( src, "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg" );
     } )
 );
-test( "get error for invalid mr page", t =>
+test( "get error for invalid page", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103/40", "mangareader" ) // Last page is 39
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
     } )
 );
-test( "get error for invalid mr chapter", t =>
+test( "get error for invalid chapter", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/250", "mangareader" )
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
@@ -35,13 +35,13 @@ test( "get error for invalid mr chapter", t =>
 );
 
 // i.createUrl
-test( "create mr url without page [unit]", t =>
+test( "create url without page [unit]", t =>
   t.is(
     i.createUrl( "mangareader", "shingeki-no-kyojin", 103 ),
     "https://www.mangareader.net/shingeki-no-kyojin/103/1"
   )
 );
-test( "create mr url with page [unit]", t =>
+test( "create url with page [unit]", t =>
   t.is(
     i.createUrl( "mangareader", "shingeki-no-kyojin", 103, 39 ),
     "https://www.mangareader.net/shingeki-no-kyojin/103/39"
@@ -49,7 +49,7 @@ test( "create mr url with page [unit]", t =>
 );
 
 // i.createManga
-test( "create manga from mr url", t =>
+test( "create manga from url", t =>
   i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103", __dirname, "mangareader" )
     .then( data => {
       const testManga = {
@@ -85,7 +85,7 @@ test( "pass on invalid chapter error", t =>
 );
 
 // i.parseFromUrl
-test( "parse full mr url [unit]", t =>
+test( "parse full url [unit]", t =>
   t.deepEqual( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin/101/5" ), {
     name    : "shingeki-no-kyojin",
     chapter : 101,
@@ -127,7 +127,7 @@ test( "parse url without www.mangareader.net [unit]", t =>
 );
 
 // i.increase
-test( "increase chapter for valid mr url", t =>
+test( "increase chapter for valid url", t =>
   i.increase( {
     name    : "shingeki-no-kyojin",
     chapter : 100,
@@ -179,13 +179,13 @@ test( "create zip from array of buffers [unit]", t =>
 );
 
 // i.getLastChapter
-test( "get last chapter mr", t =>
+test( "get last chapter", t =>
   i.getLastChapter( "naruto", "mangareader" )
     .then( chapter => t.is( chapter, 700 ) )
 );
 
 // i.getLastPage
-test( "get last page for mr url", t =>
+test( "get last page for url", t =>
   i.getLastPage( "https://www.mangareader.net/shingeki-no-kyojin/103", "mangareader" )
     .then( page => t.is( page, 39 ) )
 );

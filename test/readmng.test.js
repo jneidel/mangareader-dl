@@ -5,17 +5,17 @@ const path = require( "path" );
 const i = require( "../lib" );
 
 // i.getImgSrcIfValid
-test( "get rm image source", t =>
+test( "get image source", t =>
   i.getImgSrcIfValid( "https://www.readmng.com/platinum-end/19/1", "readmng" )
     .then( src => t.is( src, "https://www.funmanga.com/uploads/chapters/15537/22/1.jpg?u=" ) )
 );
-test( "get error for invalid rm page", t =>
+test( "get error for invalid page", t =>
   i.getImgSrcIfValid( "https://www.readmng.com/platinum-end/19/41", "readmng" ) // Last page is 40
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
     } )
 );
-test( "get error for invalid rm chapter", t =>
+test( "get error for invalid chapter", t =>
   i.getImgSrcIfValid( "https://www.readmng.com/naruto/701/1", "readmng" ) // Last is 700
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
@@ -23,7 +23,7 @@ test( "get error for invalid rm chapter", t =>
 );
 
 // i.createUrl
-test( "create rm url with page [unit]", t =>
+test( "create url with page [unit]", t =>
   t.is(
     i.createUrl( "readmng", "platinum-end", 19, 4 ),
     "https://www.readmng.com/platinum-end/19/4"
@@ -31,7 +31,7 @@ test( "create rm url with page [unit]", t =>
 );
 
 // i.createManga
-test( "create manga from rm url", t =>
+test( "create manga from url", t =>
   i.createManga( "https://www.readmng.com/platinum-end/19/1", __dirname, "readmng" )
     .then( data => t.deepEqual( data, {
       name      : "platinum-end",
@@ -43,9 +43,23 @@ test( "create manga from rm url", t =>
       outputPath: __dirname,
     } ) )
 );
+test( "pass on invalid page error", t =>
+  i.createManga( "https://www.readmng.com/platinum-end/19/41", __dirname, "mangareader" )
+    .then( data => data.imgSrc )
+    .then( imgSrc => {
+      t.truthy( imgSrc instanceof Error );
+    } )
+);
+test( "pass on invalid chapter error", t =>
+  i.createManga( "https://www.readmng.com/platinum-end/250/1", __dirname, "mangareader" )
+    .then( data => data.imgSrc )
+    .then( imgSrc => {
+      t.truthy( imgSrc instanceof Error );
+    } )
+);
 
 // i.parseFromUrl
-test( "parse full rm url [unit]", t =>
+test( "parse full url [unit]", t =>
   t.deepEqual( i.parseFromUrl( "https://www.readmng.com/platinum-end/19/2" ), {
     name    : "platinum-end",
     chapter : 19,
@@ -63,7 +77,7 @@ test( "parse url without www.readmng.com [unit]", t =>
 );
 
 // i.increase
-test( "increase chapter for valid rm url", t =>
+test( "increase chapter for valid url", t =>
   i.increase( {
     name    : "platinum-end",
     chapter : 19,
@@ -91,13 +105,13 @@ test( "download image and return its buffer", t =>
 );
 
 // i.getLastChapter
-test( "get last chapter rm", t =>
+test( "get last chapter", t =>
   i.getLastChapter( "naruto", "readmng" )
     .then( chapter => t.is( chapter, 700 ) )
 );
 
 // i.getLastPage
-test( "get last page for rm url", t =>
+test( "get last page for url", t =>
   i.getLastPage( "https://www.readmng.com/platinum-end/19/1", "readmng" )
     .then( page => t.is( page, 40 ) )
 );
