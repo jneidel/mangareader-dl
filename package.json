@@ -28,9 +28,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "chalk": "^2.3.2",
+    "chalk": "^2.4.1",
     "cheerio": "^1.0.0-rc.2",
-    "cli-progress": "^1.8.0",
     "cloudscraper": "^1.5.0",
     "dot-json": "^1.0.4",
     "execution-time": "^1.2.0",
@@ -41,6 +40,7 @@
     "make-dir": "^1.2.0",
     "mz": "^2.7.0",
     "p-map": "^1.2.0",
+    "pify": "^3.0.0",
     "progress-string": "^1.2.2",
     "py-range": "^1.0.0",
     "strpad": "^1.0.2",

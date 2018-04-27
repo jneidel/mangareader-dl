@@ -461,12 +461,13 @@ Currently supported sites include:
 
 - [readmng.com](https://www.readmng.com/):
 
-    ![readmng status](https://img.shields.io/badge/status-broken-red.svg?style=flat-square) - DDOS protection has been added, WIP
+    ![readmng status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
+    ![readmng download speed](https://img.shields.io/badge/speed-medium-orange.svg?style=flat-square)
 
 - [goodmanga.com](http://www.goodmanga.net/):
 
-    ![goodmanga status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
-    ![goodmanga download speed](https://img.shields.io/badge/speed-slow-red.svg?style=flat-square)
+    ![goodmanga status](https://img.shields.io/badge/status-broken-red.svg?style=flat-square)
+    ![goodmanga download speed](https://img.shields.io/badge/speed-slow-red.svg?style=flat-square) - Url processing needs update
 
 If given a full url (eg: `www.mangareader.net/shingeki-no-kyojin`) the provider (site to download from) will be parsed from the url, using the name of the manga (eg: `shingeki-no-kyojin`) the default provider will be used. To use a different provider specify it with the [`--provider`](#--provider-site) flag.
 

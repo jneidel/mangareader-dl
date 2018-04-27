@@ -156,11 +156,11 @@ test( "return null for invalid chapter", t =>
     .then( res => t.is( res, null ) )
 );
 
-const testBuffer = fs.readFileSync( path.resolve( __dirname, "test-img.jpg" ) );
+const testBuffer = fs.readFileSync( path.resolve( __dirname, "buffers", "mangareader.jpg" ) );
 
 // i.downloadImg
 test( "download image and return its buffer", t =>
-  i.downloadImg( "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg", "mangareader" )
+  i.downloadImg( "https://i3.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410973.jpg", "mangareader" )
     .then( buffer => t.is( Buffer.compare( buffer, testBuffer ), 0, "Buffers don't match" ) )
 );
 
