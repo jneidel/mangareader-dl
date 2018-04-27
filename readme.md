@@ -2,7 +2,7 @@
 
 > CLI for comfortably downloading from mangareader.net
 
-![Project Status](https://img.shields.io/badge/status-Unstable%20%2F%20Work_in_Progress-red.svg?style=flat-square)
+![Project Status](https://img.shields.io/badge/status-0Work_in_Progress-red.svg?style=flat-square)
 [![Travis Build Status](https://img.shields.io/travis/jneidel/mangareader-dl.svg?style=flat-square)](https://travis-ci.org/jneidel/mangareader-dl)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/licence)
 [![Npm Downloads](https://img.shields.io/npm/dw/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
@@ -466,8 +466,8 @@ Currently supported sites include:
 
 - [goodmanga.com](http://www.goodmanga.net/):
 
-    ![goodmanga status](https://img.shields.io/badge/status-broken-red.svg?style=flat-square)
-    ![goodmanga download speed](https://img.shields.io/badge/speed-slow-red.svg?style=flat-square) - Url processing needs update
+    ![goodmanga status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
+    ![goodmanga download speed](https://img.shields.io/badge/speed-slow-red.svg?style=flat-square)
 
 If given a full url (eg: `www.mangareader.net/shingeki-no-kyojin`) the provider (site to download from) will be parsed from the url, using the name of the manga (eg: `shingeki-no-kyojin`) the default provider will be used. To use a different provider specify it with the [`--provider`](#--provider-site) flag.
 
