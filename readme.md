@@ -70,83 +70,72 @@ $ npm i mangareader-dl
 
 ## Usage
 
-These examples will showcase common use cases as well as introduce available commands and options. For more on the individual commands/options view the [API docs](#api).
+These examples will showcase common use cases. View the [API docs](#api) for more info on the individual commands.
 
-**Download from chapter:**
-
-Download all chapters of Attack on Titan from 100 onward:
+**Download starting at given chapter:**
 
 ```zsh
-$ mangareader-dl shingeki-no-kyojin/100
-# Or the long version
-$ mangareader-dl https://www.mangareader.net/shingeki-no-kyojin/100
+$ mangareader-dl naruto/100
 
 # Output path: './'
 ```
 
-For more on the download command, see [\<manga>](#mangachapter-options).
+See:
 
-**Output directoy:**
+- [`<manga>`](#mangachapter-options)
 
-Download all chapters of AoT  into the path '~/manga/shingeki-no-kyojin' by specifying the `--out` (output path) and `--dir` (downloading into a folder named after the manga):
+**Set output directoy:**
 
 ```zsh
-$ mangareader-dl shingeki-no-kyojin -do ~/manga
-# Or the long version
-$ mangareader-dl https://www.mangareader.net/shingeki-no-kyojin --dir --out '~/manga'
+$ mangareader-dl naruto -do ~/manga
 
-# Output path: '~/manga/shingeki-no-kyojin'
+# Output path: '~/manga/naruto'
 ```
 
-For more on the [`--out`](#--out-path) and [`--dir`](#--dir) options, see their documentation.
+See:
 
-**Continue from history:**
+- [`--out`](#--out-path)
+- [`--dir`](#--dir)
 
-Does not need any config, per default mangareader-dl saves a manga's download history, site, as well as path. So starting a download with the following flags:
+**Continue download from history:**
+
+A mangas last downloaded `chapter`, its `provider` and `path` are saved. So the following download:
 
 ```zsh
-$ mangareader-dl shingeki-no-kyojin/10 -o aot
+$ mangareader-dl naruto/10 -o naruto
 
-# Output path (same as for next two): './aot'
+# Output path (same as for next two): './naruto'
 ```
 
-Resuming the download, after stopping it, can be done by only specifying:
+can be resumed with:
 
 ```zsh
-$ mangareader-dl shingeki-no-kyojin
+$ mangareader-dl naruto
 ```
 
 If you need to re-download something, just overwrite the history with `--force`:
 
 ```zsh
-$ mangareader-dl shingeki-no-kyojin/10 -fo aot
+$ mangareader-dl naruto/10 -fo naruto
 ```
 
-For more on the [`--force`](#--force) option or the [list](#list) command (print history), see their documentation.
+See:
 
-**Other sites:**
+- [`list`](#list)
+- [`--force`](#--force)
 
-Download from a different site than the default (mangareader.net) by either using the full url, or specifying it via the `--provider` flag:
+**Download from different site:**
 
 ```zsh
-$ mangareader-dl shingeki-no-kyojin -p readmng
+$ mangareader-dl naruto -p readmng
 # Or specifying the site via url
-$ mangareader-dl https://www.readmng.com/shingeki-no-kyojin
-
-# Output path: './'
+$ mangareader-dl https://www.readmng.com/naruto
 ```
 
-For all available site, see [supported sites](#supported-sites). For more on specifying a provider, see [`--provider`](#--provider-site).
+See:
 
-**Change defaults:**
-
-Specify the options you want to set while using the `config` command.
-
-```zsh
-$ mangareader-dl config -do ~/manga -p mangareader
-```
-
-For more on editing the configuration, see [config](#config-options).
+- [supported sites](#supported-sites)
+- [`--provider`](#--provider-site)
 
 ## CLI
 
