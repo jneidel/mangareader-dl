@@ -133,42 +133,34 @@ See:
 ## CLI
 
 ```zsh
-$ mangareader-dl help
+  mangareader-dl: CLI for comfortable manga download
 
-Usage: mangareader-dl <manga> [options]
+  Usage
+    $ mangareader-dl <manga>
 
-Commands:
-  mangareader-dl <manga>  Manga to download, Format (url or name):
-                          https://www.mangareader.net/shingeki-no-kyojin
-                          shingeki-no-kyojin
-                          shingeki-no-kyojin/<chapter>
-  mangareader-dl list     List downloaded manga
-  mangareader-dl config   Set defaults by specifying their flags
+  Commands
+    <manga> Manga to download
+    list    List downloaded manga
+    config  Set defaults
 
-Options:
-  --out, -o       Set output path, eg: './manga'
-                                      [string] [default: "/Users/jneidel/manga"]
-  --dir, -d       Download into the directory '<output-path>/<manga>'
-                                                      [boolean] [default: false]
-  --force, -f     Use specified chapter/path instead of reading from history,
-                  overwrites history                  [boolean] [default: false]
-  --extended, -e  Download with extended progress bar [boolean] [default: false]
-  --provider, -p  Set site to download from
-                  Options: [mangareader, readmng]       [default: "mangareader"]
-  --micro, -m     Download with micro progress bar    [boolean] [default: false]
-  --subscribe, -s Subscribe for new chapters via 'update' [boolean] [default: 0]
-  --help, -h      Display this help message                            [boolean]
-  --version, -v   Show version number                                  [boolean]
+  Options
+    --out, -o       Set output path
+    --dir, -d       Download into 'path/manga-name'
+    --provider, -p  Set download site
+    --force, -f     Overwrite history
+    --subscribe, -s Subscribe to new chapters
+    --extended, -e  Extended progress bar
+    --micro, -m     Micro progress bar
 
-Examples:
-  $ mangareader-dl                          Download chapters 100+ of AoT into
-  https://www.mangareader.net/shingeki-no-  './'
-  kyojin/100
-  $ mangareader-dl shingeki-no-kyojin -o    Download all chapters of Attack on
-  ~/aot                                     Titan into '~/aot'
+  Examples
+    $ mangareader-dl mangareader.net/naruto/100 -do .
+    => Download naruto chapter 100+ into cwd
 
-For the full documentation, along with more examples visit:
-https://github.com/jneidel/mangareader-dl
+    $ mangareader-dl naruto -mp mangareader
+    => Download naruto from mangareader.net in micro mode
+
+  For the documentation please refer to:
+  https://github.com/jneidel/mangareader-dl
 ```
 
 ### <h2>Commands</h2>
