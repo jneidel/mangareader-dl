@@ -49,6 +49,7 @@ $ ls ./naruto
 - [Supported sites](#supported-sites)
 - [FAQ](#faq)
 - [Test](#test)
+- [Related](#related)
 - [Python version](#python-version)
 - [License](#license)
 
@@ -476,6 +477,10 @@ I use [YACReader](https://www.yacreader.com/) (which I very much recommend) on m
 ```
 $ npm run test
 ```
+
+## Related
+
+- API for this module: [api.jneidel.com](https://github.com/jneidel/api.jneidel.com#mangareader)
 
 ## Python version
 
