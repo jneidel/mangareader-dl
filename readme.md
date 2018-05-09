@@ -1,6 +1,8 @@
-# mangareader-dl
+<h1 align="center">
+    <img src="img/logo.png" alt="mangareader-dl">
+</h1>
 
-> 💾 CLI for comfortable manga download
+> CLI for comfortable manga download
 
 ![Project Status](https://img.shields.io/badge/status-Work_in_Progress-red.svg?style=flat-square)
 [![Travis Build Status](https://img.shields.io/travis/jneidel/mangareader-dl.svg?style=flat-square)](https://travis-ci.org/jneidel/mangareader-dl)
@@ -153,7 +155,7 @@ See:
 
 ## CLI
 
-```zsh
+```
   mangareader-dl: CLI for comfortable manga download
 
   Usage
