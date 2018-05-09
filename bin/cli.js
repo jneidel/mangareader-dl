@@ -92,6 +92,18 @@ const cli = meow( `
 const args = cli.flags;
 args._ = cli.input;
 
+if ( args._.length === 0 ) {
+  i.prependArrowPrintStdout( "Specify '--help' for available commands" );
+  process.exit();
+}
+
+[ { name: "out", val: args.out }, { name: "provider", val: args.provider } ].forEach( arg => {
+  if ( arg.val === "" ) {
+    i.prependArrowPrintStdout( `The '--${arg.name}' flag requires a parameter. Specify '--help' for available commands` );
+    process.exit();
+  }
+} );
+
 let outputPath = path.normalize( args.out );
 outputPath = path.isAbsolute( args.out ) ? args.out : path.resolve( process.cwd(), args.out );
 
