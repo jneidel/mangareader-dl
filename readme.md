@@ -38,6 +38,7 @@ $ ls ./naruto
     - [\<manga>](#mangachapter-options)
     - [list](#list)
     - [config](#config-options)
+    - [update](#update)
   - [Options](#options)
     - [--out](#--out-path)
     - [--dir](#--dir)
@@ -131,6 +132,25 @@ See:
 - [supported sites](#supported-sites)
 - [`--provider`](#--provider-site)
 
+**Check for/download new chapters:**
+
+After marking a manga with the `--subscribe` flag at the initial download:
+
+```zsh
+$ mangareader-dl naruto -s
+```
+
+You can download newly available chapters (for all marked mangas) with:
+
+```zsh
+$ mangareader-dl update
+```
+
+See:
+
+- [update](#update)
+ - [--subscribe](#--subscribe)
+
 ## CLI
 
 ```zsh
@@ -143,6 +163,7 @@ See:
     <manga> Manga to download
     list    List downloaded manga
     config  Set defaults
+    update  Update subscribed manga
 
   Options
     --out, -o       Set output path
@@ -269,6 +290,21 @@ The configuration can be reset by specifying `config reset`:
 ```zsh
 $ mangareader-dl config reset
 ```
+
+#### <h3>update</h3>
+
+Download new chapters for all manga that have been `--subscribe`d to.
+
+```zsh
+$ mangareader-dl update
+```
+
+Performs a constant time lookup for new chapters on all subscribed manga, followed by the download of these chapters.
+
+See:
+
+- [--subscribe](#--subscribe)
+- [api.jneidel.com](https://github.com/jneidel/api.jneidel.com#mangareader) - API that powers the lookup
 
 ### Options
 
@@ -423,7 +459,7 @@ $ mangareader-dl list
 #   ✓ shingeki-no-kyojin        104 [mangareader /Users/jneidel/manga/shingeki-no-kyojin]
 ```
 
-Unset using the `false` parameter: `$ mangareader-dl shingeki-no-kyojin -s false`.
+Unset by passing `false` as argument: `$ mangareader-dl shingeki-no-kyojin -s false`.
 
 ## Supported sites
 
@@ -480,7 +516,7 @@ $ npm run test
 
 ## Related
 
-- API for this module: [api.jneidel.com](https://github.com/jneidel/api.jneidel.com#mangareader)
+- API that powers the `update` commands new chapter lookup: [api.jneidel.com](https://github.com/jneidel/api.jneidel.com#mangareader)
 
 ## Python version
 

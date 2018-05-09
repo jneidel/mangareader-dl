@@ -25,6 +25,7 @@ const cli = meow( `
     <manga> Manga to download
     list    List downloaded manga
     config  Set defaults
+    update  Update subscribed manga
 
   Options
     --out, -o       Set output path
@@ -110,6 +111,9 @@ switch ( args._[0] ) {
     break;
   case "config":
     cliCommands.config( args, settings, defaults, outputPath, isReset ? settingsPath : null );
+    break;
+  case "update":
+    cliCommands.update( args, settings );
     break;
   default: // <manga>
     cliCommands.manga( args, outputPath, settings );
