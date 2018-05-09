@@ -7,12 +7,15 @@ const meow = require( "meow" );
 const i = require( "../lib" );
 const s = require( "../lib/settings" );
 const cliCommands = require( "../lib/cli-commands" );
+const { generateIdIfMissing } = require( "../lib/update" );
 
 const supportedProviders = require( "../lib/providers/available.json" );
 
 const settingsPath = s.getSettingsPath();
 const settings = s.createSettingsObject( settingsPath );
 const defaults = s.parseDefaults( settings );
+
+generateIdIfMissing( settings );
 
 const cli = meow( `
   Usage
