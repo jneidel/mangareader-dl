@@ -26,37 +26,13 @@ $ ls ./naruto
 
 - Downloads all available chapters
 - Continue downloading where the last download stopped
+- Download new chapters for all manga with one command
 - Specify download location
 - Bundle manga in `.cbz` (comic book zip) format
 - Clean, informative interface
-- Configurable defaults (output path, etc.)
+- Configurable defaults (path, provider, etc.)
 
-## Table of contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [CLI](#cli)
-  - [Commands](#commands)
-    - [\<manga>](#mangachapter-options)
-    - [list](#list)
-    - [config](#config-options)
-    - [update](#update)
-  - [Options](#options)
-    - [--out](#--out-path)
-    - [--dir](#--dir)
-    - [--provider](#--provider-site)
-    - [--force](#--force)
-    - [--extended](#--extended)
-    - [--micro](#--micro)
-    - [--subscribe](#--subscribe)
-- [Supported sites](#supported-sites)
-- [FAQ](#faq)
-- [Test](#test)
-- [Related](#related)
-- [Python version](#python-version)
-- [License](#license)
-
-## Installation
+## Install
 
 ![Project Status](https://img.shields.io/badge/status-Work_in_Progress-red.svg?style=flat-square)
 [![Npm Version](https://img.shields.io/npm/v/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
@@ -66,6 +42,40 @@ $ npm i mangareader-dl
 ```
 
 ## Usage
+
+```
+  mangareader-dl: CLI for comfortable manga download
+
+  Usage
+    $ mangareader-dl <manga>
+
+  Commands
+    <manga> Manga to download
+    list    List downloaded manga
+    config  Set defaults
+    update  Update subscribed manga
+
+  Options
+    --out, -o       Set output path
+    --dir, -d       Download into 'path/manga-name'
+    --provider, -p  Set download site
+    --force, -f     Overwrite history
+    --subscribe, -s Subscribe to new chapters
+    --extended, -e  Extended progress bar
+    --micro, -m     Micro progress bar
+
+  Examples
+    $ mangareader-dl mangareader.net/naruto/100 -do .
+    => Download naruto chapter 100+ into cwd
+
+    $ mangareader-dl naruto -mp mangareader
+    => Download naruto from mangareader.net in micro mode
+
+  For the documentation please refer to:
+  https://github.com/jneidel/mangareader-dl
+```
+
+## Examples
 
 These examples will showcase common use cases. View the [API docs](#api) for more info on the individual commands.
 
@@ -134,7 +144,7 @@ See:
 - [supported sites](#supported-sites)
 - [`--provider`](#--provider-site)
 
-**Check for/download new chapters:**
+**Download new chapters:**
 
 After marking a manga with the `--subscribe` flag at the initial download:
 
@@ -142,7 +152,7 @@ After marking a manga with the `--subscribe` flag at the initial download:
 $ mangareader-dl naruto -s
 ```
 
-You can download newly available chapters (for all marked mangas) with:
+You can download new releases (for all marked manga) with:
 
 ```zsh
 $ mangareader-dl update
@@ -153,43 +163,9 @@ See:
 - [update](#update)
  - [--subscribe](#--subscribe)
 
-## CLI
+## <h2>Commands</h2>
 
-```
-  mangareader-dl: CLI for comfortable manga download
-
-  Usage
-    $ mangareader-dl <manga>
-
-  Commands
-    <manga> Manga to download
-    list    List downloaded manga
-    config  Set defaults
-    update  Update subscribed manga
-
-  Options
-    --out, -o       Set output path
-    --dir, -d       Download into 'path/manga-name'
-    --provider, -p  Set download site
-    --force, -f     Overwrite history
-    --subscribe, -s Subscribe to new chapters
-    --extended, -e  Extended progress bar
-    --micro, -m     Micro progress bar
-
-  Examples
-    $ mangareader-dl mangareader.net/naruto/100 -do .
-    => Download naruto chapter 100+ into cwd
-
-    $ mangareader-dl naruto -mp mangareader
-    => Download naruto from mangareader.net in micro mode
-
-  For the documentation please refer to:
-  https://github.com/jneidel/mangareader-dl
-```
-
-### <h2>Commands</h2>
-
-#### <h3>\<manga>[/chapter] [options]</h3>
+### \<manga>[/chapter] [options]
 
 Url or name of manga to download.
 
@@ -222,7 +198,7 @@ $ mangareader-dl shingeki-no-kyojin/100
 - `http://www.mangareader.net/shingeki-no-kyojin`
 - `https://www.mangareader.net/shingeki-no-kyojin`
 
-#### <h3>list</h3>
+### list
 
 Output the history of downloaded manga, as well as their last chapter, provider and location on disk.
 
@@ -243,17 +219,15 @@ To continue the download of `onepunch-man` starting at chapter 138 execute:
 $ mangareader-dl onepunch-man
 ```
 
-The `✓` in the output above specifies whenever a manga has been [subscribed](#--subscribe) to.
+The `✓` in the second output above specifies whenever a manga has been [subscribed](#--subscribe) to.
 
 **Reset history:**
-
-The history (output of `list`) can be reset by specifying `list reset`:
 
 ```zsh
 $ mangareader-dl list reset
 ```
 
-#### <h3>config [options]</h3>
+### config [options]
 
 Update the global defaults by specifying them as options:
 
@@ -270,7 +244,17 @@ $ mangareader-dl config -deo ~/manga -p mangareader
 | [--dir](#--dir) | `true` / `false` | `false` |
 | [--extended](#--extended) | `true` / `false` | `false` |
 
-Passing no options will print current config.
+**Current config:**
+
+```zsh
+$ mangareader-dl config
+
+Current configuration:
+  --out: /Users/jneidel/manga
+  --dir: true
+  --provider: mangareader
+  --extended: true
+```
 
 **Config location:**
 
@@ -287,13 +271,11 @@ In `~/.mangareader.json`:
 
 **Reset config:**
 
-The configuration can be reset by specifying `config reset`:
-
 ```zsh
 $ mangareader-dl config reset
 ```
 
-#### <h3>update</h3>
+### update
 
 Download new chapters for all manga that have been `--subscribe`d to.
 
@@ -301,14 +283,50 @@ Download new chapters for all manga that have been `--subscribe`d to.
 $ mangareader-dl update
 ```
 
-Performs a constant time lookup for new chapters on all subscribed manga, followed by the download of these chapters.
+Performs a constant time lookup for new chapters on all subscribed manga, followed by the download of these chapters into their provided paths.
+
+**Example:**
+
+`~/.mangareader-dl.json`:
+
+```json
+{
+  "config": {...},
+  "history": {
+    "platinum-end": {
+      "chapter": 20,
+      "path": "/Users/jneidel/manga/platinum-end",
+      "provider": "readmng",
+      "subscribe": true
+    },
+    "onepunch-man": {
+      "chapter": 136,
+      "path": "/Users/jneidel/manga/onepunch-man",
+      "provider": "mangareader",
+      "subscribe": true
+    },
+  }
+}
+```
+
+Latest chapter of `platinum-end` on `readmng` is `28`.
+
+Latest chapter of `onepunch-man` on `mangareader` is `137`.
+
+```zsh
+$ mangareader-dl update
+
+# Downloads:
+#   'platinum-end' chapter 21-28
+#   'onepunch-man' chapter 137
+```
 
 See:
 
 - [--subscribe](#--subscribe)
 - [api.jneidel.com](https://github.com/jneidel/api.jneidel.com#mangareader) - API that powers the lookup
 
-### Options
+## Options
 
 Option flags of type boolean can be chained using their short form:
 
@@ -318,29 +336,25 @@ $ mangareader-dl <manga> -dfe
 $ mangareader-dl <manga> -dfeo <path>
 ```
 
-#### <h3>--out \<path></h3>
+### --out \<path>
 
 <table><tr>
   <td>Alias: <code>-o</code></td>
+  <td>Default: <code>./</code></td>
+  <td>Type: <code>string</code></td>
 </tr></table>
 
 Set the output path.
 
 ```zsh
-$ mangareader-dl shingeki-no-kyojin --out aot
+$ mangareader-dl shingeki-no-kyojin -o shingeki-no-kyojin
 
-# Output path: './aot'
+# Output path: './shingeki-no-kyojin'
 ```
 
-**\<path>:**
+**\<path>:** Required
 
-<table><tr>
-  <td>Required</td>
-  <td>Default: <code>./</code></td>
-  <td>Type: <code>string</code></td>
-</tr></table>
-
-#### <h3>--dir</h3>
+### --dir
 
 <table><tr>
   <td>Alias: <code>-d</code></td>
@@ -351,15 +365,22 @@ $ mangareader-dl shingeki-no-kyojin --out aot
 Add a directory named after the manga to the path.
 
 ```zsh
-$ mangareader-dl shingeki-no-kyojin -do aot
+$ mangareader-dl shingeki-no-kyojin -d
 
-# Output path: './aot'
+# Output path: './shingeki-no-kyojin'
+
+
+$ mangerader-dl shingeki-no-kyojin -do ~/manga
+
+# Output path: '~/manga/shingeki-no-kyojin'
 ```
 
-#### <h3>--provider \<site></h3>
+### --provider \<site>
 
 <table><tr>
   <td>Alias: <code>-p</code></td>
+  <td>Default: <code>mangareader</code></td>
+  <td>Type: <code>string</code></td>
 </tr></table>
 
 Specify site to download from.
@@ -368,24 +389,13 @@ Specify site to download from.
 $ mangareader-dl shingeki-no-kyojin -p readmng
 ```
 
-**\<site>:**
-
-<table><tr>
-  <td>Required</td>
-  <td>Default: <code>mangareader</code></td>
-  <td>Type: <code>string</code></td>
-</tr></table>
+**\<site>:** Required
 
 Must be in the list of [supported sites](#supported-sites).
 
 Leave off the domain extension (eg: `.com`).
 
-**Available sites:**
-
-- mangareader
-- readmng
-
-#### <h3>--force</h3>
+### --force
 
 <table><tr>
   <td>Alias: <code>-f</code></td>
@@ -394,6 +404,12 @@ Leave off the domain extension (eg: `.com`).
 </tr></table>
 
 Overwrite the corresponding entry in the [history](#list) with the currently specified data.
+
+```zsh
+$ mangareader-dl naruto -f
+```
+
+**Example:**
 
 ```zsh
 $ mangareader-dl list
@@ -407,7 +423,7 @@ $mangareader-dl shingeki-no-kyojin/100 -f
 #=> Downloads chapter 100+, overwrites history
 ```
 
-#### <h3>--extended</h3>
+### --extended
 
 <table><tr>
   <td>Alias: <code>-e</code></td>
@@ -415,7 +431,7 @@ $mangareader-dl shingeki-no-kyojin/100 -f
   <td>Type: <code>boolean</code></td>
 </tr></table>
 
-Activate extended progress bar, which includes a separate chapter bar.
+Activate extended progress bar, which includes a separate bar for chapter progress.
 
 ```zsh
 $ mangareader-dl shingeki-no-kyojin/100 -e
@@ -424,7 +440,7 @@ $ mangareader-dl shingeki-no-kyojin/100 -e
 # ⠧        100         [█████████████████████████████████████████████████████░]  96.2% | chapter 100/104
 ```
 
-#### <h3>--micro</h3>
+### --micro
 
 <table><tr>
   <td>Alias: <code>-m</code></td>
@@ -440,7 +456,7 @@ $ mangareader-dl shingeki-no-kyojin/100 -m
 # ⠏ shingeki-no-kyojin 100/104 26%
 ```
 
-#### <h3>--subscribe</h3>
+### --subscribe
 
 <table><tr>
   <td>Alias: <code>-s</code></td>
