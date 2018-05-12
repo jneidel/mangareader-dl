@@ -258,9 +258,9 @@ Current configuration:
 
 **Config location:**
 
-The cli checks if `~/.mangareader.json` exists and otherwise writes to a local file. If you want your config and history to persit just create the global settings file:
+The cli checks if `~/.mangareader-dl.json` exists and otherwise writes to a local file. If you want your config and history to persit just create the global settings file:
 
-In `~/.mangareader.json`:
+In `~/.mangareader-dl.json`:
 
 ```json
 {
