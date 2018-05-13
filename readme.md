@@ -223,8 +223,16 @@ The `✓` in the second output above specifies whenever a manga has been [subscr
 
 **Reset history:**
 
+Soft reset (keep [subscribed](#--subscribe) manga):
+
 ```zsh
 $ mangareader-dl list reset
+```
+
+Hard reset:
+
+```zsh
+$ mangareader-dl list reset -f
 ```
 
 ### config [options]
