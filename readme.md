@@ -6,12 +6,11 @@
 
 ![Project Status](https://img.shields.io/badge/status-Work_in_Progress-red.svg?style=flat-square)
 [![Travis Build Status](https://img.shields.io/travis/jneidel/mangareader-dl.svg?style=flat-square)](https://travis-ci.org/jneidel/mangareader-dl)
-[![Licence MIT](https://img.shields.io/badge/licence-MIT-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/licence)
 [![Npm Downloads](https://img.shields.io/npm/dw/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
+[![Licence MIT](https://img.shields.io/badge/licence-MIT-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/licence)
 [![Code Style Custom](https://img.shields.io/badge/code%20style-custom-ff69b4.svg?style=flat-square)](https://github.com/jneidel/dotfiles/blob/master/eslintrc)
 
-Convenient mass downloading from [mangareader.net](https://www.mangareader.net/) and other [supported sites](#supported-sites).
-Given the name or url `mangareader-dl` will download all available chapters of the manga.
+Convenient mass downloading from [mangareader.net](https://www.mangareader.net/) and other [supported sites](#supported-sites), easily download new chapters or resume downloads.
 
 ![](img/demo.gif)
 
@@ -24,17 +23,15 @@ $ ls ./naruto
 
 ## Features
 
-- Downloads all available chapters
-- Continue downloading where the last download stopped
-- Download new chapters for all manga with one command
-- Specify download location
-- Bundle manga in `.cbz` (comic book zip) format
+- Download all available chapters
+- Resume downloads
+- Download new chapters for all manga
+- Set download location
+- Configurable defaults
 - Clean, informative interface
-- Configurable defaults (path, provider, etc.)
 
 ## Install
 
-![Project Status](https://img.shields.io/badge/status-Work_in_Progress-red.svg?style=flat-square)
 [![Npm Version](https://img.shields.io/npm/v/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
 
 ```zsh
@@ -161,7 +158,7 @@ $ mangareader-dl update
 See:
 
 - [update](#update)
- - [--subscribe](#--subscribe)
+- [--subscribe](#--subscribe)
 
 ## <h2>Commands</h2>
 
@@ -179,6 +176,8 @@ A chapter can be specified using a `/` after the manga name: `shingeki-no-kyojin
 ```zsh
 $ mangareader-dl shingeki-no-kyojin/100
 ```
+
+Manga are downloaded in the `.cbz` (comic book zip) format.
 
 **Available options:**
 
