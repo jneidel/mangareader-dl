@@ -100,7 +100,7 @@ const testBuffer = fs.readFileSync( path.resolve( __dirname, "buffers", "readmng
 
 // i.downloadImg
 test( "download image and return its buffer", t =>
-  i.downloadImg( "https://www.funmanga.com/uploads/chapters/6528/112/9.jpg", "readmng" )
+  i.downloadImg( { imgSrc: "https://www.funmanga.com/uploads/chapters/6528/112/9.jpg", provider: "readmng" } )
     .then( buffer => t.is( Buffer.compare( buffer, testBuffer ), 0, "Buffers don't match" ) )
 );
 
