@@ -494,11 +494,12 @@ Currently supported sites include:
 
     ![mangareader status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
     ![mangareader download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square)
+    Note that lately there have been some missing images in new releases - maybe one per chapter
 
 - [readmng.com](https://www.readmng.com/):
 
     ![readmng status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
-    ![readmng download speed](https://img.shields.io/badge/speed-medium-orange.svg?style=flat-square)
+    ![readmng download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square)
 
 - [goodmanga.com](http://www.goodmanga.net/):
 
