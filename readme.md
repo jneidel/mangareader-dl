@@ -290,7 +290,7 @@ Download new chapters for all manga that have been `--subscribe`d to.
 $ mangareader-dl update
 ```
 
-Performs a constant time lookup for new chapters on all subscribed manga, followed by the download of these chapters into their provided paths.
+Performs a n-time lookup for new chapters on all subscribed manga, followed by the download of these chapters into their provided paths.
 
 **Example:**
 
@@ -331,7 +331,6 @@ $ mangareader-dl update
 See:
 
 - [--subscribe](#--subscribe)
-- [api.jneidel.com](https://github.com/jneidel/api.jneidel.com#mangareader) - API that powers the lookup
 
 ## Options
 
@@ -540,10 +539,6 @@ I use [YACReader](https://www.yacreader.com/) (which I very much recommend) on m
 ```
 $ npm run test
 ```
-
-## Related
-
-- API that powers the `update` commands new chapter lookup: [api.jneidel.com](https://github.com/jneidel/api.jneidel.com#mangareader)
 
 ## Python version
 
