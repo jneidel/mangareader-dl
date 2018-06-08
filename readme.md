@@ -499,6 +499,11 @@ Currently supported sites include:
     ![readmng status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
     ![readmng download speed](https://img.shields.io/badge/speed-medium-orange.svg?style=flat-square)
 
+- [mangainn.net](http://www.mangainn.net/):
+
+    ![mangainn status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
+    ![mangainn download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square)
+
 - [goodmanga.com](http://www.goodmanga.net/):
 
     ![goodmanga status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
