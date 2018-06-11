@@ -240,11 +240,11 @@ To continue the download of `onepunch-man` starting at chapter 138 execute:
 $ mangareader-dl onepunch-man
 ```
 
-The `✓` in the second output above specifies whenever a manga has been [subscribed](#--subscribe) to.
+The `✓` in the second output above specifies whenever a manga has been [`--subscribe`](#--subscribe)d to.
 
 **Reset history:**
 
-Soft reset (keep [subscribed](#--subscribe) manga):
+Soft reset (keep [`--subscribe`](#--subscribe)d manga):
 
 ```zsh
 $ mangareader-dl list reset
