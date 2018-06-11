@@ -30,6 +30,28 @@ $ ls ./naruto
 - Configurable defaults
 - Clean, informative interface
 
+## FAQ
+
+<details>
+<summary><strong>Which comic book reader do you use?</strong></summary>
+
+I use [YACReader](https://www.yacreader.com/) (which I very much recommend) on my laptop and [Simple Comic Viewer](https://play.google.com/store/apps/details?id=com.eddysoft.comicviewer) on my android.
+
+</details>
+
+<details>
+<summary><strong>Why not just read online?</strong></summary>
+
+- Ads: No ads.
+- Keyboard Shortcuts: Using YACReader I can can scroll/flip a page by only pressing `spacebar` wheres in a browser I would need my to use my mouse.
+- Zoom: Using YACReader I can set a consistent zoom, that does not change on page flip and is easier scrollable than using the mouse or arrow keys.
+- Offline: A slow internet connection won't impact loading times. Access your manga everywhere.
+- State: YACReader saves how far you've read automatically, no need to manage bookmarks.
+- Battery: Turning off WiFi and not running your draining browser but a lightweight app like YACReader will be easy on your battery.
+- Convenience: Your reading is delayed only by the time it takes to download the first chapter. After that, judge for yourself.
+
+</details>
+
 ## Install
 
 [![Npm Version](https://img.shields.io/npm/v/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
@@ -489,30 +511,13 @@ Unset by passing `false` as argument: `$ mangareader-dl shingeki-no-kyojin -s fa
 
 Currently supported sites include:
 
-- [mangareader.net](https://www.mangareader.net/):
-
-    ![mangareader status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
-    ![mangareader download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square)
-
-- [readmng.com](https://www.readmng.com/):
-
-    ![readmng status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
-    ![readmng download speed](https://img.shields.io/badge/speed-medium-orange.svg?style=flat-square)
-
-- [mangainn.net](http://www.mangainn.net/):
-
-    ![mangainn status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
-    ![mangainn download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square)
-
-- [goodmanga.com](http://www.goodmanga.net/):
-
-    ![goodmanga status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
-    ![goodmanga download speed](https://img.shields.io/badge/speed-slow-red.svg?style=flat-square)
-
-- [mangapanda.com](https://www.mangapanda.com/) (mangareader rehost):
-
-    ![mangapanda status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square)
-    ![mangapanda download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square)
+| site | status | speed | note |
+|--|--|--|--|
+| [mangareader.net](https://www.mangareader.net/) | ![mangareader status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![mangareader download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) |  |
+| [readmng.com](https://www.readmng.com/) | ![readmng status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![readmng download speed](https://img.shields.io/badge/speed-medium-orange.svg?style=flat-square) |  |
+| [goodmanga.com](http://www.goodmanga.net/) | ![goodmanga status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![goodmanga download speed](https://img.shields.io/badge/speed-slow-red.svg?style=flat-square) |  |
+| [mangainn.net](http://www.mangainn.net/) | ![mangainn status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![mangainn download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) |  |
+| [mangapanda.com](https://www.mangapanda.com/) | ![mangapanda status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![mangapanda download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) | mangareader rehost |
 
 If given a full url (eg: `www.mangareader.net/shingeki-no-kyojin`) the provider (site to download from) will be parsed from the url, using the name of the manga (eg: `shingeki-no-kyojin`) the default provider will be used. To use a different provider specify it with the [`--provider`](#--provider-site) flag.
 
@@ -526,27 +531,13 @@ $ mangareader-dl shingeki-no-kyojin --provider mangareader
 
 To request support for an unsupported provider please open an [issue on GitHub](https://github.com/jneidel/mangareader-dl/issues/new?assignee=jneidel&body=**Supported%20Site%20Request:**).
 
-## FAQ
-
-**Which comic book reader do you use?**
-
-I use [YACReader](https://www.yacreader.com/) (which I very much recommend) on my laptop and [Simple Comic Viewer](https://play.google.com/store/apps/details?id=com.eddysoft.comicviewer) on my android.
-
-**Why not just read online?**
-
-- Ads: No ads.
-- Keyboard Shortcuts: Using YACReader I can can scroll/flip a page by only pressing `spacebar` wheres in a browser I would need my to use my mouse.
-- Zoom: Using YACReader I can set a consistent zoom, that does not change on page flip and is easier scrollable than using the mouse or arrow keys.
-- Offline: A slow internet connection won't impact loading times. Access your manga everywhere.
-- State: YACReader saves how far you've read automatically, no need to manage bookmarks.
-- Battery: Turning off WiFi and not running your draining browser but a lightweight app like YACReader will be easy on your battery.
-- Convenience: Your reading is delayed only by the time it takes to download the first chapter. After that, judge for yourself.
-
 ## Test
 
 ```
 $ npm run test
 ```
+
+It's not run via Travis because there is a build error on the test server caused by one of the dependencies.
 
 ## Python version
 
