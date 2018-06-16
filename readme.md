@@ -5,6 +5,7 @@
 > CLI for comfortable manga download
 
 ![Project Status](https://img.shields.io/badge/status-Work_in_Progress-red.svg?style=flat-square)
+![User tested](https://img.shields.io/badge/User_tested_on-mac-brightgreen.svg?style=flat-square)
 <!--[![Travis Build Status](https://img.shields.io/travis/jneidel/mangareader-dl.svg?style=flat-square)](https://travis-ci.org/jneidel/mangareader-dl)-->
 [![Npm Downloads](https://img.shields.io/npm/dw/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/licence)
