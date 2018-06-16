@@ -34,22 +34,22 @@ $ ls ./naruto
 
 <details>
 <summary><strong>Which comic book reader do you use?</strong></summary>
-
-I use [YACReader](https://www.yacreader.com/) (which I very much recommend) on my laptop and [Simple Comic Viewer](https://play.google.com/store/apps/details?id=com.eddysoft.comicviewer) on my android.
-
+<br>
+I use <a href="https://www.yacreader.com/">YACReader</a> [GNU/Linux, Mac, Win] (which I very much recommend) on my laptop and <a href="https://play.google.com/store/apps/details?id=com.eddysoft.comicviewer">Simple Comic Viewer</a> on my android.
+<br><br>
 </details>
 
 <details>
 <summary><strong>Why not just read online?</strong></summary>
-
-- Ads: No ads.
-- Keyboard Shortcuts: Using YACReader I can can scroll/flip a page by only pressing `spacebar` wheres in a browser I would need my to use my mouse.
-- Zoom: Using YACReader I can set a consistent zoom, that does not change on page flip and is easier scrollable than using the mouse or arrow keys.
-- Offline: A slow internet connection won't impact loading times. Access your manga everywhere.
-- State: YACReader saves how far you've read automatically, no need to manage bookmarks.
-- Battery: Turning off WiFi and not running your draining browser but a lightweight app like YACReader will be easy on your battery.
-- Convenience: Your reading is delayed only by the time it takes to download the first chapter. After that, judge for yourself.
-
+<br>
+<ul>
+  <li><strong>Ads:</strong> No ads.</li>
+  <li><strong>Keyboard Shortcuts:</strong> Using YACReader I can can scroll/flip a page by only pressing `spacebar` wheres in a browser I would need my to use my mouse.</li>
+  <li><strong>Zoom:</strong> Using YACReader I can set a consistent zoom, that does not change on page flip and is easier scrollable than using the mouse or arrow keys.</li>
+  <li><strong>Offline:</strong> A slow internet connection won't impact loading times. Access your manga everywhere.</li>
+  <li><strong>State:</strong> YACReader saves how far you've read automatically, no need to manage bookmarks.</li>
+  <li><strong>Battery:</strong> Turning off WiFi and not running your draining browser but a lightweight app like YACReader will be easy on your battery.</li>
+  <li><strong>Convenience:</strong> Your reading is delayed only by the time it takes to download the first chapter. After that, judge for yourself.</li>
 </details>
 
 ## Install
