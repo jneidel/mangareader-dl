@@ -16,7 +16,7 @@ Convenient mass downloading from [mangareader.net](https://www.mangareader.net/)
 ![](img/demo.gif)
 
 ```zsh
-$ mangareader-dl naruto/699 -deo .
+$ mangareader-dl naruto/699 -do .
 
 $ ls ./naruto
 #=> naruto-699.cbz naruto-700.cbz
@@ -81,7 +81,6 @@ $ npm i mangareader-dl
     --provider, -p  Set download site
     --force, -f     Overwrite history
     --subscribe, -s Subscribe to new chapters
-    --extended, -e  Extended progress bar
     --micro, -m     Micro progress bar
 
   Examples
@@ -208,9 +207,8 @@ Manga are downloaded in the `.cbz` (comic book zip) format.
 - [--dir](#--dir)
 - [--provider `<site>`](#--provider-site)
 - [--force](#--force)
-- [--extended](#--extended)
-- [--micro](#--micro)
 - [--subscribe](#--subscribe)
+- [--micro](#--micro)
 
 **Possible formats:**
 
@@ -272,7 +270,6 @@ $ mangareader-dl config -deo ~/manga -p mangareader
 | [--out](#--out-path) | `<path>` | `./` |
 | [--provider](#--provider-site) | `<site>` | `mangareader` |
 | [--dir](#--dir) | `true` / `false` | `false` |
-| [--extended](#--extended) | `true` / `false` | `false` |
 
 **Current config:**
 
@@ -283,7 +280,6 @@ Current configuration:
   --out: /Users/jneidel/manga
   --dir: true
   --provider: mangareader
-  --extended: true
 ```
 
 **Config location:**
@@ -452,23 +448,6 @@ $mangareader-dl shingeki-no-kyojin/100 -f
 #=> Downloads chapter 100+, overwrites history
 ```
 
-### --extended
-
-<table><tr>
-  <td>Alias: <code>-e</code></td>
-  <td>Default: <code>false</code></td>
-  <td>Type: <code>boolean</code></td>
-</tr></table>
-
-Activate extended progress bar, which includes a separate bar for chapter progress.
-
-```zsh
-$ mangareader-dl shingeki-no-kyojin/100 -e
-
-# ⠏ shingeki-no-kyojin [██████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]  21.4% | page      9/ 42
-# ⠧        100         [█████████████████████████████████████████████████████░]  96.2% | chapter 100/104
-```
-
 ### --micro
 
 <table><tr>
@@ -477,7 +456,7 @@ $ mangareader-dl shingeki-no-kyojin/100 -e
   <td>Type: <code>boolean</code></td>
 </tr></table>
 
-Activate micro progress bar. Has precedence over `--extended`.
+Activate micro progress bar.
 
 ```zsh
 $ mangareader-dl shingeki-no-kyojin/100 -m

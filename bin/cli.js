@@ -31,7 +31,6 @@ const cli = meow( `
     --provider, -p  Set download site
     --force, -f     Overwrite history
     --subscribe, -s Subscribe to new chapters
-    --extended, -e  Extended progress bar
     --micro, -m     Micro progress bar
 
   Examples
@@ -61,11 +60,6 @@ const cli = meow( `
         alias  : "f",
         type   : "boolean",
         default: false,
-      },
-      extended: {
-        alias  : "e",
-        type   : "boolean",
-        default: defaults.extended,
       },
       provider: {
         alias  : "p",
@@ -110,7 +104,7 @@ if ( !~supportedProviders.indexOf( args.provider ) ) {
   process.exit();
 }
 
-args.bar = args.micro ? "micro" : args.extended ? "extended" : "normal"; // Micro > extended > normal
+args.bar = args.micro ? "micro" : "extended"; // micro > extended
 
 const isReset = args._[1] === "reset";
 
