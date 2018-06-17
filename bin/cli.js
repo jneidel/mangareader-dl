@@ -76,6 +76,11 @@ const cli = meow( `
         type   : "boolean",
         default: false,
       },
+      latest: {
+        alias  : "l",
+        type   : "boolean",
+        default: false,
+      },
     },
   }
 );
@@ -111,7 +116,7 @@ const isReset = args._[1] === "reset";
 // Parse commands
 switch ( args._[0] ) {
   case "list":
-    cliCommands.list( settings, isReset ? { settingsPath, force: args.force } : null );
+    cliCommands.list( settings, isReset ? { settingsPath, force: args.force } : null, args.latest );
     break;
   case "config":
     cliCommands.config( args, settings, defaults, outputPath, isReset ? settingsPath : null );

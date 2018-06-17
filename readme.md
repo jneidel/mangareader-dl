@@ -223,6 +223,14 @@ Manga are downloaded in the `.cbz` (comic book zip) format.
 
 ### list
 
+<table><tr>
+  <td>
+    options:
+    <code>--latest</a></code>,
+    <code><a href="#--force">--force</a></code>,
+  </td>
+</tr></table>
+
 Output the history of downloaded manga, as well as their last chapter, provider and location on disk.
 
 This list is used for continuing downloads.
@@ -243,6 +251,12 @@ $ mangareader-dl onepunch-man
 ```
 
 The `✓` in the second output above specifies whenever a manga has been [`--subscribe`](#--subscribe)d to.
+
+**Color up-to-date manga:**
+
+To check whenever a manga is at its latest chapter pass the `--latest` (`-l`) option.
+
+Green manga are up-to-date, red ones arn't.
 
 **Reset history:**
 
@@ -362,9 +376,9 @@ $ mangareader-dl update
 Option flags of type boolean can be chained using their short form:
 
 ```zsh
-$ mangareader-dl <manga> -dfe
+$ mangareader-dl <manga> -dfm
 # Options requiring a parameter can be chained at the end
-$ mangareader-dl <manga> -dfeo <path>
+$ mangareader-dl <manga> -dfmo <path>
 ```
 
 ### --out \<path>
