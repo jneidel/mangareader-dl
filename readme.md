@@ -51,6 +51,19 @@ I use <a href="https://www.yacreader.com/">YACReader</a> [GNU/Linux, Mac, Win] (
   <li><strong>State:</strong> YACReader saves how far you've read automatically, no need to manage bookmarks.</li>
   <li><strong>Battery:</strong> Turning off WiFi and not running your draining browser but a lightweight app like YACReader will be easy on your battery.</li>
   <li><strong>Convenience:</strong> Your reading is delayed only by the time it takes to download the first chapter. After that, judge for yourself.</li>
+<br>
+</details>
+
+<details>
+<summary><strong>Isn't 'mangareader-dl' too long to type?</strong></summary>
+<br>
+That's why I use it with an alias.
+<br><br>
+In your shell config (<code>~/.bashrc</code>, <code>~/.zshrc</code>, etc.):
+<br>
+<code>alias manga="mangareader-dl"</code>
+<br>
+Then you can use <code>$ manga</code> instead of <code>$ mangareader-dl</code>.
 </details>
 
 ## Install
