@@ -139,7 +139,7 @@ can be resumed with:
 $ mangareader-dl naruto
 ```
 
-If you need to re-download something, just overwrite the history with `--force`:
+If you need to re-download something, just overwrite the history with [`--force`](#--force):
 
 ```zsh
 $ mangareader-dl naruto/10 -fo naruto
@@ -165,7 +165,7 @@ See:
 
 **Download new chapters:**
 
-After marking a manga with the `--subscribe` flag at the initial download:
+After marking a manga with the [`--subscribe`](#--subscribe) flag at the initial download:
 
 ```zsh
 $ mangareader-dl naruto -s
@@ -180,11 +180,23 @@ $ mangareader-dl update
 See:
 
 - [update](#update)
-- [--subscribe](#--subscribe)
+- [`--subscribe`](#--subscribe)
 
 ## <h2>Commands</h2>
 
 ### \<manga>[/chapter] [options]
+
+<table><tr>
+  <td>
+    options:
+    <code><a href="#--out-path">--out</a></code>,
+    <code><a href="#--dir">--dir</a></code>,
+    <code><a href="#--provider-site">--provider</a></code>,
+    <code><a href="#--force">--force</a></code>,
+    <code><a href="#--subscribe">--subscribe</a></code>,
+    <code><a href="#--micro">--micro</a></code>
+  </td>
+</tr></table>
 
 Url or name of manga to download.
 
@@ -200,15 +212,6 @@ $ mangareader-dl shingeki-no-kyojin/100
 ```
 
 Manga are downloaded in the `.cbz` (comic book zip) format.
-
-**Available options:**
-
-- [--out `<path>`](#--out-path)
-- [--dir](#--dir)
-- [--provider `<site>`](#--provider-site)
-- [--force](#--force)
-- [--subscribe](#--subscribe)
-- [--micro](#--micro)
 
 **Possible formats:**
 
@@ -267,9 +270,9 @@ $ mangareader-dl config -deo ~/manga -p mangareader
 
 | option | parameter | default |
 |--|--|--|
-| [--out](#--out-path) | `<path>` | `./` |
-| [--provider](#--provider-site) | `<site>` | `mangareader` |
-| [--dir](#--dir) | `true` / `false` | `false` |
+| [`--out`](#--out-path) | `<path>` | `./` |
+| [`--provider`](#--provider-site) | `<site>` | `mangareader` |
+| [`--dir`](#--dir) | `true` / `false` | `false` |
 
 **Current config:**
 
@@ -303,13 +306,20 @@ $ mangareader-dl config reset
 
 ### update
 
-Download new chapters for all manga that have been `--subscribe`d to.
+<table><tr>
+  <td>
+    options:
+    <code><a href="#--micro">--micro</a></code>
+  </td>
+</tr></table>
+
+Download new chapters for all manga that have been [`--subscribe`](#--subscribe)d to.
 
 ```zsh
 $ mangareader-dl update
 ```
 
-Performs a n-time lookup for new chapters on all subscribed manga, followed by the download of these chapters into their provided paths.
+Performs a n-time lookup for new chapters on all [`--subscribe`](#--subscribe)d manga, followed by the download of these chapters into their provided paths.
 
 **Example:**
 
@@ -346,10 +356,6 @@ $ mangareader-dl update
 #   'platinum-end' chapter 21-28
 #   'onepunch-man' chapter 137
 ```
-
-See:
-
-- [--subscribe](#--subscribe)
 
 ## Options
 
