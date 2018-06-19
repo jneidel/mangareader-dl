@@ -109,7 +109,7 @@ $ npm i mangareader-dl
 
 ## Examples
 
-These examples will showcase common use cases. View the [API docs](#api) for more info on the individual commands.
+These examples will showcase common use cases. View the [API docs](#commands) for more info on the individual commands.
 
 **Download starting at given chapter:**
 
@@ -195,7 +195,7 @@ See:
 - [update](#update)
 - [`--subscribe`](#--subscribe)
 
-## <h2>Commands</h2>
+## Commands
 
 ### \<manga>[/chapter] [options]
 
