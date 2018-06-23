@@ -31,6 +31,7 @@
     "chalk": "^2.4.1",
     "cheerio": "^1.0.0-rc.2",
     "cloudscraper": "^1.5.0",
+    "directory-exists": "^2.0.0",
     "dot-json": "^1.0.4",
     "execution-time": "^1.2.0",
     "expand-home-dir": "0.0.3",

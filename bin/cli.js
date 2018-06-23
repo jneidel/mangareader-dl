@@ -44,45 +44,45 @@ const cli = meow( `
   https://github.com/jneidel/mangareader-dl
 
 `, {
-    description: "mangareader-dl: CLI for comfortable manga download",
-    flags      : {
-      out: {
-        alias  : "o",
-        type   : "string",
-        default: defaults.out,
-      },
-      dir: {
-        alias  : "d",
-        type   : "boolean",
-        default: defaults.dir,
-      },
-      force: {
-        alias  : "f",
-        type   : "boolean",
-        default: false,
-      },
-      provider: {
-        alias  : "p",
-        type   : "string",
-        default: defaults.provider,
-      },
-      micro: {
-        alias  : "m",
-        type   : "boolean",
-        default: false,
-      },
-      subscribe: {
-        alias  : "s",
-        type   : "boolean",
-        default: false,
-      },
-      latest: {
-        alias  : "l",
-        type   : "boolean",
-        default: false,
-      },
+  description: "mangareader-dl: CLI for comfortable manga download",
+  flags      : {
+    out: {
+      alias  : "o",
+      type   : "string",
+      default: defaults.out,
     },
-  }
+    dir: {
+      alias  : "d",
+      type   : "boolean",
+      default: defaults.dir,
+    },
+    force: {
+      alias  : "f",
+      type   : "boolean",
+      default: false,
+    },
+    provider: {
+      alias  : "p",
+      type   : "string",
+      default: defaults.provider,
+    },
+    micro: {
+      alias  : "m",
+      type   : "boolean",
+      default: false,
+    },
+    subscribe: {
+      alias  : "s",
+      type   : "boolean",
+      default: false,
+    },
+    latest: {
+      alias  : "l",
+      type   : "boolean",
+      default: false,
+    },
+  },
+}
 );
 
 // Clean up input
