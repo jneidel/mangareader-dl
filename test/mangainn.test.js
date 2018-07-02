@@ -69,6 +69,10 @@ test( "get last chapter", t =>
   i.getLastChapter( "naruto1", "mangainn" )
     .then( chapter => t.is( chapter, 700 ) )
 );
+test( "get last chapter for number in name", t =>
+  i.getLastChapter( "jojo_s_bizarre_adventure_part_5_vento_aureo", "mangainn" )
+    .then( chapter => t.is( chapter, 457 ) )
+);
 
 // i.getLastPage
 test( "get last page for url", t =>
