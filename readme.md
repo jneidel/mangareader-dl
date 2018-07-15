@@ -240,7 +240,7 @@ Manga are downloaded in the `.cbz` (comic book zip) format.
   <td>
     options:
     <code>--latest</a></code>,
-    <code><a href="#--force">--force</a></code>,
+    <code><a href="#--force">--force</a></code>
   </td>
 </tr></table>
 
@@ -336,6 +336,7 @@ $ mangareader-dl config reset
 <table><tr>
   <td>
     options:
+    <code>--silent</code>,
     <code><a href="#--micro">--micro</a></code>
   </td>
 </tr></table>
@@ -382,6 +383,22 @@ $ mangareader-dl update
 # Downloads:
 #   'platinum-end' chapter 21-28
 #   'onepunch-man' chapter 137
+```
+
+**Hide progress bar:**
+
+For redirecting the output cleanly into a file use the `--silent` (`-s`) flag.
+
+```zsh
+$ mangareader-dl update --silent >> ~/manga/updates.txt &
+
+# downloads updates in the background
+# and adds the list of update
+# chapters to ~/manga/updates.txt
+
+$ cat ~/manga/updates.txt
+#   - dr-stone (66)
+#   - shingeki-no-kyojin (107)
 ```
 
 ## Options

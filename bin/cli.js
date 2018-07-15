@@ -81,6 +81,11 @@ const cli = meow( `
       type   : "boolean",
       default: false,
     },
+    silent: {
+      alias: "s",
+      type   : "boolean",
+      default: false,
+    },
   },
 }
 );
