@@ -45,7 +45,9 @@
     "pify": "^3.0.0",
     "progress-string": "^1.2.2",
     "py-range": "^1.0.0",
+    "string-length": "^2.0.0",
     "strpad": "^1.0.2",
+    "term-size": "^1.2.0",
     "text2png": "^1.1.1",
     "update-check": "^1.5.2"
   },
