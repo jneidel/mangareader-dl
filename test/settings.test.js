@@ -72,6 +72,5 @@ test.serial( "parse config from settings file [unit]", t => {
     dir     : true,
     provider: "mangareader",
     out     : "./",
-    extended: false,
   } );
 } );
