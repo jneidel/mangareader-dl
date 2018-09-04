@@ -24,7 +24,7 @@ test( "create url with page [unit]", t =>
 
 // i.createManga
 test( "create manga from url", t =>
-  i.createManga( "https://www.mangainn.net/ao-no-exorcist/100", __dirname, "mangainn" )
+  Promise.resolve( i.createManga( "https://www.mangainn.net/ao-no-exorcist/100", __dirname, "mangainn" ) )
     .then( data => {
       const testManga = {
         name      : "ao-no-exorcist",
@@ -32,18 +32,19 @@ test( "create manga from url", t =>
         page      : 1,
         provider  : "mangainn",
         url       : "https://www.mangainn.net/ao-no-exorcist/100/1",
-        imgSrc    : "http://funmanga.com/uploads/chapters/527/121/0.jpg",
         outputPath: __dirname,
+        getImgSrc : i.getImgSrcIfValid,
       };
       t.deepEqual( data, testManga );
     } )
 );
 test( "pass on invalid page error", t =>
-  i.createManga( "https://www.mangainn.net/ao-no-exorcist/100/999", __dirname, "mangainn" )
-    .then( data => data.imgSrc )
-    .then( imgSrc => {
-      t.truthy( imgSrc instanceof Error );
-    } )
+  Promise.resolve( i.createManga( "https://www.mangainn.net/ao-no-exorcist/100/999", __dirname, "mangainn" ) )
+    .then( data => data.getImgSrc()
+      .then( imgSrc => {
+        t.truthy( imgSrc instanceof Error );
+      } )
+    )
 );
 
 // i.parseFromUrl

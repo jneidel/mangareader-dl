@@ -50,8 +50,8 @@ test( "create url with page [unit]", t =>
 
 // i.createManga
 test( "create manga from url", t =>
-  i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103", __dirname, "mangareader" )
-    .then( data => {
+  Promise.resolve( i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103", __dirname, "mangareader" ) )
+    .then( async data => {
       const testManga = {
         name      : "shingeki-no-kyojin",
         chapter   : 103,
@@ -59,8 +59,10 @@ test( "create manga from url", t =>
         provider  : "mangareader",
         url       : "https://www.mangareader.net/shingeki-no-kyojin/103/1",
         outputPath: __dirname,
+        getImgSrc : i.getImgSrcIfValid,
       };
 
+      data.imgSrc = await data.getImgSrc();
       if ( data.imgSrc.slice( 8, 10 ) === "i6" ) // Different servers depending on position
         testManga.imgSrc = "https://i6.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg";
       else
@@ -70,18 +72,20 @@ test( "create manga from url", t =>
     } )
 );
 test( "pass on invalid page error", t =>
-  i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103/40", __dirname, "mangareader" )
-    .then( data => data.imgSrc )
-    .then( imgSrc => {
-      t.truthy( imgSrc instanceof Error );
-    } )
+  Promise.resolve( i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103/40", __dirname, "mangareader" ) )
+    .then( data => data.getImgSrc()
+      .then( imgSrc => {
+        t.truthy( imgSrc instanceof Error );
+      } )
+    )
 );
 test( "pass on invalid chapter error", t =>
-  i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/250", __dirname, "mangareader" )
-    .then( data => data.imgSrc )
-    .then( imgSrc => {
-      t.truthy( imgSrc instanceof Error );
-    } )
+  Promise.resolve( i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/250", __dirname, "mangareader" ) )
+    .then( data => data.getImgSrc()
+      .then( imgSrc => {
+        t.truthy( imgSrc instanceof Error );
+      } )
+    )
 );
 
 // i.parseFromUrl
@@ -128,21 +132,20 @@ test( "parse url without www.mangareader.net [unit]", t =>
 
 // i.increase
 test( "increase chapter for valid url", t =>
-  i.increase( {
+  Promise.resolve( i.increase( {
     name    : "shingeki-no-kyojin",
     chapter : 100,
     page    : 1,
     provider: "mangareader",
-    imgSrc  : "https://i9.mangareader.net/shingeki-no-kyojin/100/shingeki-no-kyojin-10120141.jpg",
     url     : "https://www.mangareader.net/shingeki-no-kyojin/100",
-  } )
+  } ) )
     .then( data => t.deepEqual( data, {
       name    : "shingeki-no-kyojin",
       chapter : 101,
       page    : 1,
       provider: "mangareader",
-      imgSrc  : "https://i7.mangareader.net/shingeki-no-kyojin/101/shingeki-no-kyojin-10239607.jpg",
       url     : "https://www.mangareader.net/shingeki-no-kyojin/101/1",
+      imgSrc  : "https://i7.mangareader.net/shingeki-no-kyojin/101/shingeki-no-kyojin-10239607.jpg",
     } ) )
 );
 test( "return null for invalid chapter", t =>
@@ -159,8 +162,8 @@ test( "return null for invalid chapter", t =>
 const testBuffer = fs.readFileSync( path.resolve( __dirname, "buffers", "mangareader.jpg" ) );
 
 // i.downloadImg
-test( "download image and return its buffer", t =>
-  i.downloadImg( { imgSrc: "https://i3.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410973.jpg", provider: "mangareader" } )
+test.skip( "download image and return its buffer", t =>
+  i.downloadImg( i.createManga( "mangareader.com/shingeki-no-kyojin/103" ) )
     .then( buffer => t.is( Buffer.compare( buffer, testBuffer ), 0, "Buffers don't match" ) )
 );
 

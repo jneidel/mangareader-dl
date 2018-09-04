@@ -24,7 +24,7 @@ test( "create url with page [unit]", t =>
 
 // i.createManga
 test( "create manga from url", t =>
-  i.createManga( "https://mangalife.us/read-online/platinum-end-chapter-30-page-12.html", __dirname, "mangalife" )
+  Promise.resolve( i.createManga( "https://mangalife.us/read-online/platinum-end-chapter-30-page-12.html", __dirname, "mangalife" ) )
     .then( data => {
       const testManga = {
         name      : "platinum-end",
@@ -32,18 +32,19 @@ test( "create manga from url", t =>
         page      : 12,
         provider  : "mangalife",
         url       : "https://mangalife.us/read-online/platinum-end-chapter-30-page-12.html",
-        imgSrc    : "http://93.190.142.23/manga/Platinum-End/0030-012.png",
         outputPath: __dirname,
+        getImgSrc : i.getImgSrcIfValid,
       };
       t.deepEqual( data, testManga );
     } )
 );
 test( "pass on invalid page error", t =>
-  i.createManga( "https://mangalife.us/read-online/platinum-end-chapter-30-page-999.html", __dirname, "mangalife" )
-    .then( data => data.imgSrc )
-    .then( imgSrc => {
-      t.truthy( imgSrc instanceof Error );
-    } )
+  Promise.resolve( i.createManga( "https://mangalife.us/read-online/platinum-end-chapter-30-page-999.html", __dirname, "mangalife" ) )
+    .then( manga => manga.getImgSrc()
+      .then( imgSrc => {
+        t.truthy( imgSrc instanceof Error );
+      } )
+    )
 );
 
 // i.parseFromUrl

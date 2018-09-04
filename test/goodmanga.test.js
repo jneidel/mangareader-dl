@@ -24,7 +24,7 @@ test( "create url with page [unit]", t =>
 
 // i.createManga
 test( "create manga from url", t =>
-  i.createManga( "https://www.goodmanga.net/dr.-stone/chapter/55", __dirname, "mangareader" )
+  Promise.resolve( i.createManga( "https://www.goodmanga.net/dr.-stone/chapter/55", __dirname, "goodmanga" ) )
     .then( data => {
       const testManga = {
         name      : "dr.-stone",
@@ -32,25 +32,27 @@ test( "create manga from url", t =>
         page      : 1,
         provider  : "goodmanga",
         url       : "https://www.goodmanga.net/dr.-stone/chapter/55/1",
-        imgSrc    : "http://www.goodmanga.net/images/manga/dr.-stone/55/1.jpg",
         outputPath: __dirname,
+        getImgSrc : i.getImgSrcIfValid,
       };
       t.deepEqual( data, testManga );
     } )
 );
 test( "pass on invalid page error", t =>
-  i.createManga( "https://www.goodmanga.net/dr.-stone/chapter/55/20", __dirname, "mangareader" )
-    .then( data => data.imgSrc )
-    .then( imgSrc => {
-      t.truthy( imgSrc instanceof Error );
-    } )
+  Promise.resolve( i.createManga( "https://www.goodmanga.net/dr.-stone/chapter/55/20", __dirname, "goodmanga" ) )
+    .then( data => data.getImgSrc()
+      .then( imgSrc => {
+        t.truthy( imgSrc instanceof Error );
+      } )
+    )
 );
 test( "pass on invalid chapter error", t =>
-  i.createManga( "https://www.goodmanga.net/dr.-stone/chapter/555", __dirname, "mangareader" )
-    .then( data => data.imgSrc )
-    .then( imgSrc => {
-      t.truthy( imgSrc instanceof Error );
-    } )
+  Promise.resolve( i.createManga( "https://www.goodmanga.net/dr.-stone/chapter/555", __dirname, "goodmanga" ) )
+    .then( data => data.getImgSrc()
+      .then( imgSrc => {
+        t.truthy( imgSrc instanceof Error );
+      } )
+    )
 );
 
 // i.parseFromUrl

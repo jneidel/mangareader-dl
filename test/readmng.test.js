@@ -32,30 +32,32 @@ test( "create url with page [unit]", t =>
 
 // i.createManga
 test( "create manga from url", t =>
-  i.createManga( "https://www.readmng.com/platinum-end/19/1", __dirname, "readmng" )
+  Promise.resolve( i.createManga( "https://www.readmng.com/platinum-end/19/1", __dirname, "readmng" ) )
     .then( data => t.deepEqual( data, {
       name      : "platinum-end",
       chapter   : 19,
       page      : 1,
       provider  : "readmng",
       url       : "https://www.readmng.com/platinum-end/19/1",
-      imgSrc    : "https://www.funmanga.com/uploads/chapters/15537/22/1.jpg?u=",
       outputPath: __dirname,
+      getImgSrc : i.getImgSrcIfValid,
     } ) )
 );
 test( "pass on invalid page error", t =>
-  i.createManga( "https://www.readmng.com/platinum-end/19/41", __dirname, "mangareader" )
-    .then( data => data.imgSrc )
-    .then( imgSrc => {
-      t.truthy( imgSrc instanceof Error );
-    } )
+  Promise.resolve( i.createManga( "https://www.readmng.com/platinum-end/19/41", __dirname, "mangareader" ) )
+    .then( data => data.getImgSrc()
+      .then( imgSrc => {
+        t.truthy( imgSrc instanceof Error );
+      } )
+    )
 );
 test( "pass on invalid chapter error", t =>
-  i.createManga( "https://www.readmng.com/platinum-end/250/1", __dirname, "mangareader" )
-    .then( data => data.imgSrc )
-    .then( imgSrc => {
-      t.truthy( imgSrc instanceof Error );
-    } )
+  Promise.resolve( i.createManga( "https://www.readmng.com/platinum-end/250/1", __dirname, "mangareader" ) )
+    .then( data => data.getImgSrc()
+      .then( imgSrc => {
+        t.truthy( imgSrc instanceof Error );
+      } )
+    )
 );
 
 // i.parseFromUrl
@@ -99,8 +101,8 @@ test( "increase chapter for valid url", t =>
 const testBuffer = fs.readFileSync( path.resolve( __dirname, "buffers", "readmng.jpg" ) );
 
 // i.downloadImg
-test( "download image and return its buffer", t =>
-  i.downloadImg( { imgSrc: "https://www.funmanga.com/uploads/chapters/6528/112/9.jpg", provider: "readmng" } )
+test.skip( "download image and return its buffer", t =>
+  i.downloadImg( i.createManga( "https://www.readmng.com/shingeki-no-kyojin/104/9" ) )
     .then( buffer => t.is( Buffer.compare( buffer, testBuffer ), 0, "Buffers don't match" ) )
 );
 
