@@ -83,7 +83,7 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
         default: false,
       },
       silent: {
-        alias: "s",
+        alias  : "s",
         type   : "boolean",
         default: false,
       },
@@ -133,6 +133,6 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
     default: // <manga>
       cliCommands.manga( args, outputPath, settings );
   }
-} )()
+} )();
 
 process.on( "unhandledRejection", ( err ) => { throw err; } );
