@@ -23,7 +23,7 @@ test( "create url with page [unit]", t =>
 );
 
 // i.createManga
-test( "create manga from url", t =>
+test( "create manga from url [unit]", t =>
   Promise.resolve( i.createManga( "https://mangalife.us/read-online/platinum-end-chapter-30-page-12.html", __dirname, "mangalife" ) )
     .then( data => {
       const testManga = {
@@ -38,7 +38,21 @@ test( "create manga from url", t =>
       t.deepEqual( data, testManga );
     } )
 );
-test( "pass on invalid page error", t =>
+test( "create manga from other url [unit]", t => {
+  const manga = i.createManga( "https://mangalife.us/read-online/platinum-end-chapter-33-page-1.html" );
+
+  const testManga = {
+    name      : "platinum-end",
+    chapter   : 33,
+    page      : 1,
+    provider  : "mangalife",
+    url       : "https://mangalife.us/read-online/platinum-end-chapter-33-page-1.html",
+    outputPath: undefined,
+    getImgSrc : i.getImgSrcIfValid,
+  };
+  t.deepEqual( manga, testManga );
+} );
+test( "pass on invalid page error [unit]", t =>
   Promise.resolve( i.createManga( "https://mangalife.us/read-online/platinum-end-chapter-30-page-999.html", __dirname, "mangalife" ) )
     .then( manga => manga.getImgSrc()
       .then( imgSrc => {
