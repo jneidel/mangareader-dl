@@ -26,7 +26,7 @@ $ ls ./naruto
 
 - Download all available chapters
 - Resume downloads
-- Download new chapters for all manga
+- Easily download new chapters
 - Set download location
 - Configurable defaults
 - Clean, informative interface
@@ -149,7 +149,7 @@ See:
 
 **Continue download from history:**
 
-A mangas last downloaded `chapter`, its `provider` and `path` are saved. So the following download:
+For each manga the `chapter`, `provider` and `path` are saved. So the following download:
 
 ```zsh
 $ mangareader-dl naruto/10 -o naruto
@@ -187,7 +187,7 @@ See:
 - [supported sites](#supported-sites)
 - [`--provider`](#--provider-site)
 
-**Download new chapters:**
+**Update manga:**
 
 After marking a manga with the [`--subscribe`](#--subscribe) flag at the initial download:
 
