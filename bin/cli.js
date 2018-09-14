@@ -83,7 +83,6 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
         default: false,
       },
       silent: {
-        alias  : "s",
         type   : "boolean",
         default: false,
       },

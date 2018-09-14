@@ -387,7 +387,7 @@ $ mangareader-dl update
 
 **Hide progress bar:**
 
-For redirecting the output cleanly into a file use the `--silent` (`-s`) flag.
+For redirecting the output cleanly into a file use the `--silent` flag.
 
 ```zsh
 $ mangareader-dl update --silent >> ~/manga/updates.txt &
