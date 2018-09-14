@@ -89,12 +89,22 @@ $ npm i mangareader-dl
     update  Update subscribed manga
 
   Options
-    --out, -o       Set output path
-    --dir, -d       Download into 'path/manga-name'
-    --provider, -p  Set download site
-    --force, -f     Overwrite history
-    --subscribe, -s Subscribe to new chapters
-    --micro, -m     Micro progress bar
+    <manga>
+      -o, --out       Set output path
+      -d, --dir       Download into 'path/manga-name'
+      -p, --provider  Set download site
+      -f, --force     Overwrite history
+      -s, --subscribe Subscribe to new chapters
+      -m, --micro     Micro progress bar
+    list
+      -l, --latest    Highlight if new chapters are available
+    config
+      -o, --out       Set default output path
+      -d, --dir       Enable/disable dir option
+      -p, --provider  Set default provider
+    update
+      -m, --micro     Micro progress bar
+          --silent    Hide progress bar
 
   Examples
     $ mangareader-dl mangareader.net/naruto/100 -do .
@@ -103,7 +113,7 @@ $ npm i mangareader-dl
     $ mangareader-dl naruto -mp mangareader
     => Download naruto from mangareader.net in micro mode
 
-  For the documentation please refer to:
+  For the full documentation please refer to:
   https://github.com/jneidel/mangareader-dl
 ```
 
