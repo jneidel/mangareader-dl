@@ -105,6 +105,7 @@ $ npm i mangareader-dl
     update
       -m, --micro     Micro progress bar
           --silent    Hide progress bar
+      -c, --check     Check if new chapters are available
 
   Examples
     $ mangareader-dl mangareader.net/naruto/100 -do .
@@ -346,8 +347,9 @@ $ mangareader-dl config reset
 <table><tr>
   <td>
     options:
-    <code>--silent</code>,
     <code><a href="#--micro">--micro</a></code>
+    <code>--silent</code>,
+    <code>--check</code>,
   </td>
 </tr></table>
 
@@ -393,6 +395,19 @@ $ mangareader-dl update
 # Downloads:
 #   'platinum-end' chapter 21-28
 #   'onepunch-man' chapter 137
+```
+
+**Check if new chapters are available:**
+
+```
+$ mangareader-dl update --check
+
+# ❯ New chapters are available for:
+#   boku-no-hero-academia
+#   dr-stone
+#   haikyuu
+#   shokugeki-no-soma
+# ❯ Update using: $ mangareader-dl update
 ```
 
 **Hide progress bar:**

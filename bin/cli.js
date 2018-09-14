@@ -43,6 +43,7 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
       update
         -m, --micro     Micro progress bar
             --silent    Hide progress bar
+        -c, --check     Check if new chapters are available
 
     Examples
       $ mangareader-dl mangareader.net/naruto/100 -do .
@@ -93,6 +94,11 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
         default: false,
       },
       silent: {
+        type   : "boolean",
+        default: false,
+      },
+      check: {
+        alias  : "c",
         type   : "boolean",
         default: false,
       },
