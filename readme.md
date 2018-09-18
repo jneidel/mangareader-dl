@@ -26,7 +26,7 @@ $ ls ./naruto
 
 - Download all available chapters
 - Resume downloads
-- Easily download new chapters
+- Easily download newly chapters
 - Set download location
 - Configurable defaults
 - Clean, informative interface
@@ -55,7 +55,7 @@ I use <a href="https://www.yacreader.com/">YACReader</a> [GNU/Linux, Mac, Win] (
 </details>
 
 <details>
-<summary><strong>Isn't 'mangareader-dl' too long to type?</strong></summary>
+<summary><strong>Isn't <code>mangareader-dl</code> too long to type?</strong></summary>
 <br>
 That's why I use it with an alias.
 <br><br>
@@ -64,6 +64,8 @@ In your shell config (<code>~/.bashrc</code>, <code>~/.zshrc</code>, etc.):
 <code>alias manga="mangareader-dl"</code>
 <br>
 Then you can use <code>$ manga</code> instead of <code>$ mangareader-dl</code>.
+<br>
+I don't use <code>$ manga</code> directly, because I don't to overwrite other binaries that eventually use this generic name.
 </details>
 
 ## Install
