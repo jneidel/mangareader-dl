@@ -144,8 +144,7 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
   const throwErrorCondition = args.debug;
   const errorRestApi = "https://api.jneidel.com/errors/submit";
   const errorBaseData = { id: "11fbf6a8-40ea-461f-af94-333280bb3c41" };
-  errHndlr.init( throwErrorCondition, errorRestApi, errorBaseData, { app: require( "../package.json" ), os: true } )
-    .catch( err => {} ); // Ignore 'no connection' errors
+  errHndlr.init( throwErrorCondition, errorRestApi, errorBaseData, { app: require( "../package.json" ), os: true } );
 
   // Parse commands
   switch ( args._[0] ) {
@@ -163,4 +162,7 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
   }
 } )();
 
-process.on( "unhandledRejection", ( err ) => { throw err; } );
+process.on( "unhandledRejection", ( err ) => {
+  log.error( "unhandledRejection", { err }, true );
+} );
+
