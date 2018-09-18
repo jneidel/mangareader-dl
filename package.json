@@ -19,9 +19,7 @@
     "mangareader-dl": "bin/cli.js"
   },
   "files": [
-    "lib/",
-    "lib/index.js",
-    "lib/cli.js"
+    "lib/"
   ],
   "engines": {
     "node": ">=8"
@@ -53,7 +51,7 @@
     "update-check": "^1.5.2"
   },
   "devDependencies": {
-    "ava": "latest",
+    "ava": "^0.25.0",
     "mockery": "^2.1.0",
     "nodemon": "^1.17.5"
   },
@@ -72,6 +70,9 @@
     "cli",
     "mangareader",
     "readmng",
-    "goodmanga"
+    "goodmanga",
+    "mangainn",
+    "mangalife",
+    "mangapanda"
   ]
 }
