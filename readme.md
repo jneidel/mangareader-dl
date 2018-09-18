@@ -108,6 +108,9 @@ $ npm i -g mangareader-dl
       -m, --micro     Micro progress bar
           --silent    Hide progress bar
       -c, --check     Check if new chapters are available
+    --version         Show version
+    --help            This help message
+    --debug           Throw errors locally
 
   Examples
     $ mangareader-dl mangareader.net/naruto/100 -do .
@@ -220,7 +223,8 @@ See:
     <code><a href="#--provider-site">--provider</a></code>,
     <code><a href="#--force">--force</a></code>,
     <code><a href="#--subscribe">--subscribe</a></code>,
-    <code><a href="#--micro">--micro</a></code>
+    <code><a href="#--micro">--micro</a></code>,
+    <code><a href="#--debug">--debug</a></code>
   </td>
 </tr></table>
 
@@ -253,7 +257,8 @@ Manga are downloaded in the `.cbz` (comic book zip) format.
   <td>
     options:
     <code>--latest</a></code>,
-    <code><a href="#--force">--force</a></code>
+    <code><a href="#--force">--force</a></code>,
+    <code><a href="#--debug">--debug</a></code>
   </td>
 </tr></table>
 
@@ -350,8 +355,9 @@ $ mangareader-dl config reset
   <td>
     options:
     <code><a href="#--micro">--micro</a></code>
-    <code>--silent</code>,
     <code>--check</code>,
+    <code>--silent</code>,
+    <code><a href="#--debug">--debug</a></code>
   </td>
 </tr></table>
 
@@ -564,6 +570,15 @@ $ mangareader-dl list
 
 Unset by passing `false` as argument: `$ mangareader-dl shingeki-no-kyojin -s false`.
 
+### --debug
+
+<table><tr>
+  <td>Default: <code>false</code></td>
+  <td>Type: <code>boolean</code></td>
+</tr></table>
+
+Throw errors locally instead of sending out error reports. See the [privacy policy](#privacy-policy) to find out what data is being sent.
+
 ## Supported sites
 
 Currently supported sites include:
@@ -588,6 +603,10 @@ $ mangareader-dl shingeki-no-kyojin --provider mangareader
 ```
 
 To request support for an unsupported provider please open an [issue on GitHub](https://github.com/jneidel/mangareader-dl/issues/new?assignee=jneidel&body=**Supported%20Site%20Request:**).
+
+## Privacy Policy
+
+This cli sends anonymized error reports to my ([jneidel](https://github.com/jneidel)) private server. These include this app's version, your os.type() and os.platform(), as well as the Error object. Using the `--debug` flag will suppress sending any error reports.
 
 ## Test
 

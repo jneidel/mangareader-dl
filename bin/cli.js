@@ -3,6 +3,7 @@
 const fs = require( "mz/fs" );
 const path = require( "path" );
 const meow = require( "meow" );
+const errHndlr = require( "err-hndlr" );
 
 const i = require( "../lib" );
 const s = require( "../lib/settings" );
@@ -44,6 +45,9 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
         -m, --micro     Micro progress bar
             --silent    Hide progress bar
         -c, --check     Check if new chapters are available
+      --version         Show version
+      --help            This help message
+      --debug           Throw errors locally
 
     Examples
       $ mangareader-dl mangareader.net/naruto/100 -do .
@@ -102,6 +106,10 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
         type   : "boolean",
         default: false,
       },
+      debug: {
+        type   : "boolean",
+        default: false,
+      },
     },
   }
   );
@@ -133,6 +141,13 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
   args.bar = args.micro ? "micro" : "extended"; // micro > extended
 
   const isReset = args._[1] === "reset";
+
+  // Initialize error handler
+  const throwErrorCondition = args.debug;
+  const errorRestApi = "https://api.jneidel.com/errors/submit";
+  const errorBaseData = { id: "11fbf6a8-40ea-461f-af94-333280bb3c41" };
+  errHndlr.init( throwErrorCondition, errorRestApi, errorBaseData, { app: require( "../package.json" ), os: true } )
+    .catch( err => {} ); // Ignore 'no connection' errors
 
   // Parse commands
   switch ( args._[0] ) {
