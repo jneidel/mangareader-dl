@@ -27,7 +27,7 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
       config  Set defaults
       update  Update subscribed manga
 
-    Options
+    Options, Sub-commands
       <manga>
         -o, --out       Set output path
         -d, --dir       Download into 'path/manga-name'
@@ -37,14 +37,17 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
         -m, --micro     Micro progress bar
       list
         -l, --latest    Highlight if new chapters are available
+        reset           Reset non-subscribed manga
+          -f, --force   Reset history
       config
         -o, --out       Set default output path
         -d, --dir       Enable/disable dir option
         -p, --provider  Set default provider
+        reset           Reset config
       update
         -m, --micro     Micro progress bar
             --silent    Hide progress bar
-        -c, --check     Check if new chapters are available
+        check           Check if new chapters are available
       --version         Show version
       --help            This help message
       --debug           Throw errors locally
@@ -98,11 +101,6 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
         default: false,
       },
       silent: {
-        type   : "boolean",
-        default: false,
-      },
-      check: {
-        alias  : "c",
         type   : "boolean",
         default: false,
       },

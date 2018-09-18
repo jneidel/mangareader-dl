@@ -90,7 +90,7 @@ $ npm i -g mangareader-dl
     config  Set defaults
     update  Update subscribed manga
 
-  Options
+  Options, Sub-commands
     <manga>
       -o, --out       Set output path
       -d, --dir       Download into 'path/manga-name'
@@ -100,14 +100,17 @@ $ npm i -g mangareader-dl
       -m, --micro     Micro progress bar
     list
       -l, --latest    Highlight if new chapters are available
+      reset           Reset non-subscribed manga
+        -f, --force   Reset history
     config
       -o, --out       Set default output path
       -d, --dir       Enable/disable dir option
       -p, --provider  Set default provider
+      reset           Reset config
     update
       -m, --micro     Micro progress bar
           --silent    Hide progress bar
-      -c, --check     Check if new chapters are available
+      check           Check if new chapters are available
     --version         Show version
     --help            This help message
     --debug           Throw errors locally
@@ -355,7 +358,6 @@ $ mangareader-dl config reset
   <td>
     options:
     <code><a href="#--micro">--micro</a></code>
-    <code>--check</code>,
     <code>--silent</code>,
     <code><a href="#--debug">--debug</a></code>
   </td>
@@ -408,7 +410,7 @@ $ mangareader-dl update
 **Check if new chapters are available:**
 
 ```
-$ mangareader-dl update --check
+$ mangareader-dl update check
 
 # ❯ New chapters are available for:
 #   boku-no-hero-academia
