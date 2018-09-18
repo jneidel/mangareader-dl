@@ -597,7 +597,7 @@ It's not run via Travis because there is a build error on the test server caused
 
 ## Python version
 
-For the rudimentary, legacy version written in python [click here](py).
+For the rudimentary, legacy version written in python [click here](https://github.com/jneidel/mangareader-dl/tree/ff492423647746dbe340fe875f34d7b65f717865/py).
 
 ## License
 
