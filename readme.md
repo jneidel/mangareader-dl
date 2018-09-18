@@ -71,7 +71,7 @@ Then you can use <code>$ manga</code> instead of <code>$ mangareader-dl</code>.
 [![Npm Version](https://img.shields.io/npm/v/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
 
 ```zsh
-$ npm i mangareader-dl
+$ npm i -g mangareader-dl
 ```
 
 ## Usage
