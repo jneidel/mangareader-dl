@@ -101,7 +101,7 @@ test( "increase chapter for valid url", t =>
 const testBuffer = fs.readFileSync( path.resolve( __dirname, "buffers", "readmng.jpg" ) );
 
 // i.downloadImg
-test.skip( "download image and return its buffer", t =>
+test( "download image and return its buffer", t =>
   i.downloadImg( i.createManga( "https://www.readmng.com/shingeki-no-kyojin/104/9" ) )
     .then( buffer => t.is( Buffer.compare( buffer, testBuffer ), 0, "Buffers don't match" ) )
 );
