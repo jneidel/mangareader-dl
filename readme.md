@@ -4,11 +4,13 @@
 
 > CLI for comfortable manga download
 
-![Project Status](https://img.shields.io/badge/status-Work_in_Progress-red.svg?style=flat-square)
-![User tested gnu/linux](https://img.shields.io/badge/user_tested-GNU%2FLinux%2C_OSX-brightgreen.svg?style=flat-square)
-[![Npm Downloads](https://img.shields.io/npm/dw/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
+![Project status](https://img.shields.io/badge/status-WIP-red.svg?style=flat-square)
+![GNU/Linux status](https://img.shields.io/badge/GNU%2FLinux-working-brightgreen.svg?style=flat-square)
+![OSX status](https://img.shields.io/badge/OSX-working-brightgreen.svg?style=flat-square)
+![Windows status](https://img.shields.io/badge/Windows-not%20working-red.svg?style=flat-square)
+[![Npm downloads](https://img.shields.io/npm/dw/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/licence)
-[![Code Style Custom](https://img.shields.io/badge/code%20style-custom-ff69b4.svg?style=flat-square)](https://github.com/jneidel/dotfiles/blob/master/.eslintrc)
+[![Code style custom](https://img.shields.io/badge/code%20style-custom-ff69b4.svg?style=flat-square)](https://github.com/jneidel/dotfiles/blob/master/.eslintrc)
 <!--[![Travis Build Status](https://img.shields.io/travis/jneidel/mangareader-dl.svg?style=flat-square)](https://travis-ci.org/jneidel/mangareader-dl)-->
 
 Convenient mass downloading from [mangareader.net](https://www.mangareader.net/) and other [supported sites](#supported-sites), easily download new chapters or resume downloads.
