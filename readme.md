@@ -597,7 +597,7 @@ Throw errors locally instead of sending out error reports. See the [privacy poli
 
 ## Supported sites
 
-Currently supported sites include:
+Currently supported sites:
 
 | site | status | speed | note |
 |--|--|--|--|
@@ -630,7 +630,7 @@ This cli sends anonymized error reports to my ([jneidel](https://github.com/jnei
 $ npm run test
 ```
 
-It's not run via Travis because there is a build error on the test server caused by one of the dependencies.
+Travis always shows the tests as broken, this is because Travis just stopped running the tests some time ago.
 
 ## Python version
 
@@ -640,4 +640,3 @@ For the rudimentary, legacy version written in python [click here](https://githu
 
 MIT © [Jonathan Neidel](https://jneidel.com)
 
-Excludes [python version](py) adapted from [clearnote01](https://github.com/clearnote01).
