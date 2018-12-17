@@ -23,7 +23,7 @@ test( "create url with page [unit]", t =>
 );
 
 // i.createManga
-test( "create manga from url [unit]", t =>
+test( "create manga from reader url [unit]", t =>
   Promise.resolve( i.createManga( "https://mangalife.us/read-online/platinum-end-chapter-30-page-12.html", __dirname, "mangalife" ) )
     .then( data => {
       const testManga = {
@@ -38,15 +38,15 @@ test( "create manga from url [unit]", t =>
       t.deepEqual( data, testManga );
     } )
 );
-test( "create manga from other url [unit]", t => {
-  const manga = i.createManga( "https://mangalife.us/read-online/platinum-end-chapter-33-page-1.html" );
+test( "create manga from overview url [unit]", t => {
+  const manga = i.createManga( "https://mangalife.us/manga/Kemono-Jihen" );
 
   const testManga = {
-    name      : "platinum-end",
-    chapter   : 33,
+    name      : "kemono-jihen",
+    chapter   : 1,
     page      : 1,
     provider  : "mangalife",
-    url       : "https://mangalife.us/read-online/platinum-end-chapter-33-page-1.html",
+    url       : "https://mangalife.us/read-online/kemono-jihen-chapter-1-page-1.html",
     outputPath: undefined,
     getImgSrc : i.getImgSrcIfValid,
   };
