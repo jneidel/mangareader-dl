@@ -70,6 +70,18 @@ Then you can use <code>$ manga</code> instead of <code>$ mangareader-dl</code>.
 I don't use <code>$ manga</code> directly, because I don't to overwrite other binaries that eventually use this generic name.
 </details>
 
+<details>
+<summary><strong>How do you use this CLI?</strong></summary>
+<br>
+These are the aliases that I'm using:
+<br>
+<code>alias manga="mangareader-dl --debug"</code> - to shorten the name
+<br>
+<code>alias mangala="manga update check"</code> - to check if new chapters are available for dl
+<br>
+<code>alias mangaup="manga update --silent 1>> ~/manga/updates 2>&1 &"</code> - to download new chapters and append what was downloaded to a text file
+</details>
+
 ## Install
 
 [![Npm Version](https://img.shields.io/npm/v/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
