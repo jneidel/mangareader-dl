@@ -8,4 +8,5 @@ mangareader-dl.*.json
 **/mangareader-dl.*.json
 bin/cli.js.*
 .travis.yml
+*.log
 
