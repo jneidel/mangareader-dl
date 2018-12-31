@@ -38,7 +38,7 @@ $ ls ./naruto
 <details>
 <summary><strong>Which comic book reader do you use?</strong></summary>
 <br>
-I use <a href="https://www.yacreader.com/">YACReader</a> [GNU/Linux, Mac, Win] (which I very much recommend) on my laptop and <a href="https://play.google.com/store/apps/details?id=com.eddysoft.comicviewer">Simple Comic Viewer</a> on my android.
+I use <a href="https://www.yacreader.com/">YACReader</a> (GNU/Linux, Mac, Win), which I very much recommend.
 <br><br>
 </details>
 
