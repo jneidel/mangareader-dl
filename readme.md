@@ -28,7 +28,7 @@ $ ls ./naruto
 
 - Download all available chapters
 - Resume downloads
-- Easily download newly chapters
+- Easily download new chapters
 - Set download location
 - Configurable defaults
 - Clean, informative interface
