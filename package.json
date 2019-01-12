@@ -21,6 +21,9 @@
   "files": [
     "lib/"
   ],
+  "os": [
+    "!win32"
+  ],
   "engines": {
     "node": ">=8"
   },
