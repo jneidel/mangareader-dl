@@ -56,7 +56,7 @@ test( "parse full url [unit]", t =>
     provider: "mangainn",
   } )
 );
-test( "parse url without www.goodmanga.net [unit]", t =>
+test( "parse url without www.mangainn.net [unit]", t =>
   t.deepEqual( i.parseFromUrl( "ao-no-exorcist/100", "mangainn" ), {
     name    : "ao-no-exorcist",
     chapter : 100,
