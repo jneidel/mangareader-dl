@@ -1,6 +1,6 @@
 {
   "name": "mangareader-dl",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "💾 CLI for comfortable manga download",
   "repository": "jneidel/mangareader-dl",
   "license": "MIT",
