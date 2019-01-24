@@ -34,7 +34,7 @@
     "cloudscraper": "^2.0.0",
     "directory-exists": "^2.0.0",
     "dot-json": "^1.0.4",
-    "err-hndlr": "^0.1.0",
+    "err-hndlr": "^0.1.1",
     "execution-time": "^1.2.0",
     "expand-home-dir": "0.0.3",
     "file-exists": "^5.0.1",
