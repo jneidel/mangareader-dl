@@ -1,6 +1,6 @@
-<h1 align="center">
+<p align="center">
     <img src="img/logo.png" alt="mangareader-dl">
-</h1>
+</p>
 
 > CLI for comfortable manga download
 
