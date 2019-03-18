@@ -10,7 +10,14 @@
 [![Npm downloads](https://img.shields.io/npm/dw/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/licence)
 [![Code style custom](https://img.shields.io/badge/code%20style-custom-ff69b4.svg?style=flat-square)](https://github.com/jneidel/dotfiles/blob/master/.eslintrc)
-<!--[![Travis Build Status](https://img.shields.io/travis/jneidel/mangareader-dl.svg?style=flat-square)](https://travis-ci.org/jneidel/mangareader-dl)-->
+<br>
+[
+  ![](https://img.shields.io/badge/mangareader-working-brightgreen.svg?style=flat-square)
+  ![](https://img.shields.io/badge/mangalife-working-brightgreen.svg?style=flat-square)
+  ![](https://img.shields.io/badge/mangainn-broken-red.svg?style=flat-square)
+  ![](https://img.shields.io/badge/readmng-working-brightgreen.svg?style=flat-square)
+  ![](https://img.shields.io/badge/goodmanga-broken-red.svg?style=flat-square)
+](#supported-sites)
 
 Convenient mass downloading from [mangareader.net](https://www.mangareader.net/) and other [supported sites](#supported-sites), easily download new chapters or resume downloads.
 
