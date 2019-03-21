@@ -6,7 +6,7 @@
   "license": "MIT",
   "author": {
     "name": "Jonathan Neidel",
-    "email": "jneidel@outlook.com",
+    "email": "npm@jneidel.com",
     "url": "https://jneidel.com"
   },
   "scripts": {
@@ -19,7 +19,8 @@
     "mangareader-dl": "bin/cli.js"
   },
   "files": [
-    "lib/"
+    "lib",
+    "providers"
   ],
   "os": [
     "!win32"
