@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "commonjs",
+    "allowJs": false,
+    "checkJs": false,
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noEmitOnError": true,
+    "strict": true,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": false,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "paths": {
+      "*": [
+        "node_modules/*"
+      ]
+    },
+    "experimentalDecorators": true
+  },
+  "include": [ "bin", "lib", "providers" ],
+  "excude": [
+    "node_modules",
+    "test"
+  ]
+}
