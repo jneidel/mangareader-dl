@@ -5,22 +5,22 @@ exports.extension = "us";
 
 exports.parseUrl = function parseUrl( url ) {
   let result;
-  if ( url.match( /\.html\/?$/i ) ) {
+  if ( url.match( /\.html\/?$/i ) )
     result = url.match( /(?:read-online\/)(.+?(?=-chapter-))-chapter-(\d+)-page-(\d+)?.html/i );
     /* Matches:
      * Platinum-End-chapter-31-page-1.html
      */
-  } else if ( url.match( /^manga/i ) ) {
+  else if ( url.match( /^manga/i ) )
     result = url.match( /(?:manga\/)([^/]+)/ );
     /* Matches:
      * manga/kemono-jihen
      */
-  } else {
+  else
     result = url.match( /([^/]+)\/?(\d+)?\/?(\d+)?/ );
     /* Matches:
      * kemono-jihen/12
      */
-  }
+
   const [ , name, chapter = 1, page = 1 ] = result;
 
   return { name, chapter, page };

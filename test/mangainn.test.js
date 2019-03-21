@@ -2,7 +2,7 @@ const test = require( "ava" );
 
 const i = require( "../lib" );
 
-// i.getImgSrcIfValid
+// I.getImgSrcIfValid
 test( "get image source", t =>
   i.getImgSrcIfValid( "https://www.mangainn.net/ao-no-exorcist/100/35", "mangainn" )
     .then( src => t.is( src, "http://funmanga.com/uploads/chapters/527/121/34.jpg" ) )
@@ -14,7 +14,7 @@ test( "get error for invalid page", t =>
     } )
 );
 
-// i.createUrl
+// I.createUrl
 test( "create url with page [unit]", t =>
   t.is(
     i.createUrl( "mangainn", "ao-no-exorcist", 100, 33 ),
@@ -22,7 +22,7 @@ test( "create url with page [unit]", t =>
   )
 );
 
-// i.createManga
+// I.createManga
 test( "create manga from url", t =>
   Promise.resolve( i.createManga( "https://www.mangainn.net/ao-no-exorcist/100", __dirname, "mangainn" ) )
     .then( data => {
@@ -47,7 +47,7 @@ test( "pass on invalid page error", t =>
     )
 );
 
-// i.parseFromUrl
+// I.parseFromUrl
 test( "parse full url [unit]", t =>
   t.deepEqual( i.parseFromUrl( "https://www.mangainn.net/ao-no-exorcist/100" ), {
     name    : "ao-no-exorcist",
@@ -65,7 +65,7 @@ test( "parse url without www.mangainn.net [unit]", t =>
   } )
 );
 
-// i.getLastChapter
+// I.getLastChapter
 test( "get last chapter", t =>
   i.getLastChapter( "naruto1", "mangainn" )
     .then( chapter => t.is( chapter, 700 ) )
@@ -75,7 +75,7 @@ test( "get last chapter for number in name", t =>
     .then( chapter => t.is( chapter, 457 ) )
 );
 
-// i.getLastPage
+// I.getLastPage
 test( "get last page for url", t =>
   i.getLastPage( "https://www.mangainn.net/ao-no-exorcist/100", "mangainn" )
     .then( page => t.is( page, 35 ) )

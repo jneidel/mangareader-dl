@@ -10,9 +10,8 @@ exports.getImgSrc = html => {
 
   if ( $( "#chapter_img" )[0] )
     return $( "#chapter_img" )[0].attribs.src;
-  else {
+  else
     return $( ".img-responsive" )[0].attribs.src;
-  }
 };
 
 exports.getLastChapter = html => {

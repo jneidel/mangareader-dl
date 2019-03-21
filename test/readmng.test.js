@@ -4,7 +4,7 @@ const path = require( "path" );
 
 const i = require( "../lib" );
 
-// i.getImgSrcIfValid
+// I.getImgSrcIfValid
 test( "get image source", t =>
   i.getImgSrcIfValid( "https://www.readmng.com/platinum-end/19/1", "readmng" )
     .then( src => t.is( src, "https://www.funmanga.com/uploads/chapters/15537/22/1.jpg?u=" ) )
@@ -22,7 +22,7 @@ test( "get error for invalid chapter", t =>
     } )
 );
 
-// i.createUrl
+// I.createUrl
 test( "create url with page [unit]", t =>
   t.is(
     i.createUrl( "readmng", "platinum-end", 19, 4 ),
@@ -30,7 +30,7 @@ test( "create url with page [unit]", t =>
   )
 );
 
-// i.createManga
+// I.createManga
 test( "create manga from url", t =>
   Promise.resolve( i.createManga( "https://www.readmng.com/platinum-end/19/1", __dirname, "readmng" ) )
     .then( data => t.deepEqual( data, {
@@ -60,7 +60,7 @@ test( "pass on invalid chapter error", t =>
     )
 );
 
-// i.parseFromUrl
+// I.parseFromUrl
 test( "parse full url [unit]", t =>
   t.deepEqual( i.parseFromUrl( "https://www.readmng.com/platinum-end/19/2" ), {
     name    : "platinum-end",
@@ -78,7 +78,7 @@ test( "parse url without www.readmng.com [unit]", t =>
   } )
 );
 
-// i.increase
+// I.increase
 test( "increase chapter for valid url", t =>
   i.increase( {
     name    : "platinum-end",
@@ -100,13 +100,13 @@ test( "increase chapter for valid url", t =>
 
 const testBuffer = fs.readFileSync( path.resolve( __dirname, "buffers", "readmng.jpg" ) );
 
-// i.downloadImg
+// I.downloadImg
 test( "download image and return its buffer", t =>
   i.downloadImg( i.createManga( "https://www.readmng.com/shingeki-no-kyojin/104/9" ) )
     .then( buffer => t.is( Buffer.compare( buffer, testBuffer ), 0, "Buffers don't match" ) )
 );
 
-// i.getLastChapter
+// I.getLastChapter
 test( "get last chapter", t =>
   i.getLastChapter( "naruto", "readmng" )
     .then( chapter => t.is( chapter, 700 ) )
@@ -116,7 +116,7 @@ test( "get last chapter for number in name", t =>
     .then( chapter => t.is( chapter, 457 ) )
 );
 
-// i.getLastPage
+// I.getLastPage
 test( "get last page for url", t =>
   i.getLastPage( "https://www.readmng.com/platinum-end/19/1", "readmng" )
     .then( page => t.is( page, 40 ) )

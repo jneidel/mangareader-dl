@@ -1,16 +1,14 @@
 #!/usr/bin/env node
 
-const fs = require( "mz/fs" );
 const path = require( "path" );
 const meow = require( "meow" );
 const errHndlr = require( "err-hndlr" );
 
-const i = require( "../lib" );
 const s = require( "../lib/settings" );
 const log = require( "../lib/log" );
 const cliCommands = require( "../lib/cli-commands" );
 
-const supportedProviders = Object.keys( require( "../lib/providers" ).extensions );
+const supportedProviders = Object.keys( require( "../providers" ).extensions );
 
 ( async function main() {
   const settingsPath = await s.getSettingsPath();
@@ -136,7 +134,7 @@ const supportedProviders = Object.keys( require( "../lib/providers" ).extensions
     process.exit();
   }
 
-  args.bar = args.micro ? "micro" : "extended"; // micro > extended
+  args.bar = args.micro ? "micro" : "extended"; // Micro > extended
 
   const isReset = args._[1] === "reset";
 

@@ -11,7 +11,7 @@ mockery.registerMock( "fs", {
 
 const i = require( "../lib" );
 
-// i.getImgSrcIfValid
+// I.getImgSrcIfValid
 test( "get image source", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103", "mangareader" )
     .then( src => {
@@ -34,7 +34,7 @@ test( "get error for invalid chapter", t =>
     } )
 );
 
-// i.createUrl
+// I.createUrl
 test( "create url without page [unit]", t =>
   t.is(
     i.createUrl( "mangareader", "shingeki-no-kyojin", 103 ),
@@ -48,7 +48,7 @@ test( "create url with page [unit]", t =>
   )
 );
 
-// i.createManga
+// I.createManga
 test( "create manga from url", t =>
   Promise.resolve( i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103", __dirname, "mangareader" ) )
     .then( async data => {
@@ -88,7 +88,7 @@ test( "pass on invalid chapter error", t =>
     )
 );
 
-// i.parseFromUrl
+// I.parseFromUrl
 test( "parse full url [unit]", t =>
   t.deepEqual( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin/101/5" ), {
     name    : "shingeki-no-kyojin",
@@ -130,7 +130,7 @@ test( "parse url without www.mangareader.net [unit]", t =>
   } )
 );
 
-// i.increase
+// I.increase
 test( "increase chapter for valid url", t =>
   Promise.resolve( i.increase( {
     name    : "shingeki-no-kyojin",
@@ -161,13 +161,13 @@ test( "return null for invalid chapter", t =>
 
 const testBuffer = fs.readFileSync( path.resolve( __dirname, "buffers", "mangareader.jpg" ) );
 
-// i.downloadImg
+// I.downloadImg
 test( "download image and return its buffer", t =>
   i.downloadImg( i.createManga( "mangareader.net/shingeki-no-kyojin/103/4" ) )
     .then( buffer => t.is( Buffer.compare( buffer, testBuffer ), 0, "Buffers don't match" ) )
 );
 
-// i.createZip - fails due to error in dependency, eventhough the function is correct
+// I.createZip - fails due to error in dependency, eventhough the function is correct
 /* test( "create zip from array of buffers [unit]", t =>
   i.createZip(
     [ testBuffer ],
@@ -190,7 +190,7 @@ test( "get last chapter for number in name", t =>
     .then( chapter => t.is( chapter, 5 ) )
 );
 
-// i.getLastPage
+// I.getLastPage
 test( "get last page for url", t =>
   i.getLastPage( "https://www.mangareader.net/shingeki-no-kyojin/103", "mangareader" )
     .then( page => t.is( page, 39 ) )

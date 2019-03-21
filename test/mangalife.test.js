@@ -2,7 +2,7 @@ const test = require( "ava" );
 
 const i = require( "../lib" );
 
-// i.getImgSrcIfValid
+// I.getImgSrcIfValid
 test( "get image source", t =>
   i.getImgSrcIfValid( "https://mangalife.us/read-online/Platinum-End-chapter-31-page-1.html", "mangalife" )
     .then( src => t.is( src, "http://93.190.142.23/manga/Platinum-End/0031-001.png" ) )
@@ -14,7 +14,7 @@ test( "get error for invalid page", t =>
     } )
 );
 
-// i.createUrl
+// I.createUrl
 test( "create url with page [unit]", t =>
   t.is(
     i.createUrl( "mangalife", "platinum-end", 30, 12 ),
@@ -22,7 +22,7 @@ test( "create url with page [unit]", t =>
   )
 );
 
-// i.createManga
+// I.createManga
 test( "create manga from reader url [unit]", t =>
   Promise.resolve( i.createManga( "https://mangalife.us/read-online/platinum-end-chapter-30-page-12.html", __dirname, "mangalife" ) )
     .then( data => {
@@ -61,7 +61,7 @@ test( "pass on invalid page error [unit]", t =>
     )
 );
 
-// i.parseFromUrl
+// I.parseFromUrl
 test( "parse full url [unit]", t =>
   t.deepEqual( i.parseFromUrl( "http://mangalife.us/read-online/Platinum-End-chapter-31-page-1.html" ), {
     name    : "platinum-end",
@@ -79,7 +79,7 @@ test( "parse url without www.mangalife.us [unit]", t =>
   } )
 );
 
-// i.getLastChapter
+// I.getLastChapter
 test( "get last chapter", t =>
   i.getLastChapter( "naruto", "mangalife" )
     .then( chapter => t.is( chapter, 700 ) )
@@ -89,7 +89,7 @@ test( "get last chapter for number in name", t =>
     .then( chapter => t.is( chapter, 100 ) )
 );
 
-// i.getLastPage
+// I.getLastPage
 test( "get last page for url", t =>
   i.getLastPage( "https://mangalife.us/read-online/Platinum-End-chapter-30-page-1.html", "mangalife" )
     .then( page => t.is( page, 44 ) )

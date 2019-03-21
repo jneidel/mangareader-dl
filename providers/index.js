@@ -16,5 +16,5 @@ exports.getLib = provider =>
   provider === "mangalife" ? mangalife :
   provider === "mangainn" ? mangainn :
   provider === "readmng" ? readmng :
-  provider === "mangapanda" ? mangapanda :
+  provider === "mangapanda" ? mangareader :
   null; // Provider does not match

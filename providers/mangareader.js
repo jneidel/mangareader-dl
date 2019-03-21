@@ -48,9 +48,8 @@ const getImgBuffer = ( imgSrc ) => {
       if ( errorCounter === 10 ) {
         if ( err.response )
           return utils.missingImage();
-        else {
+        else
           log.error( `Error buffer downloading at ${url}`, { err } );
-        }
       } else {
         return donwloadBuffer( url );
       }
@@ -58,5 +57,6 @@ const getImgBuffer = ( imgSrc ) => {
 
   return donwloadBuffer( imgSrc );
 };
+
 exports.getImgBuffer = getImgBuffer;
 

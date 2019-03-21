@@ -1,12 +1,11 @@
 const test = require( "ava" );
-const path = require( "path" );
 const fs = require( "mz/fs" );
 const DotJson = require( "dot-json" );
 const resetSettings = require( "./reset-settings.js" );
 
 const s = require( "../lib/settings" );
 
-// s.writeHistory
+// S.writeHistory
 test.serial( "write manga to history [unit]", async t => {
   const settingsPath = resetSettings();
   const settings = new DotJson( settingsPath );
@@ -38,7 +37,7 @@ test.serial( "write manga to history [unit]", async t => {
   } );
 } );
 
-// s.readHistoryForName
+// S.readHistoryForName
 test.serial( "read manga history for given name [unit]", t => {
   const settingsPath = resetSettings();
   const settings = new DotJson( settingsPath );
@@ -56,7 +55,7 @@ test.serial( "read manga history for given name [unit]", t => {
   t.is( provider, "mangareader" );
 } );
 
-// s.parseDefaults
+// S.parseDefaults
 test.serial( "parse config from settings file [unit]", t => {
   const settingsPath = resetSettings();
   const settings = new DotJson( settingsPath );
