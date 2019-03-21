@@ -14,7 +14,7 @@
 [
   ![](https://img.shields.io/badge/mangareader-working-brightgreen.svg?style=flat-square)
   ![](https://img.shields.io/badge/mangalife-working-brightgreen.svg?style=flat-square)
-  ![](https://img.shields.io/badge/mangainn-broken-red.svg?style=flat-square)
+  ![](https://img.shields.io/badge/mangainn-working-brightgreen.svg?style=flat-square)
   ![](https://img.shields.io/badge/readmng-working-brightgreen.svg?style=flat-square)
   ![](https://img.shields.io/badge/goodmanga-broken-red.svg?style=flat-square)
 ](#supported-sites)
@@ -609,7 +609,7 @@ Currently supported sites:
 |--|--|--|--|
 | [mangareader.net](https://www.mangareader.net/) | ![mangareader status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![mangareader download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) | Fastest |
 | [mangalife.us](http://mangalife.us/) | ![mangalife status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![mangalife download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) | Wide variety, best formatting for manhwa |
-| [mangainn.net](http://www.mangainn.net/) | ![mangainn status](https://img.shields.io/badge/status-broken-red.svg?style=flat-square) | ![mangainn download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) | Hompage says: A Database Error Occurred |
+| [mangainn.net](http://www.mangainn.net/) | ![mangainn status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![mangainn download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) |  |
 | [readmng.com](https://www.readmng.com/) | ![readmng status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![readmng download speed](https://img.shields.io/badge/speed-medium-orange.svg?style=flat-square) |  |
 | [mangapanda.com](https://www.mangapanda.com/) | ![mangapanda status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![mangapanda download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) | mangareader rehost |
 | [goodmanga.com](http://www.goodmanga.net/) | ![goodmanga status](https://img.shields.io/badge/status-broken-red.svg?style=flat-square) | ![goodmanga download speed](https://img.shields.io/badge/speed-slow-red.svg?style=flat-square) | Removed. Requests are being redirected to mangareader.net  |
