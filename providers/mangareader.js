@@ -2,7 +2,7 @@ const cheerio = require( "cheerio" );
 const axios = require( "axios" );
 
 const utils = require( "./utils" );
-const log = require( "../log" );
+const log = require( "../lib/log" );
 
 exports.extension = "net";
 

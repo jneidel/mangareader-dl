@@ -1,7 +1,7 @@
 const cheerio = require( "cheerio" );
 const pify = require( "pify" );
 const cloudscraper = require( "cloudscraper" );
-const log = require( "../log" );
+const log = require( "../lib/log" );
 
 exports.extension = "com";
 
