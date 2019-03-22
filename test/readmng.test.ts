@@ -1,8 +1,8 @@
-const test = require( "ava" );
-const fs = require( "mz/fs" );
-const path = require( "path" );
+import test from "ava" ;
+import * as fs from "mz/fs" ;
+import * as path from "path" ;
 
-const i = require( "../lib" );
+import * as i from "../lib" ;
 
 // I.getImgSrcIfValid
 test( "get image source", t =>

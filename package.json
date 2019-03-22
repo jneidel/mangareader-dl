@@ -10,7 +10,7 @@
     "url": "https://jneidel.com"
   },
   "scripts": {
-    "test": "ava",
+    "test": "tsc && ava",
     "test-unit": "ava -w --match='*[unit]'",
     "build": "tsc",
     "watch": "concurrently -k -n \"🔨,🚀\" \"npm run watch-ts\" \"npm run watch-test\" --prefix name",
@@ -64,11 +64,19 @@
     "concurrently": "^4.1.0",
     "mockery": "^2.1.0",
     "nodemon": "^1.18.10",
+    "ts-node": "^8.0.3",
     "typescript": "^3.3.4000"
   },
   "ava": {
+    "compileEnhancements": false,
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
     "files": [
-      "test/*.test.js"
+      "test/*.test.ts"
     ]
   },
   "keywords": [
