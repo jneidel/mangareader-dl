@@ -1,23 +1,32 @@
-import * as mangareader from "./mangareader" ;
-import * as readmng from "./readmng" ;
-import * as mangainn from "./mangainn" ;
-import * as mangalife from "./mangalife" ;
+import { readdirSync } from "mz/fs";
 
-const extensions = {
-  mangareader: mangareader.extension,
-  mangapanda : "com", // Reuses mangareader file, but not same extension
-  readmng    : readmng.extension,
-  mangainn   : mangainn.extension,
-  mangalife  : mangalife.extension,
-};
+const providers: any = {};
+const extensions: any = {};
 
-const getLib = provider =>
-  provider === "mangareader" ? mangareader :
-  provider === "mangalife" ? mangalife :
-  provider === "mangainn" ? mangainn :
-  provider === "readmng" ? readmng :
-  provider === "mangapanda" ? mangareader :
-  null; // Provider does not match
+let files = readdirSync( __dirname ) // Get all files in this directory (providers)
+  .map( name => name.split( "." )[0] ) // Remove .ts
+  .filter( name => ![ "index", "utils", "missing" ].includes( name ) )
 
-export { extensions, getLib }
+files.forEach( name => {
+  providers[name] = require( `./${name}` ); // import providers dynamically
+  extensions[name] = providers[name].extension;
+} )
+
+/*
+ * List of extensions, used to check which providers are available
+ */
+export { extensions }
+
+/*
+ * Get the functions for the given provider
+ */
+export function getLib( provider ) {
+  const providerNames = Object.keys( providers );
+
+  if ( providerNames.includes( provider ) ) {
+    return providers[provider]
+  } else {
+    return null;
+  }
+}
 
