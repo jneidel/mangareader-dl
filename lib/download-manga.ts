@@ -1,10 +1,10 @@
-const range = require( "py-range" );
-const promiseMap = require( "p-map" );
-const log = require( "./log" );
-const progressBar = require( "./progress-bar" );
+import range from "py-range";
+import promiseMap from "p-map";
+import progressBar from "./progress-bar";
+import * as log from "./log";
 
-const i = require( "." );
-const s = require( "./settings" );
+import * as i from ".";
+import * as s from "./settings";
 
 /**
  * Includes functions running the download process
@@ -105,6 +105,7 @@ async function downloadChapters( manga, settings ) {
   process.on( "unhandledRejection", ( err ) => {
     log.error( manga.url, { err } );
   } );
+  return;
 }
 
 /**
@@ -129,12 +130,15 @@ async function prepareDownload( url, { outputPath, provider, isForce, subscribe,
     manga.url = i.createUrl( manga.provider, manga.name, manga.chapter ); // Generate url with correct chapter
   }
 
+  //@ts-ignore
   manga.chapterTotal = await i.getLastChapter( manga.name, manga.provider );
+  //@ts-ignore
   if ( manga.chapter > manga.chapterTotal ) { // Historic chapters has been ++, check if valid
     log.prompt( `${manga.name} has no new chapters available for download. (Latest: ${--manga.chapter}). \n  If you want to overwrite the history and download with specified chapter/path use the --force flag.` );
     process.exit(); // eslint-disable-line unicorn/no-process-exit
   }
 
+  //@ts-ignore
   manga.subscribe = subscribe;
 
   return manga;
@@ -143,11 +147,13 @@ async function prepareDownload( url, { outputPath, provider, isForce, subscribe,
 /**
  * Download given manga
  */
-async function downloadManga( url, options, settings ) {
+export default async function downloadManga( url, options, settings = "" ) {
   const manga = await prepareDownload( url, options, settings );
+  //@ts-ignore
   globalState.barMode = options.bar;
 
   if ( options.bar === "extended" ) { // --extended progress bar
+    //@ts-ignore
     globalState.done = false;
     var bar = progressBar.chapter.setup( manga, globalState );
     progressBar.chapter.runUpdate( bar, 0, globalState );
@@ -163,4 +169,3 @@ async function downloadManga( url, options, settings ) {
     progressBar.chapter.finish( bar, globalState );
 }
 
-module.exports = downloadManga;

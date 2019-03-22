@@ -1,8 +1,9 @@
-const execTimer = require( "execution-time" );
-const progress = require( "progress-string" );
-const chalk = require( "chalk" );
-const strpad = require( "strpad" );
-const log = require( "./log" );
+import execTimer from "execution-time" ;
+import progress from "progress-string" ;
+//@ts-ignore - chalk has no exported member green, which is false
+import { green as chalkGreen } from "chalk" ;
+import * as strpad from "strpad" ;
+import * as log from "./log" ;
 
 const spinner = // Source: https://github.com/sindresorhus/cli-spinners
   [ "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" ];
@@ -34,11 +35,11 @@ const blocks = {
    * Building blocks of the printed progress bar,
    * calculating what to print
    */
-  spinner : frame => `${chalk.green( frame )}`, // Len 1
-  percent : ( current, total ) => `${chalk.green( `${strpad.left( ( current / total * 100 ).toFixed( 1 ), 5 )}%` )}`, // Len 6
-  chapter : ( chapter, name ) => `${strpad.center( `${chalk.green( strpad.left( chapter, 3 ) )}`, 10 + name.length )}`, // Len name.length
-  pageProg: ( current, total ) => `page    ${chalk.green( `${strpad.left( current, 3 )}/${strpad.left( total, 3 )}` )}`,
-  chProg  : ( current, total ) => `chapter ${chalk.green( `${strpad.left( current, 3 )}/${strpad.left( total, 3 )}` )}`, // Len 13
+  spinner : frame => `${chalkGreen( frame )}`, // Len 1
+  percent : ( current, total ) => `${chalkGreen( `${strpad.left( ( current / total * 100 ).toFixed( 1 ), 5 )}%` )}`, // Len 6
+  chapter : ( chapter, name ) => `${strpad.center( `${chalkGreen( strpad.left( chapter, 3 ) )}`, 10 + name.length )}`, // Len name.length
+  pageProg: ( current, total ) => `page    ${chalkGreen( `${strpad.left( current, 3 )}/${strpad.left( total, 3 )}` )}`,
+  chProg  : ( current, total ) => `chapter ${chalkGreen( `${strpad.left( current, 3 )}/${strpad.left( total, 3 )}` )}`, // Len 13
   lastTime: ( last, all ) => `last: ${last / 60 >= 1 ? `${Math.floor( last / 60 )}:` : all / 60 <= 1 ? "" : all / 60 <= 10 ? last < 10 ? "   " : "  " : all / 60 <= 100 && last > 10 ? "   " : "    "}${last / 60 >= 1 ? strpad.left( Math.floor( last / 60 % 1 * 60 ), 2, "0" ) : all < 60 && all > 10 && last < 10 ? strpad.left( Math.floor( last ), 2 ) : Math.floor( last )}${last / 60 >= 1 ? "m" : "s"}`,
   allTime : all => `all:  ${all / 60 >= 1 ? `${Math.floor( all / 60 )}:` : ""}${all / 60 >= 1 ? strpad.left( Math.floor( all / 60 % 1 * 60 ), 2, "0" ) : Math.floor( all )}${all / 60 <= 1 ? "s" : "m"}`, // All time relevant strings: Len 5 + ( last / 60 <= 1 ? 0 : last / 60 <= 10 ? 2 : last / 60 <= 100 ? 3 ) + ( last / 60 <= 1 ? last.toString().length : 2 )
   etaCalc : ( gs ) => {
@@ -109,7 +110,7 @@ const progressBar = {
      */
     update( gs, manga, spinnerFrame, pagesCurrent ) {
       if ( gs.barMode === "micro" )
-        return log.update( `${blocks.spinner( spinnerFrame )} ${manga.name} ${chalk.green( `${manga.chapter}/${manga.chapterTotal}` )} ${( pagesCurrent / manga.pagesTotal * 100 ).toFixed( 0 )}%` );
+        return log.update( `${blocks.spinner( spinnerFrame )} ${manga.name} ${chalkGreen( `${manga.chapter}/${manga.chapterTotal}` )} ${( pagesCurrent / manga.pagesTotal * 100 ).toFixed( 0 )}%` );
 
       if ( gs.barMode === "extended" ) {
         // Update page progress bar by updating the changed values in globalState
@@ -164,6 +165,7 @@ const progressBar = {
       }
 
       if ( gs.bar ) {
+        //@ts-ignore - Expected 0 arguments, but got 1. - template literal messes with ts
         log.update( `${blocks.spinner( gs.spinnerFrame )} ${gs.name} [${gs.bar( pagesCurrent )}] ${blocks.percent( pagesCurrent, pagesTotal )} | ${blocks.pageProg( pagesCurrent, pagesTotal )}${gs.timer.last ? ` | ${blocks.lastTime( gs.timer.last, gs.timer.all )} | ${blocks.etaDesc( gs.timer.eta )}` : ""}
 ${blocks.spinner( gs.done ? "❯" : spinner[spinnerFrame] )} ${blocks.chapter( chapterCurrent, gs.name )} [${instance( chapterCurrent )}] ${blocks.percent( chapterCurrent, chapterTotal )} | ${blocks.chProg( chapterCurrent, chapterTotal )}${gs.timer.all ? ` | ${blocks.allTime( gs.timer.all )} | ${blocks.etaTime( gs.timer.eta )}` : ""}` );
       }
@@ -191,5 +193,5 @@ ${blocks.spinner( gs.done ? "❯" : spinner[spinnerFrame] )} ${blocks.chapter( c
   timer,
 };
 
-module.exports = progressBar;
+export default progressBar;
 

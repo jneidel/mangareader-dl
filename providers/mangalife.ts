@@ -1,9 +1,11 @@
-const cheerio = require( "cheerio" );
-const axios = require( "axios" );
+import { load as loadHtml } from "cheerio" ;
 
-exports.extension = "us";
+//@ts-ignore - axios has no exported member get
+export { get as ajax } from "axios"
+export { getImgBuffer } from "./mangareader";
+export const extension = "us";
 
-exports.parseUrl = function parseUrl( url ) {
+export function parseUrl( url ) {
   let result;
   if ( url.match( /\.html\/?$/i ) )
     result = url.match( /(?:read-online\/)(.+?(?=-chapter-))-chapter-(\d+)-page-(\d+)?.html/i );
@@ -26,16 +28,14 @@ exports.parseUrl = function parseUrl( url ) {
   return { name, chapter, page };
 };
 
-exports.ajax = axios.get;
-
-exports.getImgSrc = html => {
-  const $ = cheerio.load( html.data );
+export function getImgSrc( html ) {
+  const $ = loadHtml( html.data );
 
   return $( ".CurImage" )[0].attribs.src;
 };
 
-exports.getLastChapter = html => {
-  const $ = cheerio.load( html.data );
+export function getLastChapter(  html ) {
+  const $ = loadHtml( html.data );
 
   const lastChapterUrl = $( ".chapter-list" )[0].children[1].attribs.href;
 
@@ -44,17 +44,18 @@ exports.getLastChapter = html => {
   return chapter;
 };
 
-exports.getLastPage = html => {
-  const $ = cheerio.load( html.data );
+export function getLastPage( html ) {
+  const $ = loadHtml( html.data );
 
   return Math.floor( $( ".PageSelect" )[0].children.length );
 };
 
-exports.getImgBuffer = require( "./mangareader" ).getImgBuffer;
 
 /**
  * Get the manga page (site/manga-name) for mangalife
  * Can't be generated as it has unique id in url (eg: goodmanga.net/17702/dr.-stone)
  */
-exports.getNameUrl = name => `https://mangalife.us/manga/${name}`;
+export function getNameUrl( name ) {
+  return `https://mangalife.us/manga/${name}`;
+}
 

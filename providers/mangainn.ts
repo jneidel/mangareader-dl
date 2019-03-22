@@ -1,12 +1,12 @@
-const cheerio = require( "cheerio" );
-const axios = require( "axios" );
+import { load as loadHtml } from "cheerio" ;
 
-exports.extension = "net";
+//@ts-ignore - axios has no exported member get
+export { get as ajax } from "axios"
+export { getImgBuffer, parseUrl } from "./mangareader";
+export const extension = "net";
 
-exports.ajax = axios.get;
-
-exports.getImgSrc = html => {
-  const $ = cheerio.load( html.data );
+export function getImgSrc( html ) {
+  const $ = loadHtml( html.data );
 
   if ( $( "#chapter_img" )[0] )
     return $( "#chapter_img" )[0].attribs.src;
@@ -14,8 +14,8 @@ exports.getImgSrc = html => {
     return $( ".img-responsive" )[0].attribs.src;
 };
 
-exports.getLastChapter = html => {
-  const $ = cheerio.load( html.data );
+export function getLastChapter( html ) {
+  const $ = loadHtml( html.data );
 
   const lastChapterUrl = $( "#chapter_list" )[0].children[3].children[1].children[1].attribs.href;
   const [ , chapter ] = lastChapterUrl.match( /(?:https?:\/\/)?(?:www.)?(?:mangainn.net)?(?:\/)?(?:[^/]+)\/?(\d+)?\/?/i );
@@ -23,12 +23,9 @@ exports.getLastChapter = html => {
   return chapter;
 };
 
-exports.getLastPage = html => {
-  const $ = cheerio.load( html.data );
+export function getLastPage( html ) {
+  const $ = loadHtml( html.data );
 
   return Math.floor( $( ".selectPage" )[0].children[1].children.length / 2 );
 };
-
-exports.getImgBuffer = require( "./mangareader" ).getImgBuffer;
-exports.parseUrl = require( "./mangareader" ).parseUrl;
 

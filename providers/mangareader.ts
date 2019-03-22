@@ -1,12 +1,14 @@
-const cheerio = require( "cheerio" );
-const axios = require( "axios" );
+import { load as loadHtml } from "cheerio" ;
+//@ts-ignore - axios has no exported member get
+import { get } from "axios";
 
-const utils = require( "./utils" );
-const log = require( "../lib/log" );
+import * as utils from "./utils" ;
+import * as log from "../lib/log" ;
 
-exports.extension = "net";
+export { get as ajax }
+export const extension = "net";
 
-exports.parseUrl = function parseUrl( url ) {
+export function parseUrl( url ) {
   const [ , name, chapter = 1, page = 1 ] = url.match( /([^/]+)\/?(\d+)?\/?(\d+)?/ );
   /* Matches:
    * shingeki-no-kyojin/103/39
@@ -15,32 +17,30 @@ exports.parseUrl = function parseUrl( url ) {
   return { name, chapter, page };
 };
 
-exports.ajax = axios.get;
-
-exports.getImgSrc = html => {
-  const $ = cheerio.load( html.data );
+export function getImgSrc( html ) {
+  const $ = loadHtml( html.data );
 
   return $( "#img" ).attr( "src" );
 };
 
-exports.getLastChapter = ( html, numInName ) => {
-  const $ = cheerio.load( html.data );
+export function getLastChapter ( html, numInName ) {
+  const $ = loadHtml( html.data );
 
   const res = $( "#latestchapters" ).find( "a" )[0].children[0].data.match( /\s(\d+)/g );
 
   return numInName && res[1] ? res[1] : res[0];
 };
 
-exports.getLastPage = html => {
-  const $ = cheerio.load( html.data );
+export function getLastPage( html ) {
+  const $ = loadHtml( html.data );
 
   return $( "#selectpage" )[0].children[1].data.match( /(\d+)/ )[0];
 };
 
-const getImgBuffer = ( imgSrc ) => {
+export function getImgBuffer ( imgSrc ) {
   let errorCounter = 0;
 
-  const donwloadBuffer = url => axios.get( url, { responseType: "arraybuffer", timeout: 0 } )
+  const donwloadBuffer = url => get( url, { responseType: "arraybuffer", timeout: 0 } )
     .then( res => res.data )
     .then( data => Buffer.from( data, "binary" ) )
     .catch( err => {
@@ -57,6 +57,4 @@ const getImgBuffer = ( imgSrc ) => {
 
   return donwloadBuffer( imgSrc );
 };
-
-exports.getImgBuffer = getImgBuffer;
 

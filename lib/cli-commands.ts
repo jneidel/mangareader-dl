@@ -1,15 +1,15 @@
-const path = require( "path" );
-const mkdir = require( "make-dir" );
-const range = require( "py-range" );
+import * as path from "path" ;
+import { sync as mkdirSync } from "make-dir" ;
+import range from "py-range" ;
 
-const i = require( "." );
-const s = require( "./settings" );
-const log = require( "./log" );
-const downloadManga = require( "./download-manga" );
+import * as i from "." ;
+import * as s from "./settings" ;
+import * as log from "./log" ;
+import downloadManga from "./download-manga" ;
 
 /* Functions for parsing cli commands */
 
-function list( settings, resetObj, isLatest ) {
+export function list( settings, resetObj, isLatest ) {
   if ( resetObj ) {
     s.reset( "history", settings, resetObj.settingsPath, resetObj.force );
     log.prompt( "History has been reset." );
@@ -18,7 +18,7 @@ function list( settings, resetObj, isLatest ) {
   checkForUpdate();
 }
 
-function config( args, settings, defaults, outputPath, settingsPath ) {
+export function config( args, settings, defaults, outputPath, settingsPath ) {
   if ( settingsPath ) { // If 'reset' has been passed
     s.reset( "config", settings, settingsPath );
     log.prompt( "Config has been reset." );
@@ -47,14 +47,14 @@ function config( args, settings, defaults, outputPath, settingsPath ) {
   }
 }
 
-async function manga( args, outputPath, settings ) {
+export async function manga( args, outputPath, settings ) {
   const url = args._[0];
   const { name } = i.parseFromUrl( url, args.provider );
 
   if ( args.dir ) {
     const newOut = path.join( outputPath, name );
 
-    mkdir.sync( newOut );
+    mkdirSync( newOut );
     outputPath = newOut;
   }
 
@@ -70,7 +70,7 @@ async function manga( args, outputPath, settings ) {
   process.exit(); // eslint-disable-line unicorn/no-process-exit
 }
 
-async function update( args, settings ) {
+export async function update( args, settings ) {
   if ( args._[1] === "check" ) {
     await s.checkForNewManga( settings );
   } else {
@@ -78,8 +78,8 @@ async function update( args, settings ) {
       log.prompt( `Searching for updates...` );
 
     const defaults = s.parseDefaults( settings );
-    const mangaList = s.generateMangaList( settings );
-    const downloaded = [];
+    const mangaList: any[] = s.generateMangaList( settings );
+    const downloaded: any[] = [];
 
     for ( const manga of mangaList ) {
       const last = await i.getLastChapter( manga.name, manga.provider ? manga.provider : defaults.provider );
@@ -136,11 +136,4 @@ function checkForUpdate() {
         log.error( err.message, { err } );
     } );
 }
-
-module.exports = {
-  list,
-  config,
-  manga,
-  update,
-};
 

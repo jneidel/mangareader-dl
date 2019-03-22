@@ -1,16 +1,17 @@
-const fs = require( "mz/fs" );
-const path = require( "path" );
-const DotJson = require( "dot-json" );
-const fileExists = require( "file-exists" );
-const expandHomeDir = require( "expand-home-dir" );
-const chalk = require( "chalk" );
-const strpad = require( "strpad" );
-const log = require( "./log" );
-const termWidth = require( "term-size" );
-const strLen = require( "string-length" );
-const inquirer = require( "inquirer" );
+import * as fs from "mz/fs" ;
+import { resolve as pathResolve } from "path" ;
+import DotJson from "dot-json" ;
+import { sync as fileExists } from "file-exists" ;
+import expandHomeDir from "expand-home-dir" ;
+//@ts-ignore - chalk has no exported member green or red
+import { green as chalkGreen, red as chalkRed } from "chalk" ;
+import * as strpad from "strpad" ;
+import * as log from "./log" ;
+import termWidth from "term-size" ;
+import strLen from "string-length" ;
+import { prompt as inquirerPrompt } from "inquirer" ;
 
-const i = require( "." );
+import * as i from "." ;
 
 /**
  * Includes functions related to reading/writing the settings file
@@ -29,21 +30,21 @@ const defaultSettings = {
  * global > local
  * @returns settingsPath
  */
-async function getSettingsPath() {
+export async function getSettingsPath() {
   const settings = {
     global: {
       path: expandHomeDir( "~/.mangareader-dl.json" ),
-      get exists() { return fileExists.sync( this.path ); },
+      get exists() { return fileExists( this.path ); },
     },
     local: {
-      path: path.resolve( __dirname, "..", "mangareader-dl.json" ),
-      get exists() { return fileExists.sync( this.path ); },
+      path: pathResolve( __dirname, "..", "..", "mangareader-dl.json" ),
+      get exists() { return fileExists( this.path ); },
     },
   };
 
   // Create config file if missing
   if ( !settings.global.exists && !settings.local.exists ) {
-    const response = await inquirer.prompt( [
+    const response = await inquirerPrompt( [
       {
         type   : "confirm",
         name   : "createGlobalConfig",
@@ -68,25 +69,29 @@ async function getSettingsPath() {
 /**
  * @returns settings
  */
-const createSettingsObject = path => new DotJson( path );
+export function createSettingsObject( path ) {
+  return new DotJson( path );
+}
 
-const readHistory = settings => settings.get( "history" );
+export const readHistory = settings => settings.get( "history" );
 const readConfig = settings => settings.get( "config" );
-const readId = settings => settings.get( "id" ) || "";
+export const readId = settings => settings.get( "id" ) || "";
 
 /**
  * @returns defaults
  */
-const parseDefaults = settings => ( {
-  out     : settings.get( "config.outputPath" ) || "./",
-  provider: settings.get( "config.provider" ) || "mangareader",
-  dir     : settings.get( "config.dir" ) || false,
-} );
+export function parseDefaults( settings ) {
+  return {
+    out     : settings.get( "config.outputPath" ) || "./",
+    provider: settings.get( "config.provider" ) || "mangareader",
+    dir     : settings.get( "config.dir" ) || false,
+  }
+}
 
 /**
  * Write given data to history
  */
-function writeHistory( settings, { name, chapter, provider, subscribe, path: outputPath } ) {
+export function writeHistory( settings, { name, chapter, provider, subscribe, path: outputPath } ) {
   settings
     .set( `history.${name}.chapter`, chapter )
     .set( `history.${name}.path`, outputPath )
@@ -100,7 +105,7 @@ function writeHistory( settings, { name, chapter, provider, subscribe, path: out
 /**
  * Read data for name from history
  */
-function readHistoryForName( settings, name ) {
+export function readHistoryForName( settings, name ) {
   const chapter = settings.get( `history.${name}.chapter` );
   const outputPath = settings.get( `history.${name}.path` );
   const provider = settings.get( `history.${name}.provider` );
@@ -149,7 +154,7 @@ const mangaList = {
 /**
  * Output contents of settings.history via 'list' command
  */
-function outputHistory( settings, isLatest = false ) {
+export function outputHistory( settings, isLatest = false ) {
   const getMangaObj = true;
   const { mangas, mangaObj } = mangaList.get( settings, getMangaObj );
   const longestName = mangas.reduce( ( acc, cur ) => cur.length > acc ? cur.length : acc, 0 );
@@ -161,12 +166,12 @@ function outputHistory( settings, isLatest = false ) {
   }
 
   function printManga( manga, isLatest = true ) {
-    log.print( shortenLine( `  ${mangaObj[manga].subscribe ? isLatest ? chalk.green( "✓" ) : chalk.red( "✓" ) : " "} ${strpad.right( manga, longestName )} ${strpad.left( isLatest ? chalk.green( mangaObj[manga].chapter ) : chalk.red( mangaObj[manga].chapter ), 13 )} [${strpad.right( mangaObj[manga].provider, "mangareader".length )} ${mangaObj[manga].path}]` ) );
+    log.print( shortenLine( `  ${mangaObj[manga].subscribe ? isLatest ? chalkGreen( "✓" ) : chalkRed( "✓" ) : " "} ${strpad.right( manga, longestName )} ${strpad.left( isLatest ? chalkGreen( mangaObj[manga].chapter ) : chalkRed( mangaObj[manga].chapter ), 13 )} [${strpad.right( mangaObj[manga].provider, "mangareader".length )} ${mangaObj[manga].path}]` ) );
   }
 
   async function checkLatestAndPrint( manga ) {
     if ( isLatest ) {
-      const lastChapter = await i.getLastChapter( manga, mangaObj[manga].provider ).catch( err => console.log( err ) );
+      const lastChapter = await i.getLastChapter( manga, mangaObj[manga].provider ).catch( err => log.error( "", { err } ) );
 
       printManga( manga, lastChapter === mangaObj[manga].chapter );
     } else {printManga( manga );}
@@ -183,8 +188,8 @@ function outputHistory( settings, isLatest = false ) {
 /**
  * Output contents of settings.config via 'config' command
  */
-function outputConfig( settings ) {
-  const { out, provider, dir, extended } = parseDefaults( settings );
+export function outputConfig( settings ) {
+  const { out, provider, dir } = parseDefaults( settings );
 
   return `  Current configuration:
     --out: ${out}
@@ -202,7 +207,7 @@ const writeReset = ( settingsPath, config, history ) => {
 /**
  * Reset given setting [config/history]
  */
-function reset( setting, settings, settingsPath, force ) {
+export function reset( setting, settings, settingsPath, force = false ) {
   switch ( setting ) {
     case "config":
       const history = readHistory( settings );
@@ -233,10 +238,10 @@ function reset( setting, settings, settingsPath, force ) {
 /**
  * Get all name, provider, chapter for manga with --subscribe
  */
-function generateMangaList( settings ) {
+export function generateMangaList( settings ) {
   const history = readHistory( settings );
 
-  const res = [];
+  const res: any[] = [];
 
   Object.keys( history ).forEach( manga => {
     const mangaObj = history[manga];
@@ -256,11 +261,11 @@ function generateMangaList( settings ) {
 /**
  *
  */
-async function checkForNewManga( settings ) {
+export async function checkForNewManga( settings ) {
   const getMangaObj = true;
   const { mangas, mangaObj } = mangaList.get( settings, getMangaObj );
 
-  const newManga = [];
+  const newManga: any[] = [];
 
   async function addNewManga( mangaName ) {
     const manga = mangaObj[mangaName];
@@ -283,7 +288,7 @@ async function checkForNewManga( settings ) {
       spinnerFrame = spinnerFrame < spinner.length - 1 ? spinnerFrame + 1 : 0;
       dotsFrame = dotsFrame < dots.length - 1 ? dotsFrame + 1 : 0;
 
-      log.update( `${chalk.green( spinner[spinnerFrame] )} Checking for new chapters${dots[dotsFrame]}`, checking );
+      log.update( `${chalkGreen( spinner[spinnerFrame] )} Checking for new chapters${dots[dotsFrame]}`, checking );
       if ( checking )
         loadingSpinner( spinnerFrame, dotsFrame );
     }, 80 );
@@ -300,17 +305,3 @@ async function checkForNewManga( settings ) {
   }
 }
 
-module.exports = {
-  getSettingsPath,
-  createSettingsObject,
-  writeHistory,
-  readHistory,
-  readHistoryForName,
-  outputHistory,
-  outputConfig,
-  parseDefaults,
-  reset,
-  readId,
-  generateMangaList,
-  checkForNewManga,
-};
