@@ -51,6 +51,10 @@ const supportedProviders = Object.keys( providerExtensions );
       --help            This help message
       --debug           Throw errors locally
 
+    Providers
+      The supported providers are:
+      ${supportedProviders.join( ", " )}
+
     Examples
       $ mangareader-dl mangareader.net/naruto/100 -do .
       => Download naruto chapter 100+ into cwd
@@ -60,7 +64,6 @@ const supportedProviders = Object.keys( providerExtensions );
 
     For the full documentation please refer to:
     https://github.com/jneidel/mangareader-dl
-
   `, {
     description: "mangareader-dl: CLI for comfortable manga download",
     flags      : {
