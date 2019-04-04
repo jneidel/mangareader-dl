@@ -60,24 +60,6 @@ test( "pass on invalid chapter error", t =>
     )
 );
 
-// I.parseFromUrl
-test( "parse full url [unit]", t =>
-  t.deepEqual( i.parseFromUrl( "https://www.readmng.com/platinum-end/19/2" ), {
-    name    : "platinum-end",
-    chapter : 19,
-    page    : 2,
-    provider: "readmng",
-  } )
-);
-test( "parse url without www.readmng.com [unit]", t =>
-  t.deepEqual( i.parseFromUrl( "platinum-end/19/2", "readmng" ), {
-    name    : "platinum-end",
-    chapter : 19,
-    page    : 2,
-    provider: "readmng",
-  } )
-);
-
 // I.increase
 test( "increase chapter for valid url", t =>
   i.increase( {

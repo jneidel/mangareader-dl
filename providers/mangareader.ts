@@ -8,15 +8,6 @@ import * as log from "../lib/log" ;
 export { get as ajax }
 export const extension = "net";
 
-export function parseUrl( url ) {
-  const [ , name, chapter = 1, page = 1 ] = url.match( /([^/]+)\/?(\d+)?\/?(\d+)?/ );
-  /* Matches:
-   * shingeki-no-kyojin/103/39
-   */
-
-  return { name, chapter, page };
-};
-
 export function getImgSrc( html ) {
   const $ = loadHtml( html.data );
 

@@ -47,24 +47,6 @@ test( "pass on invalid page error", t =>
     )
 );
 
-// I.parseFromUrl
-test( "parse full url [unit]", t =>
-  t.deepEqual( i.parseFromUrl( "https://www.mangainn.net/ao-no-exorcist/100" ), {
-    name    : "ao-no-exorcist",
-    chapter : 100,
-    page    : 1,
-    provider: "mangainn",
-  } )
-);
-test( "parse url without www.mangainn.net [unit]", t =>
-  t.deepEqual( i.parseFromUrl( "ao-no-exorcist/100", "mangainn" ), {
-    name    : "ao-no-exorcist",
-    chapter : 100,
-    page    : 1,
-    provider: "mangainn",
-  } )
-);
-
 // I.getLastChapter
 test( "get last chapter", t =>
   i.getLastChapter( "naruto1", "mangainn" )

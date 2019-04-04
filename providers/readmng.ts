@@ -3,7 +3,6 @@ import pify from "pify" ;
 import * as cloudscraper from "cloudscraper" ;
 import * as log from "../lib/log" ;
 
-export { parseUrl } from "./mangareader";
 export const extension = "com";
 export const ajax = pify( cloudscraper.get, { multiArgs: true } );
 

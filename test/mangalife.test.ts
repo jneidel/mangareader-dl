@@ -61,24 +61,6 @@ test( "pass on invalid page error [unit]", t =>
     )
 );
 
-// I.parseFromUrl
-test( "parse full url [unit]", t =>
-  t.deepEqual( i.parseFromUrl( "http://mangalife.us/read-online/Platinum-End-chapter-31-page-1.html" ), {
-    name    : "platinum-end",
-    chapter : 31,
-    page    : 1,
-    provider: "mangalife",
-  } )
-);
-test( "parse url without www.mangalife.us [unit]", t =>
-  t.deepEqual( i.parseFromUrl( "platinum-end/31", "mangalife" ), {
-    name    : "platinum-end",
-    chapter : 31,
-    page    : 1,
-    provider: "mangalife",
-  } )
-);
-
 // I.getLastChapter
 test( "get last chapter", t =>
   i.getLastChapter( "naruto", "mangalife" )

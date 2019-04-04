@@ -35,16 +35,21 @@ test( "parse mangapanda url", () => {
 
 
 test( "parse mangalife page url", () => {
-  const url = "Platinum-End-chapter-31-page-4.html"
+  const urls = [
+    "Platinum-End-chapter-31-page-4.html",
+    "read-online/Platinum-End-chapter-31-page-4.html",
+  ]
   const answer = {
     name: "platinum-end",
     chapter: 31,
     page: 4,
   }
 
-  const parser = new UrlParser( "mangalife" );
-  const result = parser.parse( url )
-  expect( result ).toEqual( answer )
+  urls.forEach( url => {
+    const parser = new UrlParser( "mangalife" );
+    const result = parser.parse( url )
+    expect( result ).toEqual( answer )
+  }
 } );
 
 test( "parse mangalife overview url", () => {

@@ -2,7 +2,7 @@ import { load as loadHtml } from "cheerio" ;
 
 //@ts-ignore - axios has no exported member get
 export { get as ajax } from "axios"
-export { getImgBuffer, parseUrl } from "./mangareader";
+export { getImgBuffer } from "./mangareader";
 export const extension = "net";
 
 export function getImgSrc( html ) {

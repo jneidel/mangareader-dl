@@ -83,53 +83,6 @@ test( "pass on invalid chapter error", () =>
     )
 );
 
-// I.parseFromUrl
-test( "parse full url [unit]", () =>
-  expect( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin/101/5" ) )
-    .toEqual( {
-      name    : "shingeki-no-kyojin",
-      chapter : 101,
-      page    : 5,
-      provider: "mangareader",
-    } )
-);
-test( "parse url without page [unit]", () =>
-  expect( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin/101" ) )
-    .toEqual( {
-      name    : "shingeki-no-kyojin",
-      chapter : 101,
-      page    : 1,
-      provider: "mangareader",
-    } )
-);
-test( "parse url without chapter [unit]", () =>
-  expect( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin" ) )
-    .toEqual( {
-      name    : "shingeki-no-kyojin",
-      chapter : 1,
-      page    : 1,
-      provider: "mangareader",
-    } )
-);
-test( "parse url without https [unit]", () =>
-  expect( i.parseFromUrl( "www.mangareader.net/shingeki-no-kyojin/101/5" ) )
-    .toEqual( {
-      name    : "shingeki-no-kyojin",
-      chapter : 101,
-      page    : 5,
-      provider: "mangareader",
-    } )
-);
-test( "parse url without www.mangareader.net [unit]", () =>
-  expect( i.parseFromUrl( "shingeki-no-kyojin/101/5", "mangareader" ) )
-    .toEqual( {
-      name    : "shingeki-no-kyojin",
-      chapter : 101,
-      page    : 5,
-      provider: "mangareader",
-    } )
-);
-
 // I.increase
 test( "increase chapter for valid url", () =>
   Promise.resolve( i.increase( {
