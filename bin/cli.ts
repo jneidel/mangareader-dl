@@ -8,63 +8,60 @@ import * as s from "../lib/settings";
 import * as log from "../lib/log" ;
 import * as cliCommands from "../lib/cli-commands" ;
 
-import { extensions as providerExtensions } from "../providers";
-const supportedProviders = Object.keys( providerExtensions );
+import * as providers from "../providers";
 
 ( async function main() {
   const settingsPath = await s.getSettingsPath();
   const settings = s.createSettingsObject( settingsPath );
   const defaults = s.parseDefaults( settings );
 
-  const cli = meow( `
-    Usage
-      $ mangareader-dl <manga>
+  const cli = meow( `Usage
+  $ mangareader-dl <manga>
 
-    Commands
-      <manga> Manga to download
-      list    List downloaded manga
-      config  Set defaults
-      update  Update subscribed manga
+Commands
+  <manga> Manga to download
+  list    List downloaded manga
+  config  Set defaults
+  update  Update subscribed manga
 
-    Options, Sub-commands
-      <manga>
-        -o, --out       Set output path
-        -d, --dir       Download into 'path/manga-name'
-        -p, --provider  Set download site
-        -f, --force     Overwrite history
-        -s, --subscribe Subscribe to new chapters
-        -m, --micro     Micro progress bar
-      list
-        -l, --latest    Highlight if new chapters are available
-        reset           Reset non-subscribed manga
-          -f, --force   Reset history
-      config
-        -o, --out       Set default output path
-        -d, --dir       Enable/disable dir option
-        -p, --provider  Set default provider
-        reset           Reset config
-      update
-        -m, --micro     Micro progress bar
-            --silent    Hide progress bar
-        check           Check if new chapters are available
-      --version         Show version
-      --help            This help message
-      --debug           Throw errors locally
+Options, Sub-commands
+  <manga>
+    -o, --out       Set output path
+    -d, --dir       Download into 'path/manga-name'
+    -p, --provider  Set download site
+    -f, --force     Overwrite history
+    -s, --subscribe Subscribe to new chapters
+    -m, --micro     Micro progress bar
+  list
+    -l, --latest    Highlight if new chapters are available
+    reset           Reset non-subscribed manga
+      -f, --force   Reset history
+  config
+    -o, --out       Set default output path
+    -d, --dir       Enable/disable dir option
+    -p, --provider  Set default provider
+    reset           Reset config
+  update
+    -m, --micro     Micro progress bar
+        --silent    Hide progress bar
+    check           Check if new chapters are available
+  --version         Show version
+  --help            This help message
+  --debug           Throw errors locally
 
-    Providers
-      The supported providers are:
-      ${supportedProviders.join( ", " )}
+Providers
+  The supported providers are:
+  ${providers.list.join( ", " )}
 
-    Examples
-      $ mangareader-dl mangareader.net/naruto/100 -do .
-      => Download naruto chapter 100+ into cwd
+Examples
+  $ mangareader-dl mangareader.net/naruto/100 -do .
+  => Download naruto chapter 100+ into cwd
 
-      $ mangareader-dl naruto -mp mangareader
-      => Download naruto from mangareader.net in micro mode
+  $ mangareader-dl naruto -mp mangareader
+  => Download naruto from mangareader.net in micro mode
 
-    For the full documentation please refer to:
-    https://github.com/jneidel/mangareader-dl
-  `, {
+For the full documentation please refer to:
+https://github.com/jneidel/mangareader-dl`, {
     description: "mangareader-dl: CLI for comfortable manga download",
     flags      : {
       out: {
@@ -118,11 +115,12 @@ const supportedProviders = Object.keys( providerExtensions );
   const args = cli.flags;
   args._ = cli.input;
 
-  if ( args._.length === 0 ) {
+  if ( args._.length === 0 ) { // Nothing passed
     log.prompt( "Specify '--help' for available commands" );
     process.exit();
   }
 
+  // flags require arguments
   [ { name: "out", val: args.out }, { name: "provider", val: args.provider } ].forEach( arg => {
     if ( arg.val === "" ) {
       log.prompt( `The '--${arg.name}' flag requires a parameter. Specify '--help' for available commands` );
@@ -133,8 +131,8 @@ const supportedProviders = Object.keys( providerExtensions );
   let outputPath = path.normalize( args.out );
   outputPath = path.isAbsolute( args.out ) ? args.out : path.resolve( process.cwd(), args.out );
 
-  if ( !~supportedProviders.indexOf( args.provider ) ) {
-    log.prompt( `The provider '${args.provider}' is not supported. Please choose one from the list:\n  [${supportedProviders}]\n  Or submit a issue on GitHub requesting support of the given provider.` );
+  if ( providers.isProvider( args.provider ) ) {
+    log.prompt( `The provider '${args.provider}' is not supported.\nSee --help for available providers.` );
     process.exit();
   }
 
@@ -165,6 +163,6 @@ const supportedProviders = Object.keys( providerExtensions );
 } )();
 
 process.on( "unhandledRejection", ( err ) => {
-  log.error( "unhandledRejection", { err }, true );
+  log.error( "", { err }, true );
 } );
 
