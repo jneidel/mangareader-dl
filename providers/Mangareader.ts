@@ -63,9 +63,6 @@ export default class Mangareader extends Provider {
     const hasNumberInName = !!manga.name.match( /\d/ );
 
     return this.ajax( overviewUrl )
-      .catch( err => {
-        console.error( overviewUrl );
-      } )
       .then( html => {
         const $ = loadHtml( html.data );
         const match = $( "#latestchapters" )
@@ -76,4 +73,19 @@ export default class Mangareader extends Provider {
         return Number( lastChapter );
       } );
   }
+
+  getImageSource( manga ) {
+    const { url } = manga;
+
+    return this.ajax( url )
+      .then( html => {
+        const $ = loadHtml( html.data );
+        return $( "#img" ).attr( "src" );
+      })
+      .catch( err => {
+        throw new Error( "invalid page" );
+      } )
+  }
 }
+
+

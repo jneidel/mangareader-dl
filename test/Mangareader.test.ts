@@ -11,9 +11,9 @@ test( "initiate", () => {
 test( "parseShortUrl", () => {
   const url = "shingeki-no-kyojin/103/39";
   const answer = new PageManga( {
-    name   : "shingeki-no-kyojin",
-    chapter: 103,
-    page   : 39,
+    name    : "shingeki-no-kyojin",
+    chapter : 103,
+    page    : 39,
     provider: mangareader,
   } );
 
@@ -22,15 +22,25 @@ test( "parseShortUrl", () => {
 } );
 
 test( "createUrl", () => {
-  const data = new PageManga( {
-    name   : "shingeki-no-kyojin",
-    chapter: 103,
-    page   : 39,
+  const manga = new PageManga( {
+    name    : "shingeki-no-kyojin",
+    chapter : 103,
+    page    : 39,
     provider: mangareader,
   } );
   const answer = "https://www.mangareader.net/shingeki-no-kyojin/103/39";
 
-  const result = mangareader.createUrl( data );
+  const result = mangareader.createUrl( manga );
+  expect( result ).toBe( answer );
+} );
+test( "createUrl as overview url", () => {
+  const manga = new PageManga( {
+    name    : "shingeki-no-kyojin",
+    provider: mangareader,
+  } );
+  const answer = "https://www.mangareader.net/shingeki-no-kyojin";
+
+  const result = mangareader.createUrl( manga, true );
   expect( result ).toBe( answer );
 } );
 
@@ -68,7 +78,6 @@ test( "getLastChapter", async () => {
   const result = await mangareader.getLastChapter( manga );
   expect( result ).toBe( answer );
 } );
-
 test( "getLastChapter with number in manga name", async () => {
   const manga = new Manga( {
     name    : "jojos-bizarre-adventure-part-1-phantom-blood",
@@ -79,3 +88,36 @@ test( "getLastChapter with number in manga name", async () => {
   const result = await mangareader.getLastChapter( manga );
   expect( result ).toBe( answer );
 } );
+
+test( "getImageSource", async () => {
+  const manga = new PageManga( {
+    name    : "shingeki-no-kyojin",
+    chapter : 103,
+    page    : 1,
+    provider: mangareader,
+  } );
+
+  // Different servers depending on location
+  const answer1 =
+    "https://i6.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg";
+  const answer2 =
+    "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg";
+
+  const result = await mangareader.getImageSource( manga );
+  if ( String( result ).match( /i6/ ) ) expect( result ).toBe( answer1 );
+  else expect( result ).toBe( answer2 );
+} );
+/*test( "getImageSource of invalid page", async () => {*/
+  //const manga = new PageManga( {
+    //name    : "shingeki-no-kyojin",
+    //chapter : 103,
+    //page    : 40, // Last page is 39
+    //provider: mangareader,
+  //} );
+  //const error = new Error ( "invalid page" )
+
+  //async function fn() {
+    //await mangareader.getImageSource( manga );
+  //}
+  //expect( fn ).toThrowError( error );
+/*} );*/
