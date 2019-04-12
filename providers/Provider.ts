@@ -1,4 +1,5 @@
-import UrlParser from "./Url-parser";
+// Import Downloader from "./Downloader";
+import Manga, { PageManga } from "./Manga";
 
 export default abstract class Provider {
   name: string;
@@ -8,12 +9,18 @@ export default abstract class Provider {
     this.extension = extension;
   }
 
-  // Downloader: Downloader; - downloading module
-  //abstract download(): Promise<boolean>;
+  abstract parseShortUrl( string ): PageManga;
 
-  parse( url: string ) {
-    const parser = new UrlParser( this.name );
+  abstract exists( manga: Manga ): Promise<boolean>;
 
-    return parser.parse( url );
-  }
+  abstract createUrl( manga: PageManga ): string;
+
+  abstract getLastPage( manga: Manga ): Promise<number>;
+
+  abstract getLastChapter( manga: Manga ): Promise<number>;
+
+  /* Download( ...args ) { */
+  // const downloader = new Downloader( this.name );
+  // return downloader.download( ...args );
+  /* } */
 }
