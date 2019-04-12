@@ -9,15 +9,17 @@ export default abstract class Provider {
     this.extension = extension;
   }
 
-  abstract parseShortUrl( string ): PageManga;
+  public abstract parseShortUrl( string ): PageManga;
 
-  abstract exists( manga: Manga ): Promise<boolean>;
+  public abstract createUrl( manga: PageManga, isOverview?: boolean ): string;
 
-  abstract createUrl( manga: PageManga ): string;
+  public abstract exists( manga: Manga ): Promise<boolean>;
 
-  abstract getLastPage( manga: Manga ): Promise<number>;
+  public abstract getLastPage( manga: Manga ): Promise<number>;
 
-  abstract getLastChapter( manga: Manga ): Promise<number>;
+  public abstract getLastChapter( manga: Manga ): Promise<number>;
+
+  abstract getImageSource( manga: PageManga ): Promise<string>;
 
   /* Download( ...args ) { */
   // const downloader = new Downloader( this.name );
