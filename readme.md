@@ -9,7 +9,7 @@
 ![Windows status](https://img.shields.io/badge/Windows-not%20supported-red.svg?style=flat-square)
 <br>
 [![Npm downloads](https://img.shields.io/npm/dw/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
-[![Licence MIT](https://img.shields.io/badge/licence-MIT-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/licence)
+[![Licence GPLv3](https://img.shields.io/badge/licence-GPLv3-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/LICENCE)
 [![Code style custom](https://img.shields.io/badge/code%20style-custom-ff69b4.svg?style=flat-square)](https://github.com/jneidel/dotfiles/blob/master/.eslintrc)
 <br>
 [
@@ -645,5 +645,7 @@ For the rudimentary, legacy version written in python [click here](https://githu
 
 ## License
 
-MIT © [Jonathan Neidel](https://jneidel.com)
+mangareader-dl is licensed under the [GPLv3](LICENSE).
+
+Copyright (C) 2019 [Jonathan Neidel](https://jneidel.com)
 
