@@ -40,6 +40,21 @@ $ ls ./naruto
 - Configurable defaults
 - Clean, informative interface
 
+## Legality
+
+Scanlations [are considered illegal](https://en.wikipedia.org/wiki/Scanlation#Legal_action)
+and aggregators of such (like mangareader) are as well.
+
+This app creates a copy of downloadable online-content with the aim of private consumption.
+
+The user bears full responsibility for all actions related to the downloaded data.                                                     
+
+[I](https://github.com/jneidel) do not grant any rights to the contents, as this cli only acts as a
+technical service provider in accessing such data.
+
+Please consider using legal alternatives like [viz](https://www.viz.com/),
+[webtoons](https://www.webtoons.com/en/) and buy the volumes once available.
+
 ## FAQ
 
 <details>
