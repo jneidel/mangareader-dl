@@ -84,4 +84,13 @@ export default class Mangareader extends Provider {
         throw new Error( "invalid page" );
       } );
   }
+
+  getImageBuffer( imageSource ) {
+    return this.ajax( imageSource, { responseType: "arraybuffer", timeout: 0 } )
+      .then( res => res.data )
+      .then( data => Buffer.from( data, "binary" ) )
+      .catch( err => {
+        throw new Error( `Download failed at ${imageSource}` );
+      } );
+  }
 }

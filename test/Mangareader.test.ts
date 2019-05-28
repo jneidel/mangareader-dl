@@ -1,3 +1,8 @@
+import { readFile } from "fs";
+import { promisify } from "util";
+import { resolve as pathResolve } from "path";
+const fsReadFile = promisify( readFile );
+
 import Mangareader from "../providers/Mangareader";
 import Manga, { PageManga } from "../providers/Manga";
 
@@ -122,4 +127,16 @@ test( "getImageSource of invalid page", async () => {
   }
 
   await expect( fn() ).rejects.toThrow( error );
+} );
+
+test( "getImageBuffer", async () => {
+  const testBuffer = await fsReadFile(
+    pathResolve( __dirname, "buffers", "mangareader.jpg" ),
+  );
+
+  const imageSource =
+    "https://i6.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg";
+  const answerBuffer = await mangareader.getImageBuffer( imageSource );
+
+  expect( testBuffer.equals( answerBuffer ) ).toBeTruthy();
 } );
