@@ -1,7 +1,5 @@
-import { readFile } from "fs";
-import { promisify } from "util";
+import { readFileSync as fsReadFileSync } from "fs";
 import { resolve as pathResolve } from "path";
-const fsReadFile = promisify( readFile );
 
 import Mangareader from "../providers/Mangareader";
 import Manga, { PageManga } from "../providers/Manga";
@@ -112,7 +110,6 @@ test( "getImageSource", async () => {
   if ( String( result ).match( /i6/ ) ) expect( result ).toBe( answer1 );
   else expect( result ).toBe( answer2 );
 } );
-
 test( "getImageSource of invalid page", async () => {
   const manga = new PageManga( {
     name    : "shingeki-no-kyojin",
@@ -129,14 +126,28 @@ test( "getImageSource of invalid page", async () => {
   await expect( fn() ).rejects.toThrow( error );
 } );
 
-test( "getImageBuffer", async () => {
-  const testBuffer = await fsReadFile(
-    pathResolve( __dirname, "buffers", "mangareader.jpg" ),
-  );
+const testBuffer = fsReadFileSync(
+  pathResolve( __dirname, "buffers", "mangareader.jpg" ),
+);
 
+test( "getImageBuffer", async () => {
   const imageSource =
     "https://i6.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg";
   const answerBuffer = await mangareader.getImageBuffer( imageSource );
 
   expect( testBuffer.equals( answerBuffer ) ).toBeTruthy();
 } );
+test( "getImageBuffer with source from getImageSource", async () => {
+  const manga = new PageManga( {
+    name    : "shingeki-no-kyojin",
+    chapter : 103,
+    page    : 1,
+    provider: mangareader,
+  } );
+
+  const imageSource = await mangareader.getImageSource( manga );
+  const answerBuffer = await mangareader.getImageBuffer( imageSource );
+
+  expect( testBuffer.equals( answerBuffer ) ).toBeTruthy();
+} );
+

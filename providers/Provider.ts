@@ -19,9 +19,9 @@ export default abstract class Provider {
 
   public abstract getLastChapter( manga: Manga ): Promise<number>;
 
-  abstract getImageSource( manga: PageManga ): Promise<string>;
+  public abstract getImageSource( manga: PageManga ): Promise<string>;
 
-  public abstract getImageBuffer( imageSource: string ): Promise<any>; // returns type is buffer
+  public abstract getImageBuffer( imageSource: string ): Promise<any>; // return type is buffer
 
   /* Download( ...args ) { */
   // const downloader = new Downloader( this.name );
