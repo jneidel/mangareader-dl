@@ -1,3 +1,7 @@
+import path from "path";
+import { readFile as fsReadFile } from "mz/fs";
+import { promisify } from "util";
+const readFile = promisify( fsReadFile );
 import Manga from "../providers/Manga";
 import Mangareader from "../providers/Mangareader";
 
@@ -29,12 +33,38 @@ test( "lastPage", async () => {
 
 test( "lastChapter", async () => {
   const manga = new Manga( {
-    name: "naruto",
+    name    : "naruto",
     provider: mangareader,
   } );
-  const answer = 700
+  const answer = 700;
 
   const result = await manga.lastChapter;
   expect( result ).toBe( answer );
 } );
 
+test.skip( "createZip", async () => {
+  const dir = path.resolve( __dirname, "buffers", "zip-test" );
+  const png1 = readFile( `${dir}/1.png`, { encoding: "binary" } );
+  const png2 = readFile( `${dir}/2.png`, { encoding: "binary" } );
+  const png3 = readFile( `${dir}/3.png`, { encoding: "binary" } );
+  await Promise.all( [ png1, png2, png3 ] );
+
+  const buffers = [
+    { n: 2, buff: png2 },
+    { n: 3, buff: png3 },
+    { n: 1, buff: png1 },
+  ];
+
+  const manga = new Manga( {
+    // Any valid Manga obj
+    name    : "naruto",
+    provider: mangareader,
+    path    : dir,
+  } );
+
+  console.log( manga.path );
+  await manga.createZip( buffers );
+
+  expect( 1 ).toBe( 1 ); // Needs to be checked manually
+  // That's why is test is skipped
+} );
