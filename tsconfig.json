@@ -22,15 +22,10 @@
     "noUnusedParameters": false,
     "noImplicitReturns": true,
     "paths": {
-      "*": [
-        "node_modules/*"
-      ]
+      "*": ["node_modules/*"]
     },
     "experimentalDecorators": true
   },
-  "include": [ "bin", "lib", "providers" ],
-  "excude": [
-    "node_modules",
-    "test"
-  ]
+  "include": ["bin", "lib", "providers"],
+  "excude": ["node_modules", "test"]
 }

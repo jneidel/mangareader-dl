@@ -9,11 +9,11 @@ const mangareader = new Mangareader();
 
 test( "exists", async () => {
   const manga = new Manga( {
-    name: "shingeki-no-kyojin",
-    chapter: 103,
+    name    : "shingeki-no-kyojin",
+    chapter : 103,
     provider: mangareader,
   } );
-  const answer = true
+  const answer = true;
 
   const result = await manga.exists();
   expect( result ).toBe( answer );
@@ -21,11 +21,11 @@ test( "exists", async () => {
 
 test( "lastPage", async () => {
   const manga = new Manga( {
-    name: "shingeki-no-kyojin",
-    chapter: 103,
+    name    : "shingeki-no-kyojin",
+    chapter : 103,
     provider: mangareader,
   } );
-  const answer = 39
+  const answer = 39;
 
   const result = await manga.lastPage;
   expect( result ).toBe( answer );

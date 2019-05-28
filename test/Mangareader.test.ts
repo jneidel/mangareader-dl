@@ -107,17 +107,19 @@ test( "getImageSource", async () => {
   if ( String( result ).match( /i6/ ) ) expect( result ).toBe( answer1 );
   else expect( result ).toBe( answer2 );
 } );
-/*test( "getImageSource of invalid page", async () => {*/
-  //const manga = new PageManga( {
-    //name    : "shingeki-no-kyojin",
-    //chapter : 103,
-    //page    : 40, // Last page is 39
-    //provider: mangareader,
-  //} );
-  //const error = new Error ( "invalid page" )
 
-  //async function fn() {
-    //await mangareader.getImageSource( manga );
-  //}
-  //expect( fn ).toThrowError( error );
-/*} );*/
+test( "getImageSource of invalid page", async () => {
+  const manga = new PageManga( {
+    name    : "shingeki-no-kyojin",
+    chapter : 103,
+    page    : 40, // Last page is 39
+    provider: mangareader,
+  } );
+  const error = new Error( "invalid page" );
+
+  async function fn() {
+    await mangareader.getImageSource( manga );
+  }
+
+  await expect( fn() ).rejects.toThrow( error );
+} );

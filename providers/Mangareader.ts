@@ -18,12 +18,12 @@ export default class Mangareader extends Provider {
       url.match( /([^/]+)\/?(\d+)?\/?(\d+)?/ ) || defaultMatch;
 
     const manga = new PageManga( {
-      name   : name.toLowerCase(),
-      chapter: Number( chapter ),
+      name    : name.toLowerCase(),
+      chapter : Number( chapter ),
       provider: this,
-      page: Number( page ),
+      page    : Number( page ),
     } );
-    return manga
+    return manga;
   }
 
   createUrl( manga, isOverview = false ) {
@@ -32,8 +32,7 @@ export default class Mangareader extends Provider {
 
     let url = `https://www.${provider}/${name}/${chapter}/${page}`;
 
-    if ( isOverview )
-      url = `https://www.${provider}/${name}`;
+    if ( isOverview ) url = `https://www.${provider}/${name}`;
 
     return url;
   }
@@ -62,16 +61,15 @@ export default class Mangareader extends Provider {
 
     const hasNumberInName = !!manga.name.match( /\d/ );
 
-    return this.ajax( overviewUrl )
-      .then( html => {
-        const $ = loadHtml( html.data );
-        const match = $( "#latestchapters" )
-          .find( "a" )[0]
-          .children[0].data.match( /\s(\d+)/g );
+    return this.ajax( overviewUrl ).then( html => {
+      const $ = loadHtml( html.data );
+      const match = $( "#latestchapters" )
+        .find( "a" )[0]
+        .children[0].data.match( /\s(\d+)/g );
 
-        const lastChapter = hasNumberInName && match[1] ? match[1] : match[0]; // If number in name: first match will be that number
-        return Number( lastChapter );
-      } );
+      const lastChapter = hasNumberInName && match[1] ? match[1] : match[0]; // If number in name: first match will be that number
+      return Number( lastChapter );
+    } );
   }
 
   getImageSource( manga ) {
@@ -81,11 +79,9 @@ export default class Mangareader extends Provider {
       .then( html => {
         const $ = loadHtml( html.data );
         return $( "#img" ).attr( "src" );
-      })
+      } )
       .catch( err => {
         throw new Error( "invalid page" );
-      } )
+      } );
   }
 }
-
-
