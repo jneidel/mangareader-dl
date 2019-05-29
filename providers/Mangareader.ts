@@ -1,7 +1,6 @@
 // @ts-ignore - axios has no exported member get
 import { get as axios } from "axios";
 import { load as loadHtml } from "cheerio";
-import { MultiPageManga } from "../manga";
 import { MultiPageProvider } from "./models";
 
 export default class Mangareader extends MultiPageProvider {
@@ -17,10 +16,9 @@ export default class Mangareader extends MultiPageProvider {
     const [ , name, chapter = 1 ] =
       url.match( /([^/]+)\/?(\d+)?/ ) || defaultMatch;
 
-    const manga = new MultiPageManga( {
+    const manga = new this.Manga( {
       name    : name.toLowerCase(),
       chapter : Number( chapter ),
-      provider: this,
     } );
     return manga;
   }

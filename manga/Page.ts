@@ -39,3 +39,10 @@ export class Page {
   }
 }
 
+export function pageFactory( manga: MultiPageManga ) {
+  return class MangaPage extends Page {
+    constructor( page?: number ) {
+      super( manga, page );
+    }
+  }
+}

@@ -2,16 +2,14 @@ import path from "path";
 import { readFile as fsReadFile } from "mz/fs";
 import { promisify } from "util";
 const readFile = promisify( fsReadFile );
-import Manga from "../providers/Manga";
 import Mangareader from "../providers/Mangareader";
 
 const mangareader = new Mangareader();
 
 test( "exists", async () => {
-  const manga = new Manga( {
-    name    : "shingeki-no-kyojin",
-    chapter : 103,
-    provider: mangareader,
+  const manga = new mangareader.Manga( {
+    name   : "shingeki-no-kyojin",
+    chapter: 103,
   } );
   const answer = true;
 
@@ -20,10 +18,9 @@ test( "exists", async () => {
 } );
 
 test( "lastPage", async () => {
-  const manga = new Manga( {
-    name    : "shingeki-no-kyojin",
-    chapter : 103,
-    provider: mangareader,
+  const manga = new mangareader.Manga( {
+    name   : "shingeki-no-kyojin",
+    chapter: 103,
   } );
   const answer = 39;
 
@@ -32,9 +29,8 @@ test( "lastPage", async () => {
 } );
 
 test( "lastChapter", async () => {
-  const manga = new Manga( {
-    name    : "naruto",
-    provider: mangareader,
+  const manga = new mangareader.Manga( {
+    name: "naruto",
   } );
   const answer = 700;
 
@@ -55,11 +51,10 @@ test.skip( "createZip", async () => {
     { n: 1, buff: png1 },
   ];
 
-  const manga = new Manga( {
+  const manga = new mangareader.Manga( {
     // Any valid Manga obj
-    name    : "naruto",
-    provider: mangareader,
-    path    : dir,
+    name: "naruto",
+    path: dir,
   } );
 
   console.log( manga.path );

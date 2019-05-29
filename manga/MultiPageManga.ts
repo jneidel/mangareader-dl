@@ -1,4 +1,4 @@
-import { Manga } from ".";
+import { Manga, pageFactory } from ".";
 import { MultiPageProvider } from "../providers/models";
 
 export class MultiPageManga extends Manga {
@@ -14,6 +14,8 @@ export class MultiPageManga extends Manga {
 
     this.provider = data.provider;
   }
+
+  Page = pageFactory( this );
 
   private _lastPage: number | null = null;
 
