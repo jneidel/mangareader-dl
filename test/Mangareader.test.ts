@@ -1,7 +1,7 @@
 import { readFileSync as fsReadFileSync } from "fs";
 import { resolve as pathResolve } from "path";
 
-import Mangareader from "../providers/Mangareader";
+import { Mangareader } from "../providers";
 
 const mangareader = new Mangareader();
 

@@ -3,7 +3,7 @@ import { get as axios } from "axios";
 import { load as loadHtml } from "cheerio";
 import { MultiPageProvider } from "./models";
 
-export default class Mangareader extends MultiPageProvider {
+export class Mangareader extends MultiPageProvider {
   constructor() {
     super( "mangareader", "net" );
   }
