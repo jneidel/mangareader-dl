@@ -19,9 +19,16 @@ test( "currentCommand command is sub-command", () => {
 
 test( "formatCommand", () => {
   const inputCommands = commands;
-  const answer = `d, download ${commands.download.description}
-l, list     ${commands.list.description}
-u, update   ${commands.update.description}`;
+  const answer = `  d, download   ${commands.download.description}
+  l, list       ${commands.list.description}
+  u, update     ${commands.update.description}`;
+
+  const result = help.formatCommand( inputCommands );
+  expect( result ).toBe( answer );
+} );
+test( "formatCommand with no short version", () => {
+  const inputCommands = commands.update;
+  const answer = `  check   ${commands.update.check.description}`;
 
   const result = help.formatCommand( inputCommands );
   expect( result ).toBe( answer );
@@ -36,9 +43,18 @@ test( "formatCommand with no subcommands", () => {
 
 test( "formatFlags", () => {
   const inputCommands = commands.flags;
-  const answer = `-h, --help    ${commands.flags.help}
--v, --version ${commands.flags.version}`;
+  const answer = `  -h, --help      ${commands.flags.help}
+  -v, --version   ${commands.flags.version}`;
 
   const result = help.formatFlags( inputCommands );
+  expect( result ).toBe( answer );
+} );
+test( "formatFlags with dirty names", () => {
+  const inputCommands = commands.download.flags;
+  const answer = `  -o, --out <PATH>        ${
+    commands.download.flags["out <PATH>"]
+  }`;
+
+  const result = help.formatFlags( inputCommands ).split( "\n" )[0];
   expect( result ).toBe( answer );
 } );
