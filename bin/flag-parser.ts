@@ -1,42 +1,10 @@
-const flags = {
-  out: {
-    short  : "o",
-    require: "string",
-    default: ".", // defaults.out,
-  },
-  dir: {
-    short  : "d",
-    default: true, // defaults.dir,
-  },
-  "no-dir": {
-    short  : "D",
-    default: true, // defaults.dir,
-  },
-  force: {
-    short: "f",
-  },
-  provider: {
-    short  : "p",
-    require: "string",
-    default: "mangareader", // defaults.provider,
-  },
-  micro: {
-    short: "m",
-  },
-  subscribe: {
-    short: "s",
-  },
-  latest: {
-    short: "l",
-  },
-  silent: {},
-  debug : {},
-};
+import model from "./flag-command-model";
+const flags = model.flags;
 
 const isLongFlag = item => item[0] === "-" && item[1] === "-";
 const isShortFlag = item => item[0] === "-" && item[1] !== "-";
 
-function splitShortFlags( argv ) {
+export function splitShortFlags( argv ) {
   // '-do' to '-d -o'
   argv.forEach( item => {
     if ( isShortFlag( item ) && item.length > 2 ) {
@@ -55,7 +23,7 @@ function splitShortFlags( argv ) {
   return argv;
 }
 
-function extendShortFlags( argv ) {
+export function extendShortFlags( argv ) {
   // '-o' to '--out'
   const shortFlags = {};
   Object.keys( flags )
@@ -84,7 +52,7 @@ function extendShortFlags( argv ) {
   return argv;
 }
 
-function turnFlagsIntoValues( argv ) {
+export function turnFlagsIntoValues( argv ) {
   const flagValues = {};
 
   Object.keys( flags ).forEach( flag => {
@@ -120,13 +88,15 @@ function turnFlagsIntoValues( argv ) {
   return { flagValues, commands: argv };
 }
 
-export default function parser( argv ) {
+export default function flagParser( argv ) {
   argv.shift(); // Remove node
   argv.shift(); // Remove cli.js
 
   argv = splitShortFlags( argv );
   argv = extendShortFlags( argv );
-  const { commands, flagValues } = turnFlagsIntoValues( argv );
+
+  interface destruct { commands: string[]; flagValues: any }
+  const { commands, flagValues }: destruct = turnFlagsIntoValues( argv );
 
   return { commands, flags: flagValues };
 }
