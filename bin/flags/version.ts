@@ -3,8 +3,8 @@ import { readFile } from "fs";
 import { promisify } from "util";
 const readFileAsync = promisify( readFile );
 
-export default async function buildVersionString() {
-  const pkgJsonPath = resolve( __dirname, "..", "..", "package.json" );
+export async function version() {
+  const pkgJsonPath = resolve( __dirname, "..", "..", "..", "package.json" );
   const pkgJson = await readFileAsync( pkgJsonPath, { encoding: "utf-8" } );
   const { version } = JSON.parse( pkgJson );
 

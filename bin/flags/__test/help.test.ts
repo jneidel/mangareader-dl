@@ -1,5 +1,5 @@
-import model from "../flag-command-model";
-import * as help from "../help";
+import { model } from "../../parser";
+import * as help from "..";
 const { commands } = model;
 
 test( "currentCommand first in commands", () => {

@@ -1,4 +1,4 @@
-const model = {
+export const model = {
   flags: {
     out: {
       short  : "o",
@@ -45,25 +45,25 @@ const model = {
       help   : "Print help information",
       version: "Print version and license information",
     },
-    usage: [ "<SUBCOMMAND>", "<MANGA>" ],
+    usage   : [ "<SUBCOMMAND>", "<MANGA>" ],
     download: {
       description: "Download a manga by name or url",
       short      : "d",
-      usage: [ "<MANGA>" ],
+      usage      : [ "<MANGA>" ],
       flags      : {
-        "out <PATH>"    : "Output directory",
-        dir             : "Download files into <out>/<manga-name>",
-        "no-dir"        : "Disable --dir option",
+        "out <PATH>"     : "Output directory",
+        dir              : "Download files into <out>/<manga-name>",
+        "no-dir"         : "Disable --dir option",
         "provider <NAME>": "Site to download from",
-        force           : "Overwrite history",
-        subscribe       : "Download new chapters with 'update'",
-        micro           : "Micro progress bar",
+        force            : "Overwrite history",
+        subscribe        : "Download new chapters with 'update'",
+        micro            : "Micro progress bar",
       },
     },
     list: {
       description: "List downloaded manga",
       short      : "l",
-      usage: [ "", "<SUBCOMMAND>" ],
+      usage      : [ "", "<SUBCOMMAND>" ],
       flags      : { latest: "Check if new chapters are available" },
       reset      : {
         description: "Remove non-subscribed manga",
@@ -73,17 +73,16 @@ const model = {
     update: {
       description: "Update subscribed manga to the latest chapter",
       short      : "u",
-      usage: [ "", "<SUBCOMMAND>" ],
+      usage      : [ "", "<SUBCOMMAND>" ],
       flags      : {
         micro : "Micro progress bar",
         silent: "Hide progress bar and only output the download result",
       },
       check: {
         description: "Check if new chapters are available",
-        usage: [ "" ],
+        usage      : [ "" ],
         flags      : {},
       },
     },
   },
 };
-export default model;

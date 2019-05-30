@@ -1,5 +1,5 @@
-import model from "./flag-command-model";
-const flags = model.flags;
+import { model } from ".";
+const { flags } = model;
 
 const isLongFlag = item => item[0] === "-" && item[1] === "-";
 const isShortFlag = item => item[0] === "-" && item[1] !== "-";
@@ -88,14 +88,17 @@ export function turnFlagsIntoValues( argv ) {
   return { flagValues, commands: argv };
 }
 
-export default function flagParser( argv ) {
+export function flagParser( argv ) {
   argv.shift(); // Remove node
   argv.shift(); // Remove cli.js
 
   argv = splitShortFlags( argv );
   argv = extendShortFlags( argv );
 
-  interface destruct { commands: string[]; flagValues: any }
+  interface destruct {
+    commands: string[];
+    flagValues: any;
+  }
   const { commands, flagValues }: destruct = turnFlagsIntoValues( argv );
 
   return { commands, flags: flagValues };

@@ -1,4 +1,4 @@
-import model from "./flag-command-model";
+import { model } from "../parser";
 import * as strpad from "strpad";
 
 /*
@@ -128,7 +128,7 @@ export function formatUsage( activeCommand ) {
   return usageString.join( "\n" );
 }
 
-export default function buildHelpString( commands, providers ) {
+export function help( commands, providers ) {
   const activeCommand = getActiveCommand( commands );
   const commandString = formatCommand( activeCommand );
   const flagString = formatFlags( activeCommand.flags );

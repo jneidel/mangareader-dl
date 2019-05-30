@@ -1,5 +1,5 @@
-import * as parser from "../flag-parser";
-import model from "../flag-command-model";
+import * as parser from "..";
+const { model } = parser;
 
 test( "splitShortFlags", () => {
   const argv = [ "-dfo", "dir" ];
@@ -32,6 +32,8 @@ test( "turnFlagsIntoValues", () => {
       latest   : false,
       silent   : false,
       debug    : false,
+      help     : false,
+      version  : false,
     },
   };
 
@@ -42,8 +44,8 @@ test( "turnFlagsIntoValues", () => {
 test( "parser", () => {
   const argv = [ "node", "cli.js", "list", "-dfo", "dir" ];
   const answer = {
-    commands  : [ "list" ],
-    flags: {
+    commands: [ "list" ],
+    flags   : {
       out      : "dir",
       dir      : true,
       force    : true,
@@ -54,9 +56,11 @@ test( "parser", () => {
       latest   : false,
       silent   : false,
       debug    : false,
+      help     : false,
+      version  : false,
     },
   };
 
-  const result = parser.default( argv );
+  const result = parser.flagParser( argv );
   expect( result ).toEqual( answer );
 } );
