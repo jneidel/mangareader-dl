@@ -12,7 +12,12 @@ let activeCommandString = "";
 
 export function getActiveCommand( commands ) {
   const active = commands.reduce( ( activeCommand, current ) => {
-    return activeCommand[current] ? activeCommand[current] : activeCommand;
+    if ( activeCommand[current] ) {
+      activeCommandString += `${current} `;
+      return activeCommand[current];
+    } else {
+      return activeCommand;
+    }
   }, model.commands );
 
   return active;
@@ -24,6 +29,7 @@ export function formatCommand( commands: any ) {
   const commandNames = Object.keys( commands ).filter( name => {
     switch ( name ) {
       case "description":
+      case "usage":
       case "short":
       case "flags":
         return false;
@@ -108,4 +114,16 @@ export function formatFlags( flags: any ) {
   } );
 
   return flagString.join( "\n" );
+}
+
+export function formatUsage( activeCommand ) {
+  const usageString: any = [];
+
+  activeCommand.usage.forEach( use => {
+    usageString.push(
+      `${" ".repeat( indention )}mangareader-dl ${activeCommandString}${use}`,
+    );
+  } );
+
+  return usageString.join( "\n" );
 }
