@@ -127,3 +127,37 @@ export function formatUsage( activeCommand ) {
 
   return usageString.join( "\n" );
 }
+
+export default function buildHelpString( commands ) {
+  const activeCommand = getActiveCommand( commands );
+  const commandString = formatCommand( activeCommand );
+  const flagString = formatFlags( activeCommand.flags );
+  const usageString = formatUsage( activeCommand );
+
+  const strArray: string[] = [];
+
+  strArray.push( "mangareader-dl: CLI for comfortable manga download" );
+  strArray.push( "  https://github.com/jneidel/mangareader-dl" );
+  strArray.push( "" );
+
+  if ( usageString !== "" ) {
+    strArray.push( "USAGE" );
+    strArray.push( usageString );
+    strArray.push( "" );
+  }
+
+  if ( commandString !== "" ) {
+    strArray.push( "SUBCOMMANDS" );
+    strArray.push( commandString );
+    strArray.push( "" );
+  }
+
+  if ( flagString !== "" ) {
+    strArray.push( "FLAGS" );
+    strArray.push( flagString );
+    strArray.push( "" );
+  }
+
+  strArray.splice( strArray.length - 1, 1 );
+  return strArray.join( "\n" );
+}
