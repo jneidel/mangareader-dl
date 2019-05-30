@@ -128,7 +128,7 @@ export function formatUsage( activeCommand ) {
   return usageString.join( "\n" );
 }
 
-export default function buildHelpString( commands ) {
+export default function buildHelpString( commands, providers ) {
   const activeCommand = getActiveCommand( commands );
   const commandString = formatCommand( activeCommand );
   const flagString = formatFlags( activeCommand.flags );
@@ -155,6 +155,12 @@ export default function buildHelpString( commands ) {
   if ( flagString !== "" ) {
     strArray.push( "FLAGS" );
     strArray.push( flagString );
+    strArray.push( "" );
+  }
+
+  if ( activeCommandString === "download " ) {
+    strArray.push( "PROVIDERS" );
+    providers.forEach( name => strArray.push( `${" ".repeat( indention )}${name}` ) );
     strArray.push( "" );
   }
 
