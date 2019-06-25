@@ -73,9 +73,10 @@ export function formatFlags( flags: any ) {
   // Relative to the input of formatCommands:
   //   commands.flags
 
-  // Include --help and --version for every command
-  flags.help = model.commands.flags.help;
-  flags.version = model.commands.flags.version;
+  // Include global flags for every command
+  Object.keys( model.commands.flags ).forEach( flag => {
+    flags[flag] = model.commands.flags[flag];
+  } )
 
   const clean = name => name.split( " " )[0]; // name can be 'out <path>' which throws when used on model.flags
 
