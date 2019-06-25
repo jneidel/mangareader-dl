@@ -38,12 +38,18 @@ export const model = {
     help: {
       short: "h",
     },
+    config: {
+      short: "c",
+      require: "string",
+      default: "~/.mangareader-dl.json",
+    }
   },
   commands: {
     // and flags used by each command
     flags: {
-      help   : "Print help information",
+      config : "Path to config file (default: ~/.mangareader-dl.json)",
       version: "Print version and license information",
+      help   : "Print help information",
     },
     usage   : [ "<SUBCOMMAND>", "<MANGA>" ],
     download: {
@@ -51,7 +57,7 @@ export const model = {
       short      : "d",
       usage      : [ "<MANGA>" ],
       flags      : {
-        "out <PATH>"     : "Output directory",
+        "out <PATH>"     : "Output directory (default: .)",
         dir              : "Download files into <out>/<manga-name>",
         "no-dir"         : "Disable --dir option",
         "provider <NAME>": "Site to download from",
