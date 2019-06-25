@@ -29,25 +29,17 @@ test( "version flags", async () => {
     const version = result.match( /v(\d.\d.\d)/ )[1];
     expect( version ).toBe( currentVersion );
 
-    const hasGPL = result.match( /GPL/ );
-    expect( hasGPL ).toBeTruthy();
+    expect( result ).toMatch( /GPL/ );
   } );
 } );
 
 test( "--help", async () => {
-  const results: any = await Promise.all( [
-    cli( [ "--help" ] ),
-    cli( [] ),
-    cli( [ "" ] ),
-  ] );
+  const results: any = await Promise.all( [ cli( [ "--help" ] ), cli( [] ), cli( [ "" ] ) ] );
 
   results.forEach( result => {
-    const hasDownloadCommand = result.match( /d, download/ );
-    expect( hasDownloadCommand ).toBeTruthy();
-    const hasListCommand = result.match( /l, list/ );
-    expect( hasListCommand ).toBeTruthy();
-    const hasUpdateCommand = result.match( /u, update/ );
-    expect( hasUpdateCommand ).toBeTruthy();
+    expect( result ).toMatch( /d, download/ );
+    expect( result ).toMatch( /l, list/ );
+    expect( result ).toMatch( /u, update/ );
   } );
 } );
 test( "download --help", async () => {
@@ -57,13 +49,10 @@ test( "download --help", async () => {
   ] );
 
   results.forEach( result => {
-    const hasProvidersSection = result.match( /PROVIDERS/ );
-    expect( hasProvidersSection ).toBeTruthy();
-    const hasSubcommandsSections = result.match( /SUBCOMMANDS/ );
-    expect( hasSubcommandsSections ).toBeFalsy();
+    expect( result ).toMatch( /PROVIDERS/ );
+    expect( result ).not.toMatch( /SUBCOMMANDS/ );
 
-    const hasOutFlag = result.match( /--out/ );
-    expect( hasOutFlag ).toBeTruthy();
+    expect( result ).toMatch( /--out/ );
   } );
 } );
 test( "list --help", async () => {
@@ -73,8 +62,7 @@ test( "list --help", async () => {
   ] );
 
   results.forEach( result => {
-    const hasSubcommandsSections = result.match( /SUBCOMMANDS/ );
-    expect( hasSubcommandsSections ).toBeTruthy();
+    expect( result ).toMatch( /SUBCOMMANDS/ );
   } );
 } );
 test( "update --help", async () => {
@@ -84,14 +72,26 @@ test( "update --help", async () => {
   ] );
 
   results.forEach( result => {
-    const hasSubcommandsSections = result.match( /SUBCOMMANDS/ );
-    expect( hasSubcommandsSections ).toBeTruthy();
+    expect( result ).toMatch( /SUBCOMMANDS/ );
   } );
 } );
 
 test( "unknown flag crashes gracefully", async () => {
   const result = await cli( [ "--does-not-exist" ] );
 
-  const flagIsNotKnown = result.match( /Flag '--does-not-exist' does not exist./ );
-  expect( flagIsNotKnown ).toBeTruthy();
+  expect( result ).toMatch( /Flag '--does-not-exist' does not exist/ );
+} );
+
+test( "catch invalid passed path", async () => {
+  const results = await Promise.all( [
+    cli( [ "d", "-c", "--dir" ] ), // flag
+    cli( [ "d", "-c", "" ] ), // empty
+    cli( [ "d", "-o" ] ), // undefined
+    cli( [ "d", "-o", "https://www.mangareader.net/naruto/1" ] ), // manga-url
+  ] );
+
+  expect( results[0] ).toMatch( /Invalid --config argument \(path\): '--dir'/ );
+  expect( results[1] ).toMatch( /Invalid --config argument \(path\): ''/ );
+  expect( results[2] ).toMatch( /Invalid --out argument \(path\): 'undefined'/ );
+  expect( results[3] ).toMatch( /Invalid --out argument \(path\): 'https:\/\/www.mangareader.net\/naruto\/1'/ );
 } );

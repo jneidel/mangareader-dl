@@ -2,7 +2,7 @@ export const model = {
   flags: {
     out: {
       short  : "o",
-      require: "string",
+      require: "path",
       default: ".", // defaults.out,
     },
     dir: {
@@ -40,8 +40,8 @@ export const model = {
     },
     config: {
       short: "c",
-      require: "string",
-      default: "~/.mangareader-dl.json",
+      require: "path",
+      default: "~/.mangareader-dl.json", // defaults.config
     }
   },
   commands: {
@@ -58,7 +58,7 @@ export const model = {
       usage      : [ "<MANGA>" ],
       flags      : {
         "out <PATH>"     : "Output directory (default: .)",
-        dir              : "Download files into <out>/<manga-name>",
+        dir              : "Download files into <out>/<manga-name> (default: true)",
         "no-dir"         : "Disable --dir option",
         "provider <NAME>": "Site to download from",
         force            : "Overwrite history",
