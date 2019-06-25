@@ -12,6 +12,7 @@ Object.keys( commands )
   } );
 
 export function commandParser( commands ) {
+  commands = commands.filter( cmd => !/^\s*$/.test( cmd ) )
   commands = commands.map( cmd => {
     return shortCommands[cmd] ? shortCommands[cmd] : cmd;
   } );
