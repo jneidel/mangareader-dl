@@ -64,6 +64,14 @@ export function turnFlagsIntoValues( argv ) {
   argv.forEach( item => {
     if ( isLongFlag( item ) ) {
       const flag = item.replace( /^--/, "" );
+
+      if ( !flags[flag] ) {
+        console.log( `error: Flag '${item}' does not exist.
+
+For more information try --help.` )
+        process.exit()
+      }
+
       const index = argv.indexOf( item );
       const requiresArg = flags[flag].require;
 

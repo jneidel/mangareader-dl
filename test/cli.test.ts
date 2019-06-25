@@ -88,3 +88,10 @@ test( "update --help", async () => {
     expect( hasSubcommandsSections ).toBeTruthy();
   } );
 } );
+
+test( "unknown flag crashes gracefully", async () => {
+  const result = await cli( [ "--does-not-exist" ] );
+
+  const flagIsNotKnown = result.match( /Flag '--does-not-exist' does not exist./ );
+  expect( flagIsNotKnown ).toBeTruthy();
+} );
