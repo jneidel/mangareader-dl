@@ -2,7 +2,7 @@ import path from "path";
 import { readFile as fsReadFile } from "mz/fs";
 import { promisify } from "util";
 const readFile = promisify( fsReadFile );
-import Mangareader from "../providers/Mangareader";
+import { Mangareader } from "../providers";
 
 const mangareader = new Mangareader();
 

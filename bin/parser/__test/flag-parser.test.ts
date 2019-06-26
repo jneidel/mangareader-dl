@@ -1,3 +1,5 @@
+import { resolve } from "path";
+
 import * as parser from "..";
 const { model } = parser;
 
@@ -22,7 +24,8 @@ test( "turnFlagsIntoValues", () => {
   const answer = {
     commands  : [ "list" ],
     flagValues: {
-      out      : "dir",
+      config   : "~/.mangareader-dl.json",
+      out      : resolve( "dir" ),
       dir      : true,
       force    : true,
       "no-dir" : false,
@@ -46,7 +49,8 @@ test( "parser", () => {
   const answer = {
     commands: [ "list" ],
     flags   : {
-      out      : "dir",
+      config   : "~/.mangareader-dl.json",
+      out      : resolve( "dir" ),
       dir      : true,
       force    : true,
       "no-dir" : false,

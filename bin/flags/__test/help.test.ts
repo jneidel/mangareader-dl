@@ -43,8 +43,9 @@ test( "formatCommand with no subcommands", () => {
 
 test( "formatFlags", () => {
   const inputCommands = commands.flags;
-  const answer = `  -h, --help      ${commands.flags.help}
-  -v, --version   ${commands.flags.version}`;
+  const answer = `  -c, --config    ${commands.flags.config}
+  -v, --version   ${commands.flags.version}
+  -h, --help      ${commands.flags.help}`;
 
   const result = help.formatFlags( inputCommands );
   expect( result ).toBe( answer );

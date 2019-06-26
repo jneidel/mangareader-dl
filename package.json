@@ -70,8 +70,8 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "testMatch": [
-      "**/?*.test.ts"
+    "testRegex": [
+      ".*test/.+.test.ts"
     ],
     "transform": {
       "^.+\\.ts$": "ts-jest"
