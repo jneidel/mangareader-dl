@@ -9,7 +9,7 @@ test( "get image source", t =>
   i.getImgSrcIfValid( "https://www.readmng.com/platinum-end/19/1", "readmng" )
     .then( src => t.is( src, "https://www.funmanga.com/uploads/chapters/15537/22/1.jpg?u=" ) )
 );
-test( "get error for invalid page", t =>
+test.skip( "get error for invalid page", t =>
   i.getImgSrcIfValid( "https://www.readmng.com/platinum-end/19/41", "readmng" ) // Last page is 40
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );

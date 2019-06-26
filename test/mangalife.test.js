@@ -7,7 +7,7 @@ test( "get image source", t =>
   i.getImgSrcIfValid( "https://mangalife.us/read-online/Platinum-End-chapter-31-page-1.html", "mangalife" )
     .then( src => t.is( src, "http://93.190.142.23/manga/Platinum-End/0031-001.png" ) )
 );
-test( "get error for invalid page", t =>
+test.skip( "get error for invalid page", t =>
   i.getImgSrcIfValid( "https://mangalife.us/read-online/Platinum-End-chapter-31-page-999.html", "mangainn" )
     .then( imgSrc => {
       t.truthy( imgSrc instanceof Error );
