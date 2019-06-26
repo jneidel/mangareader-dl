@@ -10,4 +10,6 @@ mangareader-dl.*.json
 .travis.yml
 *.log
 test/buffers/zip-test
+coverage/
+to-implement/
 
