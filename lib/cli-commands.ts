@@ -124,7 +124,7 @@ export async function update( args, settings ) {
 function checkForUpdate() {
   /* eslint-disable global-require */
   const updateCheck = require( "update-check" );
-  const packageJson = require( "../../package" );
+  const packageJson = require( "../package" );
 
   updateCheck( packageJson )
     .then( update => {
