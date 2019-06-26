@@ -30,6 +30,15 @@ $ ls ./naruto
 #=> naruto-699.cbz naruto-700.cbz
 ```
 
+## Project Status
+
+I'm currently refactoring this project to typescript, adding more tests, a better cli interface and fixing some
+structural mistakes that kept me from adding new providers.
+
+You can see progress on the [ts](https://github.com/jneidel/mangareader-dl/tree/ts) branch.
+
+Feel free to add feature requests and providers as issues.
+
 ## Features
 
 - Download all available chapters
