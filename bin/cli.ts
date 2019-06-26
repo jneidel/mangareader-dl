@@ -1,5 +1,5 @@
 import * as util from "./util";
-import { flagParser, commandParser } from "./parser";
+import { flagParser, commandParser, validateFlags } from "./parser";
 import { version, help } from "./flags";
 
 ( async function main() {
@@ -7,6 +7,7 @@ import { version, help } from "./flags";
 
   let { flags, commands } = flagParser( process.argv );
   commands = commandParser( commands );
+  flags = validateFlags( flags, commands, providers )
 
   if ( flags.version ) {
     const versionString = await version();

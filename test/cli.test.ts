@@ -95,3 +95,10 @@ test( "catch invalid passed path", async () => {
   expect( results[2] ).toMatch( /Invalid --out argument \(path\): 'undefined'/ );
   expect( results[3] ).toMatch( /Invalid --out argument \(path\): 'https:\/\/www.mangareader.net\/naruto\/1'/ );
 } );
+
+test( "catch invalid passed provider", async () => {
+  const result = await cli( [ "d", "-p", "does-not-exist" ] )
+
+  expect( result ).toMatch( /Invalid provider: 'does-not-exist'/ );
+} );
+
