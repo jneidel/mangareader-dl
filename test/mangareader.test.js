@@ -1,7 +1,7 @@
-import test from "ava" ;
-import * as fs from "mz/fs" ;
-import * as path from "path" ;
-import * as mockery from "mockery" ;
+const test = require( "ava" );
+const fs = require( "mz/fs" );
+const path = require( "path" );
+const mockery = require( "mockery" );
 
 mockery.enable( { warnOnUnregistered: false, warnOnReplace: false } );
 mockery.registerMock( "fs", {
@@ -9,7 +9,7 @@ mockery.registerMock( "fs", {
   write: () => {},
 } );
 
-import * as i from "../lib" ;
+const i = require( "../lib" );
 
 // I.getImgSrcIfValid
 test( "get image source", t =>
@@ -49,28 +49,28 @@ test( "create url with page [unit]", t =>
 );
 
 // I.createManga
-test( "create manga from url", async t => {
-  const data: any = i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103", __dirname, "mangareader" )
-  const testManga = {
-    name      : "shingeki-no-kyojin",
-    chapter   : 103,
-    page      : 1,
-    provider  : "mangareader",
-    url       : "https://www.mangareader.net/shingeki-no-kyojin/103/1",
-    outputPath: __dirname,
-    getImgSrc : i.getImgSrcIfValid,
-  };
+test( "create manga from url", t =>
+  Promise.resolve( i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103", __dirname, "mangareader" ) )
+    .then( async data => {
+      const testManga = {
+        name      : "shingeki-no-kyojin",
+        chapter   : 103,
+        page      : 1,
+        provider  : "mangareader",
+        url       : "https://www.mangareader.net/shingeki-no-kyojin/103/1",
+        outputPath: __dirname,
+        getImgSrc : i.getImgSrcIfValid,
+      };
 
-  data.imgSrc = await data.getImgSrc();
-  if ( data.imgSrc.slice( 8, 10 ) === "i6" ) // Different servers depending on position
-    //@ts-ignore
-    testManga.imgSrc = "https://i6.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg";
-  else
-    //@ts-ignore
-    testManga.imgSrc = "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg";
+      data.imgSrc = await data.getImgSrc();
+      if ( data.imgSrc.slice( 8, 10 ) === "i6" ) // Different servers depending on position
+        testManga.imgSrc = "https://i6.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg";
+      else
+        testManga.imgSrc = "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg";
 
-  t.deepEqual( data, testManga );
-} );
+      t.deepEqual( data, testManga );
+    } )
+);
 test( "pass on invalid page error", t =>
   Promise.resolve( i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103/40", __dirname, "mangareader" ) )
     .then( data => data.getImgSrc()

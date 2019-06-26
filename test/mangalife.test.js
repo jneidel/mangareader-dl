@@ -1,6 +1,6 @@
-import test from "ava" ;
+const test = require( "ava" );
 
-import * as i from "../lib" ;
+const i = require( "../lib" );
 
 // I.getImgSrcIfValid
 test( "get image source", t =>
@@ -47,7 +47,7 @@ test( "create manga from overview url [unit]", t => {
     page      : 1,
     provider  : "mangalife",
     url       : "https://mangalife.us/read-online/kemono-jihen-chapter-1-page-1.html",
-    outputPath: null,
+    outputPath: undefined,
     getImgSrc : i.getImgSrcIfValid,
   };
   t.deepEqual( manga, testManga );

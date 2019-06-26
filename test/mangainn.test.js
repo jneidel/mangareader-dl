@@ -1,6 +1,6 @@
-import test from "ava" ;
+const test = require( "ava" );
 
-import * as i from "../dist/lib" ;
+const i = require( "../lib" );
 
 // I.getImgSrcIfValid
 test( "get image source", t =>
