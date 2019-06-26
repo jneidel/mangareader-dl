@@ -85,15 +85,13 @@ test( "unknown flag crashes gracefully", async () => {
 test( "catch invalid passed path", async () => {
   const results = await Promise.all( [
     cli( [ "d", "-c", "--dir" ] ), // flag
-    cli( [ "d", "-c", "" ] ), // empty
     cli( [ "d", "-o" ] ), // undefined
     cli( [ "d", "-o", "https://www.mangareader.net/naruto/1" ] ), // manga-url
   ] );
 
   expect( results[0] ).toMatch( /Invalid --config argument \(path\): '--dir'/ );
-  expect( results[1] ).toMatch( /Invalid --config argument \(path\): ''/ );
-  expect( results[2] ).toMatch( /Invalid --out argument \(path\): 'undefined'/ );
-  expect( results[3] ).toMatch( /Invalid --out argument \(path\): 'https:\/\/www.mangareader.net\/naruto\/1'/ );
+  expect( results[1] ).toMatch( /Invalid --out argument \(path\): 'undefined'/ );
+  expect( results[2] ).toMatch( /--out received an url as an argument/ );
 } );
 
 test( "catch invalid passed provider", async () => {

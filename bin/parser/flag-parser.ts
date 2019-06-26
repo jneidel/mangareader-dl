@@ -54,17 +54,6 @@ export function extendShortFlags( argv ) {
   return argv;
 }
 
-function expandValidatePath( path: any, flag ) {
-  if ( !path || /^--/.test( path ) || /^https?/.test( path ) ) {
-    console.log( `error: Invalid --${flag} argument (path): '${path}'.
-
-For more information try --help.` )
-    return process.exit()
-  } else {
-    return resolve( path );
-  }
-}
-
 export function turnFlagsIntoValues( argv ) {
   const flagValues = {};
 
@@ -94,7 +83,7 @@ For more information try --help.` )
         let requiredVal = argv[requiredIndex];
 
         if ( flags[flag].require === "path" )
-          requiredVal = expandValidatePath( requiredVal, flag )
+          requiredVal = resolve( String( requiredVal ) );
 
         flagValues[flag] = requiredVal;
 
