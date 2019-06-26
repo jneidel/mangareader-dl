@@ -1,3 +1,4 @@
+import test from "ava" ;
 import * as fs from "mz/fs" ;
 import * as path from "path" ;
 import * as mockery from "mockery" ;
@@ -11,40 +12,44 @@ mockery.registerMock( "fs", {
 import * as i from "../lib" ;
 
 // I.getImgSrcIfValid
-test( "get image source", () =>
+test( "get image source", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103", "mangareader" )
     .then( src => {
       if ( src.slice( 8, 10 ) === "i6" ) // Different servers depending on position
-        expect( src ).toBe( "https://i6.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg" );
+        t.is( src, "https://i6.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg" );
       else
-        expect( src ).toBe( "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg" );
+        t.is( src, "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg" );
     } )
 );
-test( "get error for invalid page", () =>
+test( "get error for invalid page", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/103/40", "mangareader" ) // Last page is 39
     .then( imgSrc => {
-      expect( imgSrc instanceof Error ).toBeTruthy();
+      t.truthy( imgSrc instanceof Error );
     } )
 );
-test( "get error for invalid chapter", () =>
+test( "get error for invalid chapter", t =>
   i.getImgSrcIfValid( "https://www.mangareader.net/shingeki-no-kyojin/250", "mangareader" )
     .then( imgSrc => {
-      expect( imgSrc instanceof Error ).toBeTruthy();
+      t.truthy( imgSrc instanceof Error );
     } )
 );
 
 // I.createUrl
-test( "create url without page [unit]", () =>
-  expect( i.createUrl( "mangareader", "shingeki-no-kyojin", 103 ) )
-    .toBe( "https://www.mangareader.net/shingeki-no-kyojin/103/1" )
+test( "create url without page [unit]", t =>
+  t.is(
+    i.createUrl( "mangareader", "shingeki-no-kyojin", 103 ),
+    "https://www.mangareader.net/shingeki-no-kyojin/103/1"
+  )
 );
-test( "create url with page [unit]", () =>
-  expect( i.createUrl( "mangareader", "shingeki-no-kyojin", 103, 39 )  )
-    .toBe( "https://www.mangareader.net/shingeki-no-kyojin/103/39" )
+test( "create url with page [unit]", t =>
+  t.is(
+    i.createUrl( "mangareader", "shingeki-no-kyojin", 103, 39 ),
+    "https://www.mangareader.net/shingeki-no-kyojin/103/39"
+  )
 );
 
 // I.createManga
-test( "create manga from url", async () => {
+test( "create manga from url", async t => {
   const data: any = i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103", __dirname, "mangareader" )
   const testManga = {
     name      : "shingeki-no-kyojin",
@@ -64,74 +69,69 @@ test( "create manga from url", async () => {
     //@ts-ignore
     testManga.imgSrc = "https://i997.mangareader.net/shingeki-no-kyojin/103/shingeki-no-kyojin-10410955.jpg";
 
-  expect( data ).toEqual( testManga );
+  t.deepEqual( data, testManga );
 } );
-test( "pass on invalid page error", () =>
+test( "pass on invalid page error", t =>
   Promise.resolve( i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/103/40", __dirname, "mangareader" ) )
     .then( data => data.getImgSrc()
       .then( imgSrc => {
-        expect( imgSrc instanceof Error ).toBeTruthy();
+        t.truthy( imgSrc instanceof Error );
       } )
     )
 );
-test( "pass on invalid chapter error", () =>
+test( "pass on invalid chapter error", t =>
   Promise.resolve( i.createManga( "https://www.mangareader.net/shingeki-no-kyojin/250", __dirname, "mangareader" ) )
     .then( data => data.getImgSrc()
       .then( imgSrc => {
-        expect( imgSrc instanceof Error ).toBeTruthy();
+        t.truthy( imgSrc instanceof Error );
       } )
     )
 );
 
 // I.parseFromUrl
-test( "parse full url [unit]", () =>
-  expect( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin/101/5" ) )
-    .toEqual( {
-      name    : "shingeki-no-kyojin",
-      chapter : 101,
-      page    : 5,
-      provider: "mangareader",
-    } )
+test( "parse full url [unit]", t =>
+  t.deepEqual( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin/101/5" ), {
+    name    : "shingeki-no-kyojin",
+    chapter : 101,
+    page    : 5,
+    provider: "mangareader",
+  } )
 );
-test( "parse url without page [unit]", () =>
-  expect( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin/101" ) )
-    .toEqual( {
-      name    : "shingeki-no-kyojin",
-      chapter : 101,
-      page    : 1,
-      provider: "mangareader",
-    } )
+test( "parse url without page [unit]", t =>
+  t.deepEqual( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin/101" ), {
+    name    : "shingeki-no-kyojin",
+    chapter : 101,
+    page    : 1,
+    provider: "mangareader",
+  } )
 );
-test( "parse url without chapter [unit]", () =>
-  expect( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin" ) )
-    .toEqual( {
-      name    : "shingeki-no-kyojin",
-      chapter : 1,
-      page    : 1,
-      provider: "mangareader",
-    } )
+test( "parse url without chapter [unit]", t =>
+  t.deepEqual( i.parseFromUrl( "https://www.mangareader.net/shingeki-no-kyojin" ), {
+    name    : "shingeki-no-kyojin",
+    chapter : 1,
+    page    : 1,
+    provider: "mangareader",
+  } )
 );
-test( "parse url without https [unit]", () =>
-  expect( i.parseFromUrl( "www.mangareader.net/shingeki-no-kyojin/101/5" ) )
-    .toEqual( {
-      name    : "shingeki-no-kyojin",
-      chapter : 101,
-      page    : 5,
-      provider: "mangareader",
-    } )
+test( "parse url without https [unit]", t =>
+  t.deepEqual( i.parseFromUrl( "www.mangareader.net/shingeki-no-kyojin/101/5" ), {
+    name    : "shingeki-no-kyojin",
+    chapter : 101,
+    page    : 5,
+    provider: "mangareader",
+  } )
 );
-test( "parse url without www.mangareader.net [unit]", () =>
-  expect( i.parseFromUrl( "shingeki-no-kyojin/101/5", "mangareader" ) )
-    .toEqual( {
-      name    : "shingeki-no-kyojin",
-      chapter : 101,
-      page    : 5,
-      provider: "mangareader",
-    } )
+test( "parse url without www.mangareader.net [unit]", t =>
+  t.deepEqual( i.parseFromUrl( "shingeki-no-kyojin/101/5", "mangareader" ), {
+    name    : "shingeki-no-kyojin",
+    chapter : 101,
+    page    : 5,
+    provider: "mangareader",
+  } )
 );
 
 // I.increase
-test( "increase chapter for valid url", () =>
+test( "increase chapter for valid url", t =>
   Promise.resolve( i.increase( {
     name    : "shingeki-no-kyojin",
     chapter : 100,
@@ -139,8 +139,7 @@ test( "increase chapter for valid url", () =>
     provider: "mangareader",
     url     : "https://www.mangareader.net/shingeki-no-kyojin/100",
   } ) )
-  .then( data => expect( data )
-    .toEqual( {
+    .then( data => t.deepEqual( data, {
       name    : "shingeki-no-kyojin",
       chapter : 101,
       page    : 1,
@@ -149,7 +148,7 @@ test( "increase chapter for valid url", () =>
       imgSrc  : "https://i7.mangareader.net/shingeki-no-kyojin/101/shingeki-no-kyojin-10239607.jpg",
     } ) )
 );
-test( "return null for invalid chapter", () =>
+test( "return null for invalid chapter", t =>
   i.increase( {
     name    : "shingeki-no-kyojin",
     chapter : 250,
@@ -157,42 +156,42 @@ test( "return null for invalid chapter", () =>
     provider: "mangareader",
     url     : "https://www.mangareader.net/shingeki-no-kyojin/250",
   } )
-    .then( res => expect( res ).toBe( null ) )
+    .then( res => t.is( res, null ) )
 );
 
 const testBuffer = fs.readFileSync( path.resolve( __dirname, "buffers", "mangareader.jpg" ) );
 
 // I.downloadImg
-test( "download image and return its buffer", () =>
+test( "download image and return its buffer", t =>
   i.downloadImg( i.createManga( "mangareader.net/shingeki-no-kyojin/103/4" ) )
-  .then( buffer => expect( Buffer.compare( buffer, testBuffer ) ).toBe( 0 ) ) // "Buffers don't match"
+    .then( buffer => t.is( Buffer.compare( buffer, testBuffer ), 0, "Buffers don't match" ) )
 );
 
 // I.createZip - fails due to error in dependency, eventhough the function is correct
-/* test( "create zip from array of buffers [unit]", () =>
+/* test( "create zip from array of buffers [unit]", t =>
   i.createZip(
     [ testBuffer ],
     "shingeki-no-kyojin",
     103,
     __dirname
-  ).then( zipPath => expect(
+  ).then( zipPath => t.is(
     zipPath,
     path.resolve( __dirname, "shingeki-no-kyojin-103.cbz" ) )
   )
 ); */
 
 // i.getLastChapter
-test( "get last chapter", () =>
+test( "get last chapter", t =>
   i.getLastChapter( "naruto", "mangareader" )
-    .then( chapter => expect( chapter ).toBe( 700 ) )
+    .then( chapter => t.is( chapter, 700 ) )
 );
-test( "get last chapter for number in name", () =>
+test( "get last chapter for number in name", t =>
   i.getLastChapter( "jojos-bizarre-adventure-part-1-phantom-blood", "mangareader" )
-    .then( chapter => expect( chapter ).toBe( 5 ) )
+    .then( chapter => t.is( chapter, 5 ) )
 );
 
 // I.getLastPage
-test( "get last page for url", () =>
+test( "get last page for url", t =>
   i.getLastPage( "https://www.mangareader.net/shingeki-no-kyojin/103", "mangareader" )
-    .then( page => expect( page ).toBe( 39 ) )
+    .then( page => t.is( page, 39 ) )
 );
