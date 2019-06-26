@@ -1,22 +1,23 @@
-import { load as loadHtml } from "cheerio" ;
-import pify from "pify" ;
-import * as cloudscraper from "cloudscraper" ;
-import * as log from "../lib/log" ;
+const cheerio = require( "cheerio" );
+const pify = require( "pify" );
+const cloudscraper = require( "cloudscraper" );
+const log = require( "../lib/log" );
 
-export { parseUrl } from "./mangareader";
-export const extension = "com";
-export const ajax = pify( cloudscraper.get, { multiArgs: true } );
+exports.extension = "com";
 
-export function getImgSrc( data ) {
+const ajax = pify( cloudscraper.get, { multiArgs: true } );
+exports.ajax = ajax;
+
+exports.getImgSrc = data => {
   const html = data[1];
-  const $ = loadHtml( html );
+  const $ = cheerio.load( html );
 
   return $( "#chapter_img" ).attr( "src" );
 };
 
-export function getLastChapter( data ) {
+exports.getLastChapter = data => {
   const html = data[1];
-  const $ = loadHtml( html );
+  const $ = cheerio.load( html );
 
   if ( $( ".chp_lst" )[0] === undefined || $( ".chp_lst" )[0].children.length < 2 ) {
     log.prompt( `The manga doesn't exist/doesn't have chapters on 'readmng'` );
@@ -26,16 +27,16 @@ export function getLastChapter( data ) {
   return $( ".chp_lst" )[0].children[1].children[1].attribs.href.match( /www\.[^/]+\/[^/]+\/(\d+)/i )[1];
 };
 
-export function getLastPage( data ) {
+exports.getLastPage = data => {
   const html = data[1];
-  const $ = loadHtml( html );
+  const $ = cheerio.load( html );
 
   const dropdown = $( "select[name=category_type]" )[1].children;
 
   return dropdown[dropdown.length - 2].children[0].data;
 };
 
-export function getImgBuffer( imgSrc ) {
+exports.getImgBuffer = imgSrc => {
   return pify( cloudscraper.request, { multiArgs: true } )( {
     method  : "GET",
     encoding: null,
@@ -45,3 +46,4 @@ export function getImgBuffer( imgSrc ) {
     .then( data => Buffer.from( data, "binary" ) );
 };
 
+exports.parseUrl = require( "./mangareader.js" ).parseUrl;

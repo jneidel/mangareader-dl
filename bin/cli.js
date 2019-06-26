@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 
-import * as path from "path";
-import meow from "meow";
-import { init as initializeErrHndlr } from "err-hndlr";
+const path = require( "path" );
+const meow = require( "meow" );
+const errHndlr = require( "err-hndlr" );
 
-import * as s from "../lib/settings";
-import * as log from "../lib/log" ;
-import * as cliCommands from "../lib/cli-commands" ;
+const s = require( "../lib/settings" );
+const log = require( "../lib/log" );
+const cliCommands = require( "../lib/cli-commands" );
 
-import { extensions as providerExtensions } from "../providers";
-const supportedProviders = Object.keys( providerExtensions );
+const supportedProviders = Object.keys( require( "../providers" ).extensions );
 
 ( async function main() {
   const settingsPath = await s.getSettingsPath();
@@ -143,7 +142,7 @@ const supportedProviders = Object.keys( providerExtensions );
   const throwErrorCondition = args.debug;
   const errorRestApi = "https://api.jneidel.com/errors/submit";
   const errorBaseData = { id: "11fbf6a8-40ea-461f-af94-333280bb3c41" };
-  initializeErrHndlr( throwErrorCondition, errorRestApi, errorBaseData, { app: require( "../../package.json" ), os: true } );
+  errHndlr.init( throwErrorCondition, errorRestApi, errorBaseData, { app: require( "../package.json" ), os: true } );
 
   // Parse commands
   switch ( args._[0] ) {

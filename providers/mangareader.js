@@ -1,14 +1,12 @@
-import { load as loadHtml } from "cheerio" ;
-//@ts-ignore - axios has no exported member get
-import { get } from "axios";
+const cheerio = require( "cheerio" );
+const axios = require( "axios" );
 
-import * as utils from "./utils" ;
-import * as log from "../lib/log" ;
+const utils = require( "./utils" );
+const log = require( "../lib/log" );
 
-export { get as ajax }
-export const extension = "net";
+exports.extension = "net";
 
-export function parseUrl( url ) {
+exports.parseUrl = function parseUrl( url ) {
   const [ , name, chapter = 1, page = 1 ] = url.match( /([^/]+)\/?(\d+)?\/?(\d+)?/ );
   /* Matches:
    * shingeki-no-kyojin/103/39
@@ -17,30 +15,32 @@ export function parseUrl( url ) {
   return { name, chapter, page };
 };
 
-export function getImgSrc( html ) {
-  const $ = loadHtml( html.data );
+exports.ajax = axios.get;
+
+exports.getImgSrc = html => {
+  const $ = cheerio.load( html.data );
 
   return $( "#img" ).attr( "src" );
 };
 
-export function getLastChapter ( html, numInName ) {
-  const $ = loadHtml( html.data );
+exports.getLastChapter = ( html, numInName ) => {
+  const $ = cheerio.load( html.data );
 
   const res = $( "#latestchapters" ).find( "a" )[0].children[0].data.match( /\s(\d+)/g );
 
   return numInName && res[1] ? res[1] : res[0];
 };
 
-export function getLastPage( html ) {
-  const $ = loadHtml( html.data );
+exports.getLastPage = html => {
+  const $ = cheerio.load( html.data );
 
   return $( "#selectpage" )[0].children[1].data.match( /(\d+)/ )[0];
 };
 
-export function getImgBuffer ( imgSrc ) {
+const getImgBuffer = ( imgSrc ) => {
   let errorCounter = 0;
 
-  const donwloadBuffer = url => get( url, { responseType: "arraybuffer", timeout: 0 } )
+  const donwloadBuffer = url => axios.get( url, { responseType: "arraybuffer", timeout: 0 } )
     .then( res => res.data )
     .then( data => Buffer.from( data, "binary" ) )
     .catch( err => {
@@ -57,4 +57,6 @@ export function getImgBuffer ( imgSrc ) {
 
   return donwloadBuffer( imgSrc );
 };
+
+exports.getImgBuffer = getImgBuffer;
 

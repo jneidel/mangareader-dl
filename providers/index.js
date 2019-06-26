@@ -1,9 +1,9 @@
-import * as mangareader from "./mangareader" ;
-import * as readmng from "./readmng" ;
-import * as mangainn from "./mangainn" ;
-import * as mangalife from "./mangalife" ;
+const mangareader = require( "./mangareader" );
+const readmng = require( "./readmng" );
+const mangainn = require( "./mangainn" );
+const mangalife = require( "./mangalife" );
 
-const extensions = {
+exports.extensions = {
   mangareader: mangareader.extension,
   mangapanda : "com", // Reuses mangareader file, but not same extension
   readmng    : readmng.extension,
@@ -11,13 +11,10 @@ const extensions = {
   mangalife  : mangalife.extension,
 };
 
-const getLib = provider =>
+exports.getLib = provider =>
   provider === "mangareader" ? mangareader :
   provider === "mangalife" ? mangalife :
   provider === "mangainn" ? mangainn :
   provider === "readmng" ? readmng :
   provider === "mangapanda" ? mangareader :
   null; // Provider does not match
-
-export { extensions, getLib }
-
