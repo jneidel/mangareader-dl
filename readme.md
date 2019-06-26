@@ -14,8 +14,8 @@
 [
   ![](https://img.shields.io/badge/mangareader-working-brightgreen.svg?style=flat-square)
   ![](https://img.shields.io/badge/mangalife-working-brightgreen.svg?style=flat-square)
-  ![](https://img.shields.io/badge/mangainn-working-brightgreen.svg?style=flat-square)
   ![](https://img.shields.io/badge/readmng-working-brightgreen.svg?style=flat-square)
+  ![](https://img.shields.io/badge/mangainn-broken-red.svg?style=flat-square)
   ![](https://img.shields.io/badge/goodmanga-broken-red.svg?style=flat-square)
 ](#supported-sites)
 
@@ -609,9 +609,9 @@ Currently supported sites:
 |--|--|--|--|
 | [mangareader.net](https://www.mangareader.net/) | ![mangareader status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![mangareader download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) | Fastest |
 | [mangalife.us](http://mangalife.us/) | ![mangalife status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![mangalife download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) | Wide variety, best formatting for manhwa |
-| [mangainn.net](http://www.mangainn.net/) | ![mangainn status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![mangainn download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) |  |
 | [readmng.com](https://www.readmng.com/) | ![readmng status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![readmng download speed](https://img.shields.io/badge/speed-medium-orange.svg?style=flat-square) |  |
 | [mangapanda.com](https://www.mangapanda.com/) | ![mangapanda status](https://img.shields.io/badge/status-working-brightgreen.svg?style=flat-square) | ![mangapanda download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) | mangareader rehost |
+| [mangainn.net](http://www.mangainn.net/) | ![mangainn status](https://img.shields.io/badge/status-broken-red.svg?style=flat-square) | ![mangainn download speed](https://img.shields.io/badge/speed-fast-brightgreen.svg?style=flat-square) | The image hoster now requires js to be executable, which is not possible right now. See [#16](https://github.com/jneidel/mangareader-dl/issues/16) for updates. |
 | [goodmanga.com](http://www.goodmanga.net/) | ![goodmanga status](https://img.shields.io/badge/status-broken-red.svg?style=flat-square) | ![goodmanga download speed](https://img.shields.io/badge/speed-slow-red.svg?style=flat-square) | Removed. Requests are being redirected to mangareader.net  |
 
 If given a full url (eg: `www.mangareader.net/shingeki-no-kyojin`) the provider (site to download from) will be parsed from the url, using the name of the manga (eg: `shingeki-no-kyojin`) the default provider will be used. To use a different provider specify it with the [`--provider`](#--provider-site) flag.
