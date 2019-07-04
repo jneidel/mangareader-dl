@@ -65,7 +65,7 @@ test( "getLastPage", async () => {
   } );
   const answer = 39;
 
-  const result = await mangareader.getLastPage( manga );
+  const result = await manga.lastPage;
   expect( result ).toBe( answer );
 } );
 
@@ -73,7 +73,7 @@ test( "getLastChapter", async () => {
   const manga = new mangareader.Manga( { name: "naruto" } );
   const answer = 700;
 
-  const result = await mangareader.getLastChapter( manga );
+  const result = await manga.lastChapter;
   expect( result ).toBe( answer );
 } );
 test( "getLastChapter with number in manga name", async () => {
@@ -82,7 +82,7 @@ test( "getLastChapter with number in manga name", async () => {
   } );
   const answer = 5;
 
-  const result = await mangareader.getLastChapter( manga );
+  const result = await manga.lastChapter;
   expect( result ).toBe( answer );
 } );
 
