@@ -18,7 +18,6 @@ export class MultiPageManga extends Manga {
   Page = pageFactory( this );
 
   private _lastPage: number | null = null;
-
   get lastPage(): Promise<number> {
     if ( this._lastPage ) {
       return Promise.resolve( this._lastPage );
@@ -31,7 +30,6 @@ export class MultiPageManga extends Manga {
   }
 
   private _lastChapter: number | null = null;
-
   get lastChapter(): Promise<number> {
     if ( this._lastChapter ) {
       return Promise.resolve( this._lastChapter );
@@ -41,5 +39,9 @@ export class MultiPageManga extends Manga {
         return lastChapter;
       } );
     }
+  }
+
+  loop() {
+    return this.provider.loop( this );
   }
 }
