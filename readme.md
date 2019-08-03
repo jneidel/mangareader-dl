@@ -4,11 +4,12 @@
 
 > CLI for comfortable manga download
 
-![GNU/Linux status](https://img.shields.io/badge/GNU%2FLinux-working-brightgreen.svg?style=flat-square)
-![OSX status](https://img.shields.io/badge/OSX-working-brightgreen.svg?style=flat-square)
+![Linux status](https://img.shields.io/badge/Linux-supported-brightgreen.svg?style=flat-square)
+![OSX status](https://img.shields.io/badge/macOS-works%2C%20not%20supported-orange.svg?style=flat-square)
 ![Windows status](https://img.shields.io/badge/Windows-not%20supported-red.svg?style=flat-square)
+<br>
 [![Npm downloads](https://img.shields.io/npm/dw/mangareader-dl.svg?style=flat-square)](https://www.npmjs.com/package/mangareader-dl)
-[![Licence MIT](https://img.shields.io/badge/licence-MIT-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/licence)
+[![Licence GPLv3](https://img.shields.io/badge/licence-GPLv3-green.svg?style=flat-square)](https://github.com/jneidel/mangareader-dl/blob/master/LICENCE)
 [![Code style custom](https://img.shields.io/badge/code%20style-custom-ff69b4.svg?style=flat-square)](https://github.com/jneidel/dotfiles/blob/master/.eslintrc)
 <br>
 [
@@ -47,6 +48,21 @@ Feel free to add feature requests and providers as issues.
 - Set download location
 - Configurable defaults
 - Clean, informative interface
+
+## Legality
+
+Scanlations [are considered illegal](https://en.wikipedia.org/wiki/Scanlation#Legal_action)
+and aggregators of such (like mangareader) are as well.
+
+This app creates a copy of downloadable online-content with the aim of private consumption.
+
+The user bears full responsibility for all actions related to the downloaded data.                                                     
+
+[I](https://github.com/jneidel) do not grant any rights to the contents, as this cli only acts as a
+technical service provider in accessing such data.
+
+Please consider using legal alternatives like [viz](https://www.viz.com/),
+[webtoons](https://www.webtoons.com/en/) and buy the volumes once available.
 
 ## FAQ
 
@@ -653,5 +669,7 @@ For the rudimentary, legacy version written in python [click here](https://githu
 
 ## License
 
-MIT © [Jonathan Neidel](https://jneidel.com)
+mangareader-dl is licensed under the [GPLv3](LICENSE).
+
+Copyright (C) 2019 [Jonathan Neidel](https://jneidel.com)
 
