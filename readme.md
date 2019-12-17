@@ -3,7 +3,7 @@
 Source code removed as this cli could be interpreted as assisting in the
 downloading of copyrighted material (scanlations).
 
-Questions? `mr-dl@jneidel.com`
+Questions? `mr-dl@jneidel.com` (preferably via [GPG](https://jneidel.com/gpg.txt)).
 
 ---
 
